@@ -1,15 +1,10 @@
 package kg.gov.mf.loan.manage.dao.orderdocument;
 
-import java.util.List;
+import org.springframework.stereotype.Repository;
 
+import kg.gov.mf.loan.manage.dao.GenericDaoImpl;
 import kg.gov.mf.loan.manage.model.orderdocument.OrderDocumentType;
 
-public interface OrderDocumentTypeDao {
-	
-	List<OrderDocumentType> findAll();
-	OrderDocumentType findById(long id);
-	OrderDocumentType findByName(String name);
-    void save(OrderDocumentType type);
-    void deleteById(long id);
-
+@Repository
+public class OrderDocumentTypeDao extends GenericDaoImpl<OrderDocumentType>{
 }

@@ -1,41 +1,39 @@
 package kg.gov.mf.loan.manage.model.documentpackage;
 
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
+import kg.gov.mf.loan.manage.model.GenericModel;
 import kg.gov.mf.loan.manage.model.entity.AppliedEntity;
 import kg.gov.mf.loan.manage.model.entitydocument.EntityDocument;
 
 @Entity
-@Table(name="document_package")
-public class DocumentPackage {
+@Table(name="documentPackage")
+public class DocumentPackage extends GenericModel{
 
-	@Id
-	@GeneratedValue
-	@Column(name="id")
-	private long id;
-	
 	@Column(name="name", nullable=false, length = 50)
 	private String name;
 	
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Temporal(TemporalType.DATE)
 	@Column(name="completed_date", nullable=false)
 	private Date completedDate;
 	
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Temporal(TemporalType.DATE)
 	@Column(name="approved_date", nullable=false)
 	private Date approvedDate;
@@ -52,53 +50,27 @@ public class DocumentPackage {
 	@Column(name="order_document_package_id", nullable=true)
 	private long orderDocumentPackageId;
 	
-	@OneToOne
+	@ManyToOne(targetEntity=DocumentPackageState.class, fetch = FetchType.EAGER)
 	@JoinColumn(name="document_package_state_id")
 	private DocumentPackageState documentPackageState;
 	
-	@OneToOne
+	@ManyToOne(targetEntity=DocumentPackageType.class, fetch = FetchType.EAGER)
 	@JoinColumn(name="document_package_type_id")
 	private DocumentPackageType documentPackageType;
 	
-	@ManyToOne
-	private AppliedEntity appliedEntity;
+	@ManyToOne(targetEntity=AppliedEntity.class, fetch = FetchType.EAGER)
+    @JoinColumn(name="appliedEntityId")
+	AppliedEntity appliedEntity;
 	
-	@OneToMany(cascade=CascadeType.PERSIST, fetch = FetchType.EAGER)
-	@JoinColumn(name="documentPackage_id")
-	private Set<EntityDocument> entityDocument;
-	
-	public DocumentPackage()
-	{
-		
-	}
+	@OneToMany(mappedBy = "documentPackage", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true)
+    private Set<EntityDocument> entityDocuments = new HashSet<EntityDocument>();
 
-	public DocumentPackage(String name, Date completedDate, Date approvedDate, Double completedRatio, Double approvedRatio,
-			Double registeredRatio, DocumentPackageState documentPackageState,
-			DocumentPackageType documentPackageType) {
-		this.name = name;
-		this.completedDate = completedDate;
-		this.approvedDate = approvedDate;
-		this.completedRatio = completedRatio;
-		this.approvedRatio = approvedRatio;
-		this.registeredRatio = registeredRatio;
-		this.documentPackageState = documentPackageState;
-		this.documentPackageType = documentPackageType;
-	}
-	
 	public String getName() {
 		return name;
 	}
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
 	}
 
 	public Date getCompletedDate() {
@@ -113,8 +85,8 @@ public class DocumentPackage {
 		return approvedDate;
 	}
 
-	public void setApprovedDate(Date appovedDate) {
-		this.approvedDate = appovedDate;
+	public void setApprovedDate(Date approvedDate) {
+		this.approvedDate = approvedDate;
 	}
 
 	public Double getCompletedRatio() {
@@ -141,6 +113,14 @@ public class DocumentPackage {
 		this.registeredRatio = registeredRatio;
 	}
 
+	public long getOrderDocumentPackageId() {
+		return orderDocumentPackageId;
+	}
+
+	public void setOrderDocumentPackageId(long orderDocumentPackageId) {
+		this.orderDocumentPackageId = orderDocumentPackageId;
+	}
+
 	public DocumentPackageState getDocumentPackageState() {
 		return documentPackageState;
 	}
@@ -165,20 +145,12 @@ public class DocumentPackage {
 		this.appliedEntity = appliedEntity;
 	}
 
-	public Set<EntityDocument> getEntityDocument() {
-		return entityDocument;
+	public Set<EntityDocument> getEntityDocuments() {
+		return entityDocuments;
 	}
 
-	public void setEntityDocument(Set<EntityDocument> entityDocument) {
-		this.entityDocument = entityDocument;
+	public void setEntityDocuments(Set<EntityDocument> entityDocuments) {
+		this.entityDocuments = entityDocuments;
 	}
 
-	public long getOrderDocumentPackageId() {
-		return orderDocumentPackageId;
-	}
-
-	public void setOrderDocumentPackageId(long orderDocumentPackageId) {
-		this.orderDocumentPackageId = orderDocumentPackageId;
-	}
-	
 }

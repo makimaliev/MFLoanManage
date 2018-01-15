@@ -1,15 +1,11 @@
 package kg.gov.mf.loan.manage.dao.debtor;
 
-import java.util.List;
+import org.springframework.stereotype.Repository;
 
+import kg.gov.mf.loan.manage.dao.GenericDaoImpl;
 import kg.gov.mf.loan.manage.model.debtor.WorkSector;
 
-public interface WorkSectorDao {
+@Repository
+public class WorkSectorDao extends GenericDaoImpl<WorkSector>{
 
-	List<WorkSector> findAll();
-	WorkSector findById(long id);
-	WorkSector findByName(String name);
-    void save(WorkSector sector);
-    void deleteById(long id);
-	
 }

@@ -4,25 +4,21 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
+import kg.gov.mf.loan.manage.model.GenericModel;
 import kg.gov.mf.loan.manage.model.documentpackage.DocumentPackage;
 
 @Entity
 @Table(name="entity_document")
-public class EntityDocument {
-	
-	@Id
-	@GeneratedValue
-	@Column(name="id")
-	private long id;
+public class EntityDocument extends GenericModel {
 	
 	@Column(name="name", nullable=false, length=50)	
 	private String name;
@@ -30,6 +26,7 @@ public class EntityDocument {
 	@Column(name="completed_by", nullable=false)
 	private long completedBy;
 	
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Temporal(TemporalType.DATE)
 	@Column(name="completed_date", nullable=false)
 	private Date completedDate;
@@ -40,6 +37,7 @@ public class EntityDocument {
 	@Column(name="approved_by", nullable=false)
 	private long approvedBy;
 	
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Temporal(TemporalType.DATE)
 	@Column(name="approved_date", nullable=false)
 	private Date approvedDate;
@@ -50,6 +48,7 @@ public class EntityDocument {
 	@Column(name="registered_number", length = 20)
 	private String registeredNumber;
 	
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Temporal(TemporalType.DATE)
 	@Column(name="registered_date", nullable=false)
 	private Date registeredDate;
@@ -57,48 +56,18 @@ public class EntityDocument {
 	@Column(name="registered_description", length = 100)
 	private String registeredDescription;
 	
-	@OneToOne
+	@ManyToOne(targetEntity=EntityDocumentRegisteredBy.class, fetch = FetchType.EAGER)
 	@JoinColumn(name="entity_document_registered_by_id")
 	private EntityDocumentRegisteredBy registeredBy;
 	
-	@OneToOne
+	@ManyToOne(targetEntity=EntityDocumentState.class, fetch = FetchType.EAGER)
 	@JoinColumn(name="entity_document_state_id")
 	private EntityDocumentState entityDocumentState;
 	
-	@ManyToOne
-	private DocumentPackage documentPackage;
-	
-	public EntityDocument()
-	{
-		
-	}
-	
-	public EntityDocument(String name, long completedBy, Date completedDate, String completedDescription, long approvedBy,
-			Date approvedDate, String approvedDescription, String registeredNumber, Date registeredDate,
-			String registeredDescription, EntityDocumentRegisteredBy registeredBy,
-			EntityDocumentState entityDocumentState) {
-		this.name = name;
-		this.completedBy = completedBy;
-		this.completedDate = completedDate;
-		this.completedDescription = completedDescription;
-		this.approvedBy = approvedBy;
-		this.approvedDate = approvedDate;
-		this.approvedDescription = approvedDescription;
-		this.registeredNumber = registeredNumber;
-		this.registeredDate = registeredDate;
-		this.registeredDescription = registeredDescription;
-		this.registeredBy = registeredBy;
-		this.entityDocumentState = entityDocumentState;
-	}
+	@ManyToOne(targetEntity=DocumentPackage.class, fetch = FetchType.EAGER)
+    @JoinColumn(name="documentPackageId")
+	DocumentPackage documentPackage;
 
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
-	}
-	
 	public String getName() {
 		return name;
 	}

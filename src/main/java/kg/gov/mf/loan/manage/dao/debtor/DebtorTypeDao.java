@@ -1,15 +1,11 @@
 package kg.gov.mf.loan.manage.dao.debtor;
 
-import java.util.List;
+import org.springframework.stereotype.Repository;
 
+import kg.gov.mf.loan.manage.dao.GenericDaoImpl;
 import kg.gov.mf.loan.manage.model.debtor.DebtorType;
 
-public interface DebtorTypeDao {
+@Repository
+public class DebtorTypeDao extends GenericDaoImpl<DebtorType>{
 
-	List<DebtorType> findAll();
-	DebtorType findById(long id);
-	DebtorType findByName(String name);
-    void save(DebtorType type);
-    void deleteById(long id);
-	
 }

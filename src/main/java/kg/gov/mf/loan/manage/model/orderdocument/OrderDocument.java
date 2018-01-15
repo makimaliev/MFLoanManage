@@ -2,49 +2,28 @@ package kg.gov.mf.loan.manage.model.orderdocument;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import kg.gov.mf.loan.manage.model.GenericModel;
 import kg.gov.mf.loan.manage.model.orderdocumentpackage.OrderDocumentPackage;
 
 @Entity
-@Table(name="order_document")
-public class OrderDocument {
+@Table(name="orderDocument")
+public class OrderDocument extends GenericModel {
 
-	@Id
-	@GeneratedValue
-	@Column(name="id")
-	private long id;
-	
 	@Column(name="name", nullable=false, length=50)	
 	private String name;
 	
-	@OneToOne
+	@ManyToOne(targetEntity=OrderDocumentType.class, fetch = FetchType.EAGER)
 	@JoinColumn(name="order_document_type_id")
 	private OrderDocumentType orderDocumentType;
 	
-	@ManyToOne
-	private OrderDocumentPackage orderDocumentPackage;
-	
-	public OrderDocument() {
-	}
-
-	public OrderDocument(String name, OrderDocumentType orderDocumentType) {
-		this.name = name;
-		this.orderDocumentType = orderDocumentType;
-	}
-
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
-	}
+	@ManyToOne(targetEntity=OrderDocumentPackage.class, fetch = FetchType.EAGER)
+    @JoinColumn(name="orderDocumentPackageId")
+	OrderDocumentPackage orderDocumentPackage;
 
 	public String getName() {
 		return name;

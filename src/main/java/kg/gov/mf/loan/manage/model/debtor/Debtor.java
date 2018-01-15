@@ -1,66 +1,41 @@
 package kg.gov.mf.loan.manage.model.debtor;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import kg.gov.mf.loan.manage.model.GenericModel;
 import kg.gov.mf.loan.manage.model.loan.Loan;
-import kg.gov.mf.loan.manage.model.orderterm.OrderTerm;
 
 @Entity
 @Table(name="debtor")
-public class Debtor {
+public class Debtor extends GenericModel{
 
-	@Id
-	@GeneratedValue
-	@Column(name="id")
-	private long id;
-	
 	@Column(name="name", nullable=false, length = 50)
 	private String name;
 	
-	@OneToOne
+	@ManyToOne(targetEntity=DebtorType.class, fetch = FetchType.EAGER)
 	@JoinColumn(name="debtor_type_id")
 	private DebtorType debtorType;
 	
-	@OneToOne
+	@ManyToOne(targetEntity=OrganizationForm.class, fetch = FetchType.EAGER)
 	@JoinColumn(name="org_form_id")
 	private OrganizationForm orgForm;
 	
-	@OneToOne
+	@ManyToOne(targetEntity=WorkSector.class, fetch = FetchType.EAGER)
 	@JoinColumn(name="work_sector_id")
-	private WorkSector workSector;
+	WorkSector workSector;
 	
-	@OneToMany(cascade=CascadeType.PERSIST, fetch = FetchType.EAGER)
-	@JoinColumn(name="debtor_id")
-	private Set<Loan> loan;
-	
-	public Debtor() {
-	}
-
-	public Debtor(String name, DebtorType debtorType, OrganizationForm orgForm, WorkSector workSector) {
-		this.name = name;
-		this.debtorType = debtorType;
-		this.orgForm = orgForm;
-		this.workSector = workSector;
-	}
-
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
-	}
+	@OneToMany(mappedBy = "debtor", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true)
+    private Set<Loan> loans = new HashSet<Loan>();
 
 	public String getName() {
 		return name;
@@ -94,12 +69,12 @@ public class Debtor {
 		this.workSector = workSector;
 	}
 
-	public Set<Loan> getLoan() {
-		return loan;
+	public Set<Loan> getLoans() {
+		return loans;
 	}
 
-	public void setLoan(Set<Loan> loan) {
-		this.loan = loan;
+	public void setLoans(Set<Loan> loans) {
+		this.loans = loans;
 	}
 	
 }
