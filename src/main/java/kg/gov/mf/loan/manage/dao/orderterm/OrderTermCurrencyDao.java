@@ -1,15 +1,11 @@
 package kg.gov.mf.loan.manage.dao.orderterm;
 
-import java.util.List;
+import org.springframework.stereotype.Repository;
 
+import kg.gov.mf.loan.manage.dao.GenericDaoImpl;
 import kg.gov.mf.loan.manage.model.orderterm.OrderTermCurrency;
 
-public interface OrderTermCurrencyDao {
+@Repository
+public class OrderTermCurrencyDao extends GenericDaoImpl<OrderTermCurrency>{
 
-	List<OrderTermCurrency> findAll();
-	OrderTermCurrency findById(long id);
-	OrderTermCurrency findByName(String name);
-    void save(OrderTermCurrency curr);
-    void deleteById(long id);
-    
 }

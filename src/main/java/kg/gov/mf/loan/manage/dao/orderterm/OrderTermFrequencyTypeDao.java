@@ -1,15 +1,11 @@
 package kg.gov.mf.loan.manage.dao.orderterm;
 
-import java.util.List;
+import org.springframework.stereotype.Repository;
 
+import kg.gov.mf.loan.manage.dao.GenericDaoImpl;
 import kg.gov.mf.loan.manage.model.orderterm.OrderTermFrequencyType;
 
-public interface OrderTermFrequencyTypeDao {
+@Repository
+public class OrderTermFrequencyTypeDao extends GenericDaoImpl<OrderTermFrequencyType>{
 
-	List<OrderTermFrequencyType> findAll();
-	OrderTermFrequencyType findById(long id);
-	OrderTermFrequencyType findByName(String name);
-    void save(OrderTermFrequencyType type);
-    void deleteById(long id);
-	
 }

@@ -1,15 +1,11 @@
 package kg.gov.mf.loan.manage.dao.orderterm;
 
-import java.util.List;
+import org.springframework.stereotype.Repository;
 
+import kg.gov.mf.loan.manage.dao.GenericDaoImpl;
 import kg.gov.mf.loan.manage.model.orderterm.OrderTermFloatingRateType;
 
-public interface OrderTermFloatingRateTypeDao {
+@Repository
+public class OrderTermFloatingRateTypeDao extends GenericDaoImpl<OrderTermFloatingRateType>{
 
-	List<OrderTermFloatingRateType> findAll();
-	OrderTermFloatingRateType findById(long id);
-	OrderTermFloatingRateType findByName(String name);
-    void save(OrderTermFloatingRateType type);
-    void deleteById(long id);
-	
 }

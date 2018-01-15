@@ -1,56 +1,33 @@
 package kg.gov.mf.loan.manage.model.orderterm;
 
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
+import kg.gov.mf.loan.manage.model.GenericModel;
 import kg.gov.mf.loan.manage.model.order.CreditOrder;
 
 @Entity
-@Table(name="order_term")
-public class OrderTerm {
+@Table(name="orderTerm")
+public class OrderTerm extends GenericModel{
 	
-	@Id
-	@GeneratedValue
-	@Column(name="id")
-	private long id;
-	
-	@ManyToOne
-	private CreditOrder creditOrder;
-	
-	@Column(name="description")
 	private String description;
-	
-	@OneToOne
-	@JoinColumn(name="fund_id")
-	private OrderTermFund fund;
 	
 	@Column(name = "amount")
 	private Double amount;
-	
-	@OneToOne
-	@JoinColumn(name="currency_id")
-	private OrderTermCurrency currency;
-	
-	@Column(name="frequency_quantity")
-	private int frequencyQuantity;
-	
-	@OneToOne
-	@JoinColumn(name="frequency_type_id")
-	private OrderTermFrequencyType frequencyType;
 	
 	@Column(name="installment_quantity")
 	private int installmentQuantity;
@@ -58,10 +35,12 @@ public class OrderTerm {
 	@Column(name="installment_first_day")
 	private int installmentFirstDay;
 	
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Temporal(TemporalType.DATE)
 	@Column(name="first_installment_date", nullable=false)
 	private Date firstInstallmentDate;
 	
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Temporal(TemporalType.DATE)
 	@Column(name="last_installment_date", nullable=false)
 	private Date lastInstallmentDate;
@@ -93,43 +72,18 @@ public class OrderTerm {
 	@Column(name="interest_rate_value")
 	private Double interestRateValue;
 	
-	@OneToOne
-	@JoinColumn(name="interest_rate_value_per_period_id")
-	private OrderTermRatePeriod interestRateValuePerPeriod;
-	
-	@OneToOne
-	@JoinColumn(name="interest_type_id")
-	private OrderTermFloatingRateType interestType;
+	@Column(name="frequency_quantity")
+	private int frequencyQuantity;
 	
 	@Column(name="penalty_on_principle_overdue_rate_value")
 	private Double penaltyOnPrincipleOverdueRateValue;
 	
-	@OneToOne
-	@JoinColumn(name="penalty_on_principle_overdue_type_id")
-	private OrderTermFloatingRateType penaltyOnPrincipleOverdueType;
+	@ManyToOne(targetEntity=OrderTermFund.class, fetch = FetchType.EAGER)
+	@JoinColumn(name="fund_id")
+	private OrderTermFund fund;
 	
 	@Column(name="penalty_on_interest_overdue_rate_value")
 	private Double penaltyOnInterestOverdueRateValue;
-	
-	@OneToOne
-	@JoinColumn(name="penalty_on_interest_overdue_type_id")
-	private OrderTermFloatingRateType penaltyOnInterestOverdueType;
-	
-	@OneToOne
-	@JoinColumn(name="days_in_year_method_id")
-	private OrderTermDaysMethod daysInYearMethod;
-	
-	@OneToOne
-	@JoinColumn(name="days_in_month_method_id")
-	private OrderTermDaysMethod daysInMonthMethod;
-	
-	@OneToOne
-	@JoinColumn(name="transaction_order_id")
-	private OrderTermTransactionOrder transactionOrder;
-	
-	@OneToOne
-	@JoinColumn(name="interest_accr_method_id")
-	private OrderTermAccrMethod interestAccrMethod;
 	
 	@Column(name="early_repayment_allowed")
 	private boolean earlyRepaymentAllowed;
@@ -140,76 +94,52 @@ public class OrderTerm {
 	@Column(name="collateral_free")
 	private boolean collateralFree;
 	
-	@OneToMany(cascade=CascadeType.PERSIST, fetch = FetchType.EAGER)
-	@JoinColumn(name="orderTerm_id")
-	private Set<AgreementTemplate> agreementTemplate;
+	@ManyToOne(targetEntity=OrderTermCurrency.class, fetch = FetchType.EAGER)
+	@JoinColumn(name="currency_id")
+	private OrderTermCurrency currency;
 	
-	public OrderTerm()
-	{
-		
-	}
+	@ManyToOne(targetEntity=OrderTermFrequencyType.class, fetch = FetchType.EAGER)
+	@JoinColumn(name="frequency_type_id")
+	private OrderTermFrequencyType frequencyType;
+	
+	@ManyToOne(targetEntity=OrderTermRatePeriod.class, fetch = FetchType.EAGER)
+	@JoinColumn(name="interest_rate_value_per_period_id")
+	private OrderTermRatePeriod interestRateValuePerPeriod;
+	
+	@ManyToOne(targetEntity=OrderTermFloatingRateType.class, fetch = FetchType.EAGER)
+	@JoinColumn(name="interest_type_id")
+	private OrderTermFloatingRateType interestType;
+	
+	@ManyToOne(targetEntity=OrderTermFloatingRateType.class, fetch = FetchType.EAGER)
+	@JoinColumn(name="penalty_on_principle_overdue_type_id")
+	private OrderTermFloatingRateType penaltyOnPrincipleOverdueType;
+	
+	@ManyToOne(targetEntity=OrderTermFloatingRateType.class, fetch = FetchType.EAGER)
+	@JoinColumn(name="penalty_on_interest_overdue_type_id")
+	private OrderTermFloatingRateType penaltyOnInterestOverdueType;
+	
+	@ManyToOne(targetEntity=OrderTermDaysMethod.class, fetch = FetchType.EAGER)
+	@JoinColumn(name="days_in_year_method_id")
+	private OrderTermDaysMethod daysInYearMethod;
+	
+	@ManyToOne(targetEntity=OrderTermDaysMethod.class, fetch = FetchType.EAGER)
+	@JoinColumn(name="days_in_month_method_id")
+	private OrderTermDaysMethod daysInMonthMethod;
+	
+	@ManyToOne(targetEntity=OrderTermTransactionOrder.class, fetch = FetchType.EAGER)
+	@JoinColumn(name="transaction_order_id")
+	private OrderTermTransactionOrder transactionOrder;
+	
+	@ManyToOne(targetEntity=OrderTermAccrMethod.class, fetch = FetchType.EAGER)
+	@JoinColumn(name="interest_accr_method_id")
+	private OrderTermAccrMethod interestAccrMethod;
 
-	public OrderTerm(String description, OrderTermFund fund, Double amount,
-			OrderTermCurrency currency, int frequencyQuantity, OrderTermFrequencyType frequencyType,
-			int installmentQuantity, int installmentFirstDay, Date firstInstallmentDate, Date lastInstallmentDate,
-			int minDaysDisbFirstInst, int maxDaysDisbFirstInst, int graceOnPrinciplePaymentInst,
-			int graceOnPrinciplePaymentDays, int graceOnInterestPaymentInst, int graceOnInterestPaymentDays,
-			int graceOnInterestAccrInst, int graceOnInterestAccrDays, Double interestRateValue,
-			OrderTermRatePeriod interestRateValuePerPeriod, OrderTermFloatingRateType interestType,
-			Double penaltyOnPrincipleOverdueRateValue, OrderTermFloatingRateType penaltyOnPrincipleOverdueType,
-			Double penaltyOnInterestOverdueRateValue, OrderTermFloatingRateType penaltyOnInterestOverdueType,
-			OrderTermDaysMethod daysInYearMethod, OrderTermDaysMethod daysInMonthMethod,
-			OrderTermTransactionOrder transactionOrder, OrderTermAccrMethod interestAccrMethod,
-			boolean earlyRepaymentAllowed, Double penaltyLimitPercent, boolean collateralFree) {
-		this.description = description;
-		this.fund = fund;
-		this.amount = amount;
-		this.currency = currency;
-		this.frequencyQuantity = frequencyQuantity;
-		this.frequencyType = frequencyType;
-		this.installmentQuantity = installmentQuantity;
-		this.installmentFirstDay = installmentFirstDay;
-		this.firstInstallmentDate = firstInstallmentDate;
-		this.lastInstallmentDate = lastInstallmentDate;
-		this.minDaysDisbFirstInst = minDaysDisbFirstInst;
-		this.maxDaysDisbFirstInst = maxDaysDisbFirstInst;
-		this.graceOnPrinciplePaymentInst = graceOnPrinciplePaymentInst;
-		this.graceOnPrinciplePaymentDays = graceOnPrinciplePaymentDays;
-		this.graceOnInterestPaymentInst = graceOnInterestPaymentInst;
-		this.graceOnInterestPaymentDays = graceOnInterestPaymentDays;
-		this.graceOnInterestAccrInst = graceOnInterestAccrInst;
-		this.graceOnInterestAccrDays = graceOnInterestAccrDays;
-		this.interestRateValue = interestRateValue;
-		this.interestRateValuePerPeriod = interestRateValuePerPeriod;
-		this.interestType = interestType;
-		this.penaltyOnPrincipleOverdueRateValue = penaltyOnPrincipleOverdueRateValue;
-		this.penaltyOnPrincipleOverdueType = penaltyOnPrincipleOverdueType;
-		this.penaltyOnInterestOverdueRateValue = penaltyOnInterestOverdueRateValue;
-		this.penaltyOnInterestOverdueType = penaltyOnInterestOverdueType;
-		this.daysInYearMethod = daysInYearMethod;
-		this.daysInMonthMethod = daysInMonthMethod;
-		this.transactionOrder = transactionOrder;
-		this.interestAccrMethod = interestAccrMethod;
-		this.earlyRepaymentAllowed = earlyRepaymentAllowed;
-		this.penaltyLimitPercent = penaltyLimitPercent;
-		this.collateralFree = collateralFree;
-	}
-
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
-	}
-
-	public CreditOrder getCreditOrder() {
-		return creditOrder;
-	}
-
-	public void setCreditOrder(CreditOrder creditOrder) {
-		this.creditOrder = creditOrder;
-	}
+	@OneToMany(mappedBy = "orderTerm", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true)
+    private Set<AgreementTemplate> agreementTemplates = new HashSet<AgreementTemplate>();
+	
+	@ManyToOne(targetEntity=CreditOrder.class, fetch = FetchType.EAGER)
+    @JoinColumn(name="creditOrderId")
+    CreditOrder creditOrder;
 
 	public String getDescription() {
 		return description;
@@ -219,44 +149,12 @@ public class OrderTerm {
 		this.description = description;
 	}
 
-	public OrderTermFund getFund() {
-		return fund;
-	}
-
-	public void setFund(OrderTermFund fund) {
-		this.fund = fund;
-	}
-
 	public Double getAmount() {
 		return amount;
 	}
 
 	public void setAmount(Double amount) {
 		this.amount = amount;
-	}
-
-	public OrderTermCurrency getCurrency() {
-		return currency;
-	}
-
-	public void setCurrency(OrderTermCurrency currency) {
-		this.currency = currency;
-	}
-
-	public int getFrequencyQuantity() {
-		return frequencyQuantity;
-	}
-
-	public void setFrequencyQuantity(int frequencyQuantity) {
-		this.frequencyQuantity = frequencyQuantity;
-	}
-
-	public OrderTermFrequencyType getFrequencyType() {
-		return frequencyType;
-	}
-
-	public void setFrequencyType(OrderTermFrequencyType frequencyType) {
-		this.frequencyType = frequencyType;
 	}
 
 	public int getInstallmentQuantity() {
@@ -363,6 +261,78 @@ public class OrderTerm {
 		this.interestRateValue = interestRateValue;
 	}
 
+	public int getFrequencyQuantity() {
+		return frequencyQuantity;
+	}
+
+	public void setFrequencyQuantity(int frequencyQuantity) {
+		this.frequencyQuantity = frequencyQuantity;
+	}
+
+	public Double getPenaltyOnPrincipleOverdueRateValue() {
+		return penaltyOnPrincipleOverdueRateValue;
+	}
+
+	public void setPenaltyOnPrincipleOverdueRateValue(Double penaltyOnPrincipleOverdueRateValue) {
+		this.penaltyOnPrincipleOverdueRateValue = penaltyOnPrincipleOverdueRateValue;
+	}
+
+	public OrderTermFund getFund() {
+		return fund;
+	}
+
+	public void setFund(OrderTermFund fund) {
+		this.fund = fund;
+	}
+
+	public Double getPenaltyOnInterestOverdueRateValue() {
+		return penaltyOnInterestOverdueRateValue;
+	}
+
+	public void setPenaltyOnInterestOverdueRateValue(Double penaltyOnInterestOverdueRateValue) {
+		this.penaltyOnInterestOverdueRateValue = penaltyOnInterestOverdueRateValue;
+	}
+
+	public boolean isEarlyRepaymentAllowed() {
+		return earlyRepaymentAllowed;
+	}
+
+	public void setEarlyRepaymentAllowed(boolean earlyRepaymentAllowed) {
+		this.earlyRepaymentAllowed = earlyRepaymentAllowed;
+	}
+
+	public Double getPenaltyLimitPercent() {
+		return penaltyLimitPercent;
+	}
+
+	public void setPenaltyLimitPercent(Double penaltyLimitPercent) {
+		this.penaltyLimitPercent = penaltyLimitPercent;
+	}
+
+	public boolean isCollateralFree() {
+		return collateralFree;
+	}
+
+	public void setCollateralFree(boolean collateralFree) {
+		this.collateralFree = collateralFree;
+	}
+
+	public OrderTermCurrency getCurrency() {
+		return currency;
+	}
+
+	public void setCurrency(OrderTermCurrency currency) {
+		this.currency = currency;
+	}
+
+	public OrderTermFrequencyType getFrequencyType() {
+		return frequencyType;
+	}
+
+	public void setFrequencyType(OrderTermFrequencyType frequencyType) {
+		this.frequencyType = frequencyType;
+	}
+
 	public OrderTermRatePeriod getInterestRateValuePerPeriod() {
 		return interestRateValuePerPeriod;
 	}
@@ -379,28 +349,12 @@ public class OrderTerm {
 		this.interestType = interestType;
 	}
 
-	public Double getPenaltyOnPrincipleOverdueRateValue() {
-		return penaltyOnPrincipleOverdueRateValue;
-	}
-
-	public void setPenaltyOnPrincipleOverdueRateValue(Double penaltyOnPrincipleOverdueRateValue) {
-		this.penaltyOnPrincipleOverdueRateValue = penaltyOnPrincipleOverdueRateValue;
-	}
-
 	public OrderTermFloatingRateType getPenaltyOnPrincipleOverdueType() {
 		return penaltyOnPrincipleOverdueType;
 	}
 
 	public void setPenaltyOnPrincipleOverdueType(OrderTermFloatingRateType penaltyOnPrincipleOverdueType) {
 		this.penaltyOnPrincipleOverdueType = penaltyOnPrincipleOverdueType;
-	}
-
-	public Double getPenaltyOnInterestOverdueRateValue() {
-		return penaltyOnInterestOverdueRateValue;
-	}
-
-	public void setPenaltyOnInterestOverdueRateValue(Double penaltyOnInterestOverdueRateValue) {
-		this.penaltyOnInterestOverdueRateValue = penaltyOnInterestOverdueRateValue;
 	}
 
 	public OrderTermFloatingRateType getPenaltyOnInterestOverdueType() {
@@ -443,36 +397,20 @@ public class OrderTerm {
 		this.interestAccrMethod = interestAccrMethod;
 	}
 
-	public boolean isEarlyRepaymentAllowed() {
-		return earlyRepaymentAllowed;
+	public Set<AgreementTemplate> getAgreementTemplates() {
+		return agreementTemplates;
 	}
 
-	public void setEarlyRepaymentAllowed(boolean earlyRepaymentAllowed) {
-		this.earlyRepaymentAllowed = earlyRepaymentAllowed;
+	public void setAgreementTemplates(Set<AgreementTemplate> agreementTemplates) {
+		this.agreementTemplates = agreementTemplates;
 	}
 
-	public Double getPenaltyLimitPercent() {
-		return penaltyLimitPercent;
+	public CreditOrder getCreditOrder() {
+		return creditOrder;
 	}
 
-	public void setPenaltyLimitPercent(Double penaltyLimitPercent) {
-		this.penaltyLimitPercent = penaltyLimitPercent;
-	}
-
-	public boolean isCollateralFree() {
-		return collateralFree;
-	}
-
-	public void setCollateralFree(boolean collateralFree) {
-		this.collateralFree = collateralFree;
-	}
-
-	public Set<AgreementTemplate> getAgreementTemplate() {
-		return agreementTemplate;
-	}
-
-	public void setAgreementTemplate(Set<AgreementTemplate> agreementTemplate) {
-		this.agreementTemplate = agreementTemplate;
+	public void setCreditOrder(CreditOrder creditOrder) {
+		this.creditOrder = creditOrder;
 	}
 	
 }

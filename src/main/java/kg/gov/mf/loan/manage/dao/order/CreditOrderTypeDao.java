@@ -1,15 +1,11 @@
 package kg.gov.mf.loan.manage.dao.order;
 
-import java.util.List;
+import org.springframework.stereotype.Repository;
 
+import kg.gov.mf.loan.manage.dao.GenericDaoImpl;
 import kg.gov.mf.loan.manage.model.order.CreditOrderType;
 
-public interface CreditOrderTypeDao {
-	
-	List<CreditOrderType> findAll();
-	CreditOrderType findById(long id);
-    CreditOrderType findByName(String name);
-    void save(CreditOrderType type);
-    void deleteById(long id);
+@Repository
+public class CreditOrderTypeDao extends GenericDaoImpl<CreditOrderType> {
 
 }

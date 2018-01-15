@@ -1,17 +1,9 @@
 package kg.gov.mf.loan.manage.service.order;
 
-import java.util.List;
-
 import kg.gov.mf.loan.manage.model.order.CreditOrderType;
+import kg.gov.mf.loan.manage.service.GenericService;
 
-public interface CreditOrderTypeService {
+public interface CreditOrderTypeService extends GenericService<CreditOrderType>{
 	
-	CreditOrderType findById(long id);
-	CreditOrderType findByName(String name);
-	void save(CreditOrderType type);
-	void update(CreditOrderType type);
-	void deleteById(long id);
-	List<CreditOrderType> findAll(); 
-	boolean isTypeNameUnique(long id, String name);
 
 }

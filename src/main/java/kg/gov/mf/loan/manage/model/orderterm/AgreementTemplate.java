@@ -4,31 +4,28 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-@Entity
-@Table(name="agreement_template")
-public class AgreementTemplate {
+import org.springframework.format.annotation.DateTimeFormat;
 
-	@Id
-	@GeneratedValue
-	@Column(name="id")
-	private long id;
-	
+import kg.gov.mf.loan.manage.model.GenericModel;
+
+@Entity
+@Table(name="agreementTemplate")
+public class AgreementTemplate extends GenericModel {
+
 	@Column(name="name", nullable=false, length=50)
 	private String name;
 	
-	@ManyToOne
-	private OrderTerm orderTerm;
-	
 	@Column(name="created_by", nullable=false)
 	private long createdBy;
-	
+
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Temporal(TemporalType.DATE)
 	@Column(name="created_date", nullable=false)
 	private Date createdDate;
@@ -46,29 +43,9 @@ public class AgreementTemplate {
 	@Column(name="approved_description", length=200)
 	private String approvedDescription;
 	
-	public AgreementTemplate()
-	{
-		
-	}
-	
-	public AgreementTemplate(String name, long createdBy, Date createdDate, String createdDescription, long approvedBy,
-			Date approvedDate, String approvedDescription) {
-		this.name = name;
-		this.createdBy = createdBy;
-		this.createdDate = createdDate;
-		this.createdDescription = createdDescription;
-		this.approvedBy = approvedBy;
-		this.approvedDate = approvedDate;
-		this.approvedDescription = approvedDescription;
-	}
-
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
-	}
+	@ManyToOne(targetEntity=OrderTerm.class, fetch = FetchType.EAGER)
+    @JoinColumn(name="orderTermId")
+    OrderTerm orderTerm;
 
 	public String getName() {
 		return name;
@@ -76,14 +53,6 @@ public class AgreementTemplate {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public OrderTerm getOrderTerm() {
-		return orderTerm;
-	}
-
-	public void setOrderTerm(OrderTerm orderTerm) {
-		this.orderTerm = orderTerm;
 	}
 
 	public long getCreatedBy() {
@@ -133,5 +102,12 @@ public class AgreementTemplate {
 	public void setApprovedDescription(String approvedDescription) {
 		this.approvedDescription = approvedDescription;
 	}
-	
+
+	public OrderTerm getOrderTerm() {
+		return orderTerm;
+	}
+
+	public void setOrderTerm(OrderTerm orderTerm) {
+		this.orderTerm = orderTerm;
+	}
 }
