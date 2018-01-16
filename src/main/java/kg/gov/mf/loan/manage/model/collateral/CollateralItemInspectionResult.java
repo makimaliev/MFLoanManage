@@ -4,58 +4,37 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-@Entity
-@Table(name="collateral_item_inspection_result")
-public class CollateralItemInspectionResult {
-	
-	@Id
-	@GeneratedValue
-	@Column(name="id")
-	private long id;
+import org.springframework.format.annotation.DateTimeFormat;
 
+import kg.gov.mf.loan.manage.model.GenericModel;
+
+@Entity
+@Table(name="collateralItemInspectionResult")
+public class CollateralItemInspectionResult extends GenericModel {
+	
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Temporal(TemporalType.DATE)
 	@Column(name="on_date", nullable=false)
 	private Date onDate;
 	
-	@ManyToOne
-	private CollateralItem collateralItem;
-	
-	@OneToOne
+	@ManyToOne(targetEntity=InspectionResultType.class, fetch = FetchType.EAGER)
 	@JoinColumn(name="inspectionResultType_id")
 	private InspectionResultType inspectionResultType;
 	
-	@OneToOne
+	@ManyToOne(targetEntity=CollateralInspection.class, fetch = FetchType.EAGER)
 	@JoinColumn(name="collateralInspection_id")
 	private CollateralInspection collateralInspection;
 	
-	public CollateralItemInspectionResult()
-	{
-		
-	}
-	
-	public CollateralItemInspectionResult(Date onDate, InspectionResultType inspectionResultType,
-			CollateralInspection collateralInspection) {
-		this.onDate = onDate;
-		this.inspectionResultType = inspectionResultType;
-		this.collateralInspection = collateralInspection;
-	}
-
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
-	}
+	@ManyToOne(targetEntity=CollateralItem.class, fetch = FetchType.EAGER)
+    @JoinColumn(name="collateralItemId")
+	CollateralItem collateralItem;
 
 	public Date getOnDate() {
 		return onDate;
@@ -63,14 +42,6 @@ public class CollateralItemInspectionResult {
 
 	public void setOnDate(Date onDate) {
 		this.onDate = onDate;
-	}
-
-	public CollateralItem getCollateralItem() {
-		return collateralItem;
-	}
-
-	public void setCollateralItem(CollateralItem collateralItem) {
-		this.collateralItem = collateralItem;
 	}
 
 	public InspectionResultType getInspectionResultType() {
@@ -88,5 +59,12 @@ public class CollateralItemInspectionResult {
 	public void setCollateralInspection(CollateralInspection collateralInspection) {
 		this.collateralInspection = collateralInspection;
 	}
-	
+
+	public CollateralItem getCollateralItem() {
+		return collateralItem;
+	}
+
+	public void setCollateralItem(CollateralItem collateralItem) {
+		this.collateralItem = collateralItem;
+	}
 }

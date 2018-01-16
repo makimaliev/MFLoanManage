@@ -1,15 +1,7 @@
 package kg.gov.mf.loan.manage.service.collateral;
 
-import java.util.List;
-
 import kg.gov.mf.loan.manage.model.collateral.CollateralArrestFree;
+import kg.gov.mf.loan.manage.service.GenericService;
 
-public interface CollateralArrestFreeService {
-
-	CollateralArrestFree findById(long id);
-	void save(CollateralArrestFree af);
-	void update(CollateralArrestFree af);
-	void deleteById(long id);
-	List<CollateralArrestFree> findAll();
-	
+public interface CollateralArrestFreeService extends GenericService<CollateralArrestFree>{
 }

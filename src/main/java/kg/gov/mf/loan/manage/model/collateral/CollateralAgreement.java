@@ -1,14 +1,13 @@
 package kg.gov.mf.loan.manage.model.collateral;
 
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -16,18 +15,18 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
+import kg.gov.mf.loan.manage.model.GenericModel;
+
 @Entity
-@Table(name="collateral_agreement")
-public class CollateralAgreement {
-	
-	@Id
-	@GeneratedValue
-	@Column(name="id")
-	private long id;
+@Table(name="collateralAgreement")
+public class CollateralAgreement extends GenericModel{
 	
 	@Column(name="agreement_number", nullable=false, length=50)
 	private String agreementNumber;
 	
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Temporal(TemporalType.DATE)
 	@Column(name="agreement_date", nullable=false)
 	private Date agreementDate;
@@ -35,6 +34,7 @@ public class CollateralAgreement {
 	@Column(name="collateral_office_reg_number", nullable=false, length=50)
 	private String collateralOfficeRegNumber;
 	
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Temporal(TemporalType.DATE)
 	@Column(name="collateral_office_reg_date", nullable=false)
 	private Date collateralOfficeRegDate;
@@ -42,6 +42,7 @@ public class CollateralAgreement {
 	@Column(name="notary_office_reg_number", nullable=false, length=50)
 	private String notaryOfficeRegNumber;
 	
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Temporal(TemporalType.DATE)
 	@Column(name="notary_office_reg_date", nullable=false)
 	private Date notaryOfficeRegDate;
@@ -49,46 +50,20 @@ public class CollateralAgreement {
 	@Column(name="arrest_reg_number", nullable=false, length=50)
 	private String arrestRegNumber;
 	
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Temporal(TemporalType.DATE)
 	@Column(name="arrest_reg_date", nullable=false)
 	private Date arrestRegDate;
 	
-	@ManyToOne
-	private Collateral collateral;
+	@ManyToOne(targetEntity=Collateral.class, fetch = FetchType.EAGER)
+    @JoinColumn(name="collateralId")
+	Collateral collateral;
 	
-	@OneToMany(cascade=CascadeType.PERSIST, fetch = FetchType.EAGER)
-	@JoinColumn(name="collateralAgreement_id")
-	private Set<CollateralInspection> collateralInspection;
+	@OneToMany(mappedBy = "collateralAgreement", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true)
+    private Set<CollateralInspection> collateralInspections = new HashSet<CollateralInspection>();
 	
-	@OneToMany(cascade=CascadeType.PERSIST, fetch = FetchType.EAGER)
-	@JoinColumn(name="collateralAgreement_id")
-	private Set<CollateralArrestFree> collateralArrestFree;
-	
-	public CollateralAgreement()
-	{
-		
-	}
-	
-	public CollateralAgreement(String agreementNumber, Date agreementDate, String collateralOfficeRegNumber,
-			Date collateralOfficeRegDate, String notaryOfficeRegNumber, Date notaryOfficeRegDate,
-			String arrestRegNumber, Date arrestRegDate) {
-		this.agreementNumber = agreementNumber;
-		this.agreementDate = agreementDate;
-		this.collateralOfficeRegNumber = collateralOfficeRegNumber;
-		this.collateralOfficeRegDate = collateralOfficeRegDate;
-		this.notaryOfficeRegNumber = notaryOfficeRegNumber;
-		this.notaryOfficeRegDate = notaryOfficeRegDate;
-		this.arrestRegNumber = arrestRegNumber;
-		this.arrestRegDate = arrestRegDate;
-	}
-
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
-	}
+	@OneToMany(mappedBy = "collateralAgreement", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true)
+    private Set<CollateralArrestFree> collateralArrestFrees = new HashSet<CollateralArrestFree>();
 
 	public String getAgreementNumber() {
 		return agreementNumber;
@@ -161,29 +136,20 @@ public class CollateralAgreement {
 	public void setCollateral(Collateral collateral) {
 		this.collateral = collateral;
 	}
-	
-	public Set<CollateralInspection> getCollateralInspection() {
-		return collateralInspection;
+
+	public Set<CollateralInspection> getCollateralInspections() {
+		return collateralInspections;
 	}
 
-	public void setCollateralInspection(Set<CollateralInspection> collateralInspection) {
-		this.collateralInspection = collateralInspection;
+	public void setCollateralInspections(Set<CollateralInspection> collateralInspections) {
+		this.collateralInspections = collateralInspections;
 	}
 
-	public Set<CollateralArrestFree> getCollateralArrestFree() {
-		return collateralArrestFree;
+	public Set<CollateralArrestFree> getCollateralArrestFrees() {
+		return collateralArrestFrees;
 	}
 
-	public void setCollateralArrestFree(Set<CollateralArrestFree> collateralArrestFree) {
-		this.collateralArrestFree = collateralArrestFree;
-	}
-
-	@Override
-	public String toString() {
-		return "CollateralAgreement [id=" + id + ", agreementNumber=" + agreementNumber + ", agreementDate="
-				+ agreementDate + ", collateralOfficeRegNumber=" + collateralOfficeRegNumber
-				+ ", collateralOfficeRegDate=" + collateralOfficeRegDate + ", notaryOfficeRegNumber="
-				+ notaryOfficeRegNumber + ", notaryOfficeRegDate=" + notaryOfficeRegDate + ", arrestRegNumber="
-				+ arrestRegNumber + ", arrestRegDate=" + arrestRegDate + "]";
+	public void setCollateralArrestFrees(Set<CollateralArrestFree> collateralArrestFrees) {
+		this.collateralArrestFrees = collateralArrestFrees;
 	}
 }

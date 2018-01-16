@@ -1,15 +1,7 @@
 package kg.gov.mf.loan.manage.service.collateral;
 
-import java.util.List;
-
 import kg.gov.mf.loan.manage.model.collateral.CollateralSummary;
+import kg.gov.mf.loan.manage.service.GenericService;
 
-public interface CollateralSummaryService {
-
-	CollateralSummary findById(long id);
-	void save(CollateralSummary summary);
-	void update(CollateralSummary summary);
-	void deleteById(long id);
-	List<CollateralSummary> findAll();
-	
+public interface CollateralSummaryService extends GenericService<CollateralSummary> {
 }

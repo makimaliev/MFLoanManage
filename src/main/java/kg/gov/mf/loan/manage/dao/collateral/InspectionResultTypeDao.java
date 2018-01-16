@@ -1,15 +1,11 @@
 package kg.gov.mf.loan.manage.dao.collateral;
 
-import java.util.List;
+import org.springframework.stereotype.Repository;
 
+import kg.gov.mf.loan.manage.dao.GenericDaoImpl;
 import kg.gov.mf.loan.manage.model.collateral.InspectionResultType;
 
-public interface InspectionResultTypeDao {
+@Repository
+public class InspectionResultTypeDao extends GenericDaoImpl<InspectionResultType> {
 
-	List<InspectionResultType> findAll();
-	InspectionResultType findById(long id);
-	InspectionResultType findByName(String name);
-    void save(InspectionResultType type);
-    void deleteById(long id);
-	
 }

@@ -2,20 +2,17 @@ package kg.gov.mf.loan.manage.model.collateral;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-@Entity
-@Table(name="collateral_item_details")
-public class CollateralItemDetails {
+import kg.gov.mf.loan.manage.model.GenericModel;
 
-	@Id
-	@GeneratedValue
-	@Column(name="id")
-	private long id;
-	
+@Entity
+@Table(name="collateralItemDetails")
+public class CollateralItemDetails extends GenericModel{
+
 	@Column(name="details1", nullable=false, length=100)
 	private String details1;
 	
@@ -34,31 +31,9 @@ public class CollateralItemDetails {
 	@Column(name="details6", nullable=false, length=100)
 	private String details6;
 	
-	@ManyToOne
-	private  CollateralItem collateralItem;
-	
-	public CollateralItemDetails()
-	{
-		
-	}
-	
-	public CollateralItemDetails(String details1, String details2, String details3, String details4, String details5,
-			String details6) {
-		this.details1 = details1;
-		this.details2 = details2;
-		this.details3 = details3;
-		this.details4 = details4;
-		this.details5 = details5;
-		this.details6 = details6;
-	}
-
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
-	}
+	@ManyToOne(targetEntity=CollateralItem.class, fetch = FetchType.EAGER)
+    @JoinColumn(name="collateralItemId")
+	CollateralItem collateralItem;
 
 	public String getDetails1() {
 		return details1;
@@ -115,5 +90,4 @@ public class CollateralItemDetails {
 	public void setCollateralItem(CollateralItem collateralItem) {
 		this.collateralItem = collateralItem;
 	}
-	
 }

@@ -1,15 +1,11 @@
 package kg.gov.mf.loan.manage.dao.collateral;
 
-import java.util.List;
+import org.springframework.stereotype.Repository;
 
+import kg.gov.mf.loan.manage.dao.GenericDaoImpl;
 import kg.gov.mf.loan.manage.model.collateral.QuantityType;
 
-public interface QuantityTypeDao {
+@Repository
+public class QuantityTypeDao extends GenericDaoImpl<QuantityType>{
 
-	List<QuantityType> findAll();
-	QuantityType findById(long id);
-	QuantityType findByName(String name);
-    void save(QuantityType type);
-    void deleteById(long id);
-	
 }

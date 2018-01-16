@@ -4,22 +4,22 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
+import kg.gov.mf.loan.manage.model.GenericModel;
+
 @Entity
-@Table(name="collateral_summary")
-public class CollateralSummary {
+@Table(name="collateralSummary")
+public class CollateralSummary extends GenericModel{
 	
-	@Id
-	@GeneratedValue
-	@Column(name="id")
-	private long id;
-	
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Temporal(TemporalType.DATE)
 	@Column(name="on_date", nullable=false)
 	private Date onDate;
@@ -51,36 +51,9 @@ public class CollateralSummary {
 	@Column(name = "item_avg_condition_by_loan", precision = 12, scale = 5)
 	private Double itemAvgConditionByLoan;
 	
-	@ManyToOne
-	private Collateral collateral;
-	
-	public CollateralSummary()
-	{
-		
-	}
-	
-	public CollateralSummary(Date onDate, Double agreementQuantity, Double guarantorQuantity,
-			Double collateralLoanCoverRatio, Double collateralAmount, Double loanAmount, Double itemAverageCondition,
-			Double itemWorstCondition, Double itemAvgConditionByCollateral, Double itemAvgConditionByLoan) {
-		this.onDate = onDate;
-		this.agreementQuantity = agreementQuantity;
-		this.guarantorQuantity = guarantorQuantity;
-		this.collateralLoanCoverRatio = collateralLoanCoverRatio;
-		this.collateralAmount = collateralAmount;
-		this.loanAmount = loanAmount;
-		this.itemAverageCondition = itemAverageCondition;
-		this.itemWorstCondition = itemWorstCondition;
-		this.itemAvgConditionByCollateral = itemAvgConditionByCollateral;
-		this.itemAvgConditionByLoan = itemAvgConditionByLoan;
-	}
-
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
-	}
+	@ManyToOne(targetEntity=Collateral.class, fetch = FetchType.EAGER)
+    @JoinColumn(name="collateralId")
+	Collateral collateral;
 
 	public Date getOnDate() {
 		return onDate;
@@ -169,5 +142,4 @@ public class CollateralSummary {
 	public void setCollateral(Collateral collateral) {
 		this.collateral = collateral;
 	}
-	
 }

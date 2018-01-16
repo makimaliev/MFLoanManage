@@ -2,40 +2,23 @@ package kg.gov.mf.loan.manage.model.collateral;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-@Entity
-@Table(name="collateral_inspection")
-public class CollateralInspection {
+import kg.gov.mf.loan.manage.model.GenericModel;
 
-	@Id
-	@GeneratedValue
-	@Column(name="id")
-	private long id;
-	
+@Entity
+@Table(name="collateralInspection")
+public class CollateralInspection extends GenericModel{
+
 	@Column(name="name", nullable=false, length=20)	
 	private String name;
 	
-	@ManyToOne
-	private CollateralAgreement collateralAgreement;
-	
-	public CollateralInspection() {
-	}
-	
-	public CollateralInspection(String name) {
-		this.name = name;
-	}
-
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
-	}
+	@ManyToOne(targetEntity=CollateralAgreement.class, fetch = FetchType.EAGER)
+    @JoinColumn(name="collateralAgreementId")
+	CollateralAgreement collateralAgreement;
 
 	public String getName() {
 		return name;
@@ -52,5 +35,6 @@ public class CollateralInspection {
 	public void setCollateralAgreement(CollateralAgreement collateralAgreement) {
 		this.collateralAgreement = collateralAgreement;
 	}
+	
 	
 }

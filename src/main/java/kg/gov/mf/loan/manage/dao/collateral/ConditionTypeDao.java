@@ -1,15 +1,11 @@
 package kg.gov.mf.loan.manage.dao.collateral;
 
-import java.util.List;
+import org.springframework.stereotype.Repository;
 
+import kg.gov.mf.loan.manage.dao.GenericDaoImpl;
 import kg.gov.mf.loan.manage.model.collateral.ConditionType;
 
-public interface ConditionTypeDao {
+@Repository
+public class ConditionTypeDao extends GenericDaoImpl<ConditionType> {
 
-	List<ConditionType> findAll();
-	ConditionType findById(long id);
-	ConditionType findByName(String name);
-    void save(ConditionType type);
-    void deleteById(long id);
-	
 }
