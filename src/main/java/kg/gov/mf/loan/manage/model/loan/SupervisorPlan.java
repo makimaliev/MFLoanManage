@@ -4,22 +4,22 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-@Entity
-@Table(name="supervisor_plan")
-public class SupervisorPlan {
+import org.springframework.format.annotation.DateTimeFormat;
 
-	@Id
-	@GeneratedValue
-	@Column(name="id")
-	private long id;
-	
+import kg.gov.mf.loan.manage.model.GenericModel;
+
+@Entity
+@Table(name="supervisorPlan")
+public class SupervisorPlan extends GenericModel{
+
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Temporal(TemporalType.DATE)
 	@Column(name="date", nullable=false)
 	private Date date;
@@ -42,32 +42,9 @@ public class SupervisorPlan {
 	@Column(name="description", nullable=true, length=50)
 	private String description;
 	
-	@ManyToOne
-	private Loan loan;
-	
-	public SupervisorPlan()
-	{
-		
-	}
-
-	public SupervisorPlan(Date date, Double amount, Double principal, Double interest, Double penalty, Double fee,
-			String description) {
-		this.date = date;
-		this.amount = amount;
-		this.principal = principal;
-		this.interest = interest;
-		this.penalty = penalty;
-		this.fee = fee;
-		this.description = description;
-	}
-
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
-	}
+	@ManyToOne(targetEntity=Loan.class, fetch = FetchType.EAGER)
+    @JoinColumn(name="loanId")
+    Loan loan;
 
 	public Date getDate() {
 		return date;
@@ -132,5 +109,4 @@ public class SupervisorPlan {
 	public void setLoan(Loan loan) {
 		this.loan = loan;
 	}
-	
 }

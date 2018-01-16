@@ -4,28 +4,28 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-@Entity
-@Table(name="targeted_use")
-public class TargetedUse {
+import org.springframework.format.annotation.DateTimeFormat;
 
-	@Id
-	@GeneratedValue
-	@Column(name="id")
-	private long id;
-	
+import kg.gov.mf.loan.manage.model.GenericModel;
+
+@Entity
+@Table(name="targetedUse")
+public class TargetedUse extends GenericModel{
+
 	@Column(name="targeted_use_result_id")
 	private long targetedUseResultId;
 	
 	@Column(name="created_by_id")
 	private long createdById;
 	
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Temporal(TemporalType.DATE)
 	@Column(name="created_date", nullable=false)
 	private Date createdDate;
@@ -33,6 +33,7 @@ public class TargetedUse {
 	@Column(name="approved_by_id")
 	private long approvedById;
 	
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Temporal(TemporalType.DATE)
 	@Column(name="approved_date", nullable=false)
 	private Date approvedDate;
@@ -40,6 +41,7 @@ public class TargetedUse {
 	@Column(name="checked_by_id")
 	private long checkedById;
 	
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Temporal(TemporalType.DATE)
 	@Column(name="checked_date", nullable=false)
 	private Date checkedDate;
@@ -47,33 +49,9 @@ public class TargetedUse {
 	@Column(name="attachmentId")
 	private long attachmentId;
 	
-	@ManyToOne
-	private Loan loan;
-	
-	public TargetedUse()
-	{
-		
-	}
-
-	public TargetedUse(long targetedUseResultId, long createdById, Date createdDate, long approvedById,
-			Date approvedDate, long checkedById, Date checkedDate, long attachmentId) {
-		this.targetedUseResultId = targetedUseResultId;
-		this.createdById = createdById;
-		this.createdDate = createdDate;
-		this.approvedById = approvedById;
-		this.approvedDate = approvedDate;
-		this.checkedById = checkedById;
-		this.checkedDate = checkedDate;
-		this.attachmentId = attachmentId;
-	}
-
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
-	}
+	@ManyToOne(targetEntity=Loan.class, fetch = FetchType.EAGER)
+    @JoinColumn(name="loanId")
+    Loan loan;
 
 	public long getTargetedUseResultId() {
 		return targetedUseResultId;
@@ -146,5 +124,4 @@ public class TargetedUse {
 	public void setLoan(Loan loan) {
 		this.loan = loan;
 	}
-	
 }

@@ -1,15 +1,11 @@
 package kg.gov.mf.loan.manage.dao.loan;
 
-import java.util.List;
+import org.springframework.stereotype.Repository;
 
+import kg.gov.mf.loan.manage.dao.GenericDaoImpl;
 import kg.gov.mf.loan.manage.model.loan.LoanState;
 
-public interface LoanStateDao {
+@Repository
+public class LoanStateDao extends GenericDaoImpl<LoanState>{
 
-	List<LoanState> findAll();
-	LoanState findById(long id);
-	LoanState findByName(String name);
-    void save(LoanState state);
-    void deleteById(long id);
-	
 }

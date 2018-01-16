@@ -2,19 +2,16 @@ package kg.gov.mf.loan.manage.model.loan;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import kg.gov.mf.loan.manage.model.GenericModel;
+
 @Entity
-@Table(name="loan_goods")
-public class LoanGoods {
-	
-	@Id
-	@GeneratedValue
-	@Column(name="id")
-	private long id;
+@Table(name="loanGoods")
+public class LoanGoods extends GenericModel{
 	
 	@Column(name = "quantity", precision = 12, scale = 5)
 	private Double quantity;
@@ -25,27 +22,9 @@ public class LoanGoods {
 	@Column(name="goods_type_id")
 	private long goodsTypeId;
 	
-	@ManyToOne
-	private Loan loan;
-	
-	public LoanGoods()
-	{
-		
-	}
-	
-	public LoanGoods(Double quantity, long unitTypeId, long goodsTypeId) {
-		this.quantity = quantity;
-		this.unitTypeId = unitTypeId;
-		this.goodsTypeId = goodsTypeId;
-	}
-
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
-	}
+	@ManyToOne(targetEntity=Loan.class, fetch = FetchType.EAGER)
+    @JoinColumn(name="loanId")
+    Loan loan;
 
 	public Double getQuantity() {
 		return quantity;
@@ -78,5 +57,5 @@ public class LoanGoods {
 	public void setLoan(Loan loan) {
 		this.loan = loan;
 	}
-
+	
 }

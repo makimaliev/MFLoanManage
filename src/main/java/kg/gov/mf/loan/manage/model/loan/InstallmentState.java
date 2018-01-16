@@ -1,45 +1,11 @@
 package kg.gov.mf.loan.manage.model.loan;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import javax.persistence.Table;
 
+import kg.gov.mf.loan.manage.model.Catalog;
+
 @Entity
-@Table(name="installment_state")
-public class InstallmentState {
-	
-	@Id
-	@GeneratedValue
-	@Column(name="id")
-	private long id;
-	
-	@Column(name="name", nullable=false, length=20)	
-	private String name;
-	
-	public InstallmentState() 
-	{
-		
-	}
-
-	public InstallmentState(String name) {
-		this.name = name;
-	}
-
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
+@Table(name="installmentState")
+public class InstallmentState extends Catalog{
 }

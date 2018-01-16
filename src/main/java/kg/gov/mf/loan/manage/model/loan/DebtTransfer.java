@@ -4,26 +4,25 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-@Entity
-@Table(name="debt_transfer")
-public class DebtTransfer {
+import org.springframework.format.annotation.DateTimeFormat;
 
-	
-	@Id
-	@GeneratedValue
-	@Column(name="id")
-	private long id;
-	
+import kg.gov.mf.loan.manage.model.GenericModel;
+
+@Entity
+@Table(name="debtTransfer")
+public class DebtTransfer extends GenericModel{
+
 	@Column(name="number", nullable=false, length=50)
 	private String number;
-	
+
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Temporal(TemporalType.DATE)
 	@Column(name="date", nullable=false)
 	private Date date;
@@ -52,35 +51,9 @@ public class DebtTransfer {
 	@Column(name="goods_type_id")
 	private long goodsTypeId;
 	
-	@ManyToOne
-	private Loan loan;
-	
-	public DebtTransfer()
-	{
-		
-	}
-
-	public DebtTransfer(String number, Date date, Double quantity, Double pricePerUnit, long unitTypeId,
-			Double totalCost, long transferPaymentId, long transferCreditId, long transferPersonId, long goodsTypeId) {
-		this.number = number;
-		this.date = date;
-		this.quantity = quantity;
-		this.pricePerUnit = pricePerUnit;
-		this.unitTypeId = unitTypeId;
-		this.totalCost = totalCost;
-		this.transferPaymentId = transferPaymentId;
-		this.transferCreditId = transferCreditId;
-		this.transferPersonId = transferPersonId;
-		this.goodsTypeId = goodsTypeId;
-	}
-
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
-	}
+	@ManyToOne(targetEntity=Loan.class, fetch = FetchType.EAGER)
+    @JoinColumn(name="loanId")
+    Loan loan;
 
 	public String getNumber() {
 		return number;
@@ -169,13 +142,4 @@ public class DebtTransfer {
 	public void setLoan(Loan loan) {
 		this.loan = loan;
 	}
-
-	@Override
-	public String toString() {
-		return "DebtTransfer [number=" + number + ", date=" + date + ", quantity=" + quantity + ", pricePerUnit="
-				+ pricePerUnit + ", unitTypeId=" + unitTypeId + ", totalCost=" + totalCost + ", transferPaymentId="
-				+ transferPaymentId + ", transferCreditId=" + transferCreditId + ", transferPersonId="
-				+ transferPersonId + ", goodsTypeId=" + goodsTypeId + "]";
-	}
-	
 }

@@ -4,29 +4,26 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
+import kg.gov.mf.loan.manage.model.GenericModel;
 import kg.gov.mf.loan.manage.model.orderterm.OrderTermDaysMethod;
 import kg.gov.mf.loan.manage.model.orderterm.OrderTermFloatingRateType;
 import kg.gov.mf.loan.manage.model.orderterm.OrderTermRatePeriod;
 import kg.gov.mf.loan.manage.model.orderterm.OrderTermTransactionOrder;
 
 @Entity
-@Table(name="credit_term")
-public class CreditTerm {
+@Table(name="creditTerm")
+public class CreditTerm extends GenericModel{
 	
-	@Id
-	@GeneratedValue
-	@Column(name="id")
-	private long id;
-	
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Temporal(TemporalType.DATE)
 	@Column(name="start_date", nullable=false)
 	private Date startDate;
@@ -34,83 +31,51 @@ public class CreditTerm {
 	@Column(name = "interest_rate_value", precision = 12, scale = 5)
 	private Double interestRateValue;
 	
-	@OneToOne
+	@ManyToOne(targetEntity=OrderTermRatePeriod.class, fetch = FetchType.EAGER)
 	@JoinColumn(name="rate_period_id")
 	private OrderTermRatePeriod ratePeriod;
 	
-	@OneToOne
+	@ManyToOne(targetEntity=OrderTermFloatingRateType.class, fetch = FetchType.EAGER)
 	@JoinColumn(name="floating_rate_type_id")
 	private OrderTermFloatingRateType floatingRateType;
 	
 	@Column(name = "penalty_on_principle_overdue_rate_value", precision = 12, scale = 5)
 	private Double penaltyOnPrincipleOverdueRateValue;
 	
-	@OneToOne
+	@ManyToOne(targetEntity=OrderTermFloatingRateType.class, fetch = FetchType.EAGER)
 	@JoinColumn(name="penalty_on_principle_overdue_rate_type_id")
 	private OrderTermFloatingRateType penaltyOnPrincipleOverdueRateType;
 	
 	@Column(name = "penalty_on_interest_overdue_rate_value", precision = 12, scale = 5)
 	private Double penaltyOnInterestOverdueRateValue;
 	
-	@OneToOne
+	@ManyToOne(targetEntity=OrderTermFloatingRateType.class, fetch = FetchType.EAGER)
 	@JoinColumn(name="penalty_on_interest_overdue_rate_type_id")
 	private OrderTermFloatingRateType penaltyOnInterestOverdueRateType;
 	
 	@Column(name = "penalty_limit_percent", precision = 12, scale = 5)
 	private Double penaltyLimitPercent;
 	
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Temporal(TemporalType.DATE)
 	@Column(name="penalty_limit_end_date", nullable=false)
 	private Date penaltyLimitEndDate;
 	
-	@OneToOne
+	@ManyToOne(targetEntity=OrderTermTransactionOrder.class, fetch = FetchType.EAGER)
 	@JoinColumn(name="transaction_order_id")
 	private OrderTermTransactionOrder transactionOrder;
 	
-	@OneToOne
+	@ManyToOne(targetEntity=OrderTermDaysMethod.class, fetch = FetchType.EAGER)
 	@JoinColumn(name="days_in_month_method_id")
 	private OrderTermDaysMethod daysInMonthMethod;
 	
-	@OneToOne
+	@ManyToOne(targetEntity=OrderTermDaysMethod.class, fetch = FetchType.EAGER)
 	@JoinColumn(name="days_in_year_method_id")
 	private OrderTermDaysMethod daysInYearMethod;
 	
-	@ManyToOne
-	private Loan loan;
-	
-	public CreditTerm()
-	{
-		
-	}
-	
-	public CreditTerm(Date startDate, Double interestRateValue, OrderTermRatePeriod ratePeriod,
-			OrderTermFloatingRateType floatingRateType, Double penaltyOnPrincipleOverdueRateValue,
-			OrderTermFloatingRateType penaltyOnPrincipleOverdueRateType, Double penaltyOnInterestOverdueRateValue,
-			OrderTermFloatingRateType penaltyOnInterestOverdueRateType, Double penaltyLimitPercent,
-			Date penaltyLimitEndDate, OrderTermTransactionOrder transactionOrder, OrderTermDaysMethod daysInMonthMethod,
-			OrderTermDaysMethod daysInYearMethod) {
-		this.startDate = startDate;
-		this.interestRateValue = interestRateValue;
-		this.ratePeriod = ratePeriod;
-		this.floatingRateType = floatingRateType;
-		this.penaltyOnPrincipleOverdueRateValue = penaltyOnPrincipleOverdueRateValue;
-		this.penaltyOnPrincipleOverdueRateType = penaltyOnPrincipleOverdueRateType;
-		this.penaltyOnInterestOverdueRateValue = penaltyOnInterestOverdueRateValue;
-		this.penaltyOnInterestOverdueRateType = penaltyOnInterestOverdueRateType;
-		this.penaltyLimitPercent = penaltyLimitPercent;
-		this.penaltyLimitEndDate = penaltyLimitEndDate;
-		this.transactionOrder = transactionOrder;
-		this.daysInMonthMethod = daysInMonthMethod;
-		this.daysInYearMethod = daysInYearMethod;
-	}
-
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
-	}
+	@ManyToOne(targetEntity=Loan.class, fetch = FetchType.EAGER)
+    @JoinColumn(name="loanId")
+    Loan loan;
 
 	public Date getStartDate() {
 		return startDate;

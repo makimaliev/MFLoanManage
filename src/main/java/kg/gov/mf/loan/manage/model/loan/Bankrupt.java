@@ -4,50 +4,34 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
+import kg.gov.mf.loan.manage.model.GenericModel;
+
 @Entity
 @Table(name="bankrupt")
-public class Bankrupt {
+public class Bankrupt extends GenericModel{
 	
-	@Id
-	@GeneratedValue
-	@Column(name="id")
-	private long id;
-	
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Temporal(TemporalType.DATE)
 	@Column(name="started_on_date", nullable=false)
 	private Date startedOnDate;
 	
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Temporal(TemporalType.DATE)
 	@Column(name="finished_on_date", nullable=false)
 	private Date finishedOnDate;
 	
-	@ManyToOne
-	private Loan loan;
-	
-	public Bankrupt()
-	{
-		
-	}
-
-	public Bankrupt(Date startedOnDate, Date finishedOnDate) {
-		this.startedOnDate = startedOnDate;
-		this.finishedOnDate = finishedOnDate;
-	}
-
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
-	}
+	@ManyToOne(targetEntity=Loan.class, fetch = FetchType.EAGER)
+    @JoinColumn(name="loanId")
+    Loan loan;
 
 	public Date getStartedOnDate() {
 		return startedOnDate;

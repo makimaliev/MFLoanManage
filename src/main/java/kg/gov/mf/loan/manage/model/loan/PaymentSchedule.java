@@ -4,24 +4,22 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-@Entity
-@Table(name="payment_schedule")
-public class PaymentSchedule {
+import org.springframework.format.annotation.DateTimeFormat;
 
-	@Id
-	@GeneratedValue
-	@Column(name="id")
-	private long id;
-	
+import kg.gov.mf.loan.manage.model.GenericModel;
+
+@Entity
+@Table(name="paymentSchedule")
+public class PaymentSchedule extends GenericModel{
+
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Temporal(TemporalType.DATE)
 	@Column(name="expected_date", nullable=false)
 	private Date expectedDate;
@@ -41,36 +39,13 @@ public class PaymentSchedule {
 	@Column(name = "collected_penalty_payment", precision = 12, scale = 5)
 	private Double collectedPenaltyPayment;
 	
-	@OneToOne
+	@ManyToOne(targetEntity=InstallmentState.class, fetch = FetchType.EAGER)
 	@JoinColumn(name="installment_state_id")
 	private InstallmentState installmentState;
 	
-	@ManyToOne
-	private Loan loan;
-	
-	public PaymentSchedule()
-	{
-		
-	}
-
-	public PaymentSchedule(Date expectedDate, Double disbursement, Double principalPayment, Double interestPayment,
-			Double collectedInterestPayment, Double collectedPenaltyPayment, InstallmentState installmentState) {
-		this.expectedDate = expectedDate;
-		this.disbursement = disbursement;
-		this.principalPayment = principalPayment;
-		this.interestPayment = interestPayment;
-		this.collectedInterestPayment = collectedInterestPayment;
-		this.collectedPenaltyPayment = collectedPenaltyPayment;
-		this.installmentState = installmentState;
-	}
-
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
-	}
+	@ManyToOne(targetEntity=Loan.class, fetch = FetchType.EAGER)
+    @JoinColumn(name="loanId")
+    Loan loan;
 
 	public Date getExpectedDate() {
 		return expectedDate;

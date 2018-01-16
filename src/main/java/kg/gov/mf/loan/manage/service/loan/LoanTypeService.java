@@ -1,16 +1,7 @@
 package kg.gov.mf.loan.manage.service.loan;
 
-import java.util.List;
-
 import kg.gov.mf.loan.manage.model.loan.LoanType;
+import kg.gov.mf.loan.manage.service.GenericService;
 
-public interface LoanTypeService {
-
-	LoanType findById(long id);
-	LoanType findByName(String name);
-	void save(LoanType type);
-	void update(LoanType type);
-	void deleteById(long id);
-	List<LoanType> findAll();
-	
+public interface LoanTypeService extends GenericService<LoanType> {
 }
