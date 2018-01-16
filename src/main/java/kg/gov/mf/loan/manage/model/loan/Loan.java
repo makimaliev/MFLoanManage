@@ -30,41 +30,40 @@ import kg.gov.mf.loan.manage.model.orderterm.OrderTermCurrency;
 @Table(name="loan")
 public class Loan extends GenericModel{
 	
-	@Column(name="reg_number", nullable=false, length=50)
+	@Column(nullable=false, length=50)
 	private String regNumber;
 	
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Temporal(TemporalType.DATE)
-	@Column(name="reg_date", nullable=false)
+	@Column(nullable=false)
 	private Date regDate;
 	
-	@Column(name = "amount", precision = 12, scale = 5)
+	@Column(precision = 12, scale = 5)
 	private Double amount;
 	
 	@ManyToOne(targetEntity=OrderTermCurrency.class, fetch = FetchType.EAGER)
-	@JoinColumn(name="currency_id")
+	@JoinColumn(name="currencyId")
 	private OrderTermCurrency currency;
 	
 	@ManyToOne(targetEntity=LoanType.class, fetch = FetchType.EAGER)
-	@JoinColumn(name="loan_type_id")
+	@JoinColumn(name="loanTypeId")
 	private LoanType loanType;
 	
 	@ManyToOne(targetEntity=LoanState.class, fetch = FetchType.EAGER)
-	@JoinColumn(name="loan_state_id")
+	@JoinColumn(name="loanStateId")
 	private LoanState loanState;
 	
-	@Column(name="supervisor_id", nullable=false)
+	@Column(nullable=false)
 	private long supervisorId;
 	
-	@Column(name="has_sub_loan")
 	private boolean hasSubLoan;
 	
 	@ManyToOne(targetEntity=Loan.class, fetch = FetchType.EAGER)
-	@JoinColumn(name="parent_loan_id", nullable=true)
+	@JoinColumn(name="parentLoanId", nullable=true)
 	private Loan parentLoan;
 	
 	@ManyToOne(targetEntity=CreditOrder.class, fetch = FetchType.EAGER)
-	@JoinColumn(name="credit_order_id", nullable=true)
+	@JoinColumn(name="creditOrderId", nullable=true)
 	private CreditOrder creditOrder;
 	
 	@ManyToOne(targetEntity=Debtor.class, fetch = FetchType.EAGER)

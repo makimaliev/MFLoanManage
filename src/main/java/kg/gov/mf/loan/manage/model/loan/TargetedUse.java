@@ -19,34 +19,29 @@ import kg.gov.mf.loan.manage.model.GenericModel;
 @Table(name="targetedUse")
 public class TargetedUse extends GenericModel{
 
-	@Column(name="targeted_use_result_id")
 	private long targetedUseResultId;
 	
-	@Column(name="created_by_id")
 	private long createdById;
 	
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Temporal(TemporalType.DATE)
-	@Column(name="created_date", nullable=false)
+	@Column(nullable=false)
 	private Date createdDate;
 	
-	@Column(name="approved_by_id")
 	private long approvedById;
 	
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Temporal(TemporalType.DATE)
-	@Column(name="approved_date", nullable=false)
+	@Column(nullable=false)
 	private Date approvedDate;
 	
-	@Column(name="checked_by_id")
 	private long checkedById;
 	
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Temporal(TemporalType.DATE)
-	@Column(name="checked_date", nullable=false)
+	@Column(nullable=false)
 	private Date checkedDate;
 	
-	@Column(name="attachmentId")
 	private long attachmentId;
 	
 	@ManyToOne(targetEntity=Loan.class, fetch = FetchType.EAGER)

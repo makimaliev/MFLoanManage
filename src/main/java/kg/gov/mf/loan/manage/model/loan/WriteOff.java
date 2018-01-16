@@ -21,25 +21,25 @@ public class WriteOff extends GenericModel {
 
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Temporal(TemporalType.DATE)
-	@Column(name="date", nullable=false)
+	@Column(nullable=false)
 	private Date date;
 	
-	@Column(name = "total_amount", precision = 12, scale = 5)
+	@Column(precision = 12, scale = 5)
 	private Double totalAmount;
 	
-	@Column(name = "principal", precision = 12, scale = 5)
+	@Column(precision = 12, scale = 5)
 	private Double principal;
 	
-	@Column(name = "interest", precision = 12, scale = 5)
+	@Column(precision = 12, scale = 5)
 	private Double interest;
 	
-	@Column(name = "penalty", precision = 12, scale = 5)
+	@Column(precision = 12, scale = 5)
 	private Double penalty;
 	
-	@Column(name = "fee", precision = 12, scale = 5)
+	@Column(precision = 12, scale = 5)
 	private Double fee;
 	
-	@Column(name="description", nullable=true, length=50)
+	@Column(nullable=true, length=50)
 	private String description;
 	
 	@ManyToOne(targetEntity=Loan.class, fetch = FetchType.EAGER)

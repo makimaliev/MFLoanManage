@@ -19,7 +19,7 @@ import kg.gov.mf.loan.manage.model.loan.Loan;
 @Table(name="collateral")
 public class Collateral extends GenericModel{
 
-	@Column(name="name", nullable=false, length=50)
+	@Column(nullable=false, length=50)
 	private String name;
 	
 	@ManyToOne(targetEntity=Loan.class, fetch = FetchType.EAGER)

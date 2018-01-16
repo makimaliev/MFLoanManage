@@ -19,36 +19,31 @@ import kg.gov.mf.loan.manage.model.GenericModel;
 @Table(name="debtTransfer")
 public class DebtTransfer extends GenericModel{
 
-	@Column(name="number", nullable=false, length=50)
+	@Column(nullable=false, length=50)
 	private String number;
 
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Temporal(TemporalType.DATE)
-	@Column(name="date", nullable=false)
+	@Column(nullable=false)
 	private Date date;
 	
-	@Column(name = "quantity", precision = 12, scale = 5)
+	@Column(precision = 12, scale = 5)
 	private Double quantity;
 	
-	@Column(name = "price_per_unit", precision = 12, scale = 5)
+	@Column(precision = 12, scale = 5)
 	private Double pricePerUnit;
 	
-	@Column(name="unit_type_id")
 	private long unitTypeId;
 	
-	@Column(name = "total_cost", precision = 12, scale = 5)
+	@Column(precision = 12, scale = 5)
 	private Double totalCost;
 	
-	@Column(name="transfer_payment_id")
 	private long transferPaymentId;
 	
-	@Column(name="transfer_credit_id")
 	private long transferCreditId;
 	
-	@Column(name="transfer_person_id")
 	private long transferPersonId;
 	
-	@Column(name="goods_type_id")
 	private long goodsTypeId;
 	
 	@ManyToOne(targetEntity=Loan.class, fetch = FetchType.EAGER)

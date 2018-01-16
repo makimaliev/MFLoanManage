@@ -21,26 +21,26 @@ public class PaymentSchedule extends GenericModel{
 
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Temporal(TemporalType.DATE)
-	@Column(name="expected_date", nullable=false)
+	@Column(nullable=false)
 	private Date expectedDate;
 	
-	@Column(name = "disbursement", precision = 12, scale = 5)
+	@Column(precision = 12, scale = 5)
 	private Double disbursement;
 	
-	@Column(name = "principal_payment", precision = 12, scale = 5)
+	@Column(precision = 12, scale = 5)
 	private Double principalPayment;
 	
-	@Column(name = "interest_payment", precision = 12, scale = 5)
+	@Column(precision = 12, scale = 5)
 	private Double interestPayment;
 	
-	@Column(name = "collected_interest_payment", precision = 12, scale = 5)
+	@Column(precision = 12, scale = 5)
 	private Double collectedInterestPayment;
 	
-	@Column(name = "collected_penalty_payment", precision = 12, scale = 5)
+	@Column(precision = 12, scale = 5)
 	private Double collectedPenaltyPayment;
 	
 	@ManyToOne(targetEntity=InstallmentState.class, fetch = FetchType.EAGER)
-	@JoinColumn(name="installment_state_id")
+	@JoinColumn(name="installmentStateId")
 	private InstallmentState installmentState;
 	
 	@ManyToOne(targetEntity=Loan.class, fetch = FetchType.EAGER)

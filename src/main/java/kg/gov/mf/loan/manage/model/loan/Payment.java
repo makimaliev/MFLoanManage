@@ -21,29 +21,29 @@ public class Payment extends GenericModel{
 	
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Temporal(TemporalType.DATE)
-	@Column(name="payment_date", nullable=false)
+	@Column(nullable=false)
 	private Date paymentDate;
 		
-	@Column(name = "total_amount", precision = 12, scale = 5)
+	@Column(precision = 12, scale = 5)
 	private Double totalAmount;
 	
-	@Column(name = "principal", precision = 12, scale = 5)
+	@Column(precision = 12, scale = 5)
 	private Double principal;
 	
-	@Column(name = "interest", precision = 12, scale = 5)
+	@Column(precision = 12, scale = 5)
 	private Double interest;
 	
-	@Column(name = "penalty", precision = 12, scale = 5)
+	@Column(precision = 12, scale = 5)
 	private Double penalty;
 	
-	@Column(name = "fee", precision = 12, scale = 5)
+	@Column(precision = 12, scale = 5)
 	private Double fee;
 	
-	@Column(name="number", nullable=false, length=30)
+	@Column(nullable=false, length=30)
 	private String number;
 	
 	@ManyToOne(targetEntity=PaymentType.class, fetch = FetchType.EAGER)
-	@JoinColumn(name="payment_type_id")
+	@JoinColumn(name="paymentTypeId")
 	private PaymentType paymentType;
 	
 	@ManyToOne(targetEntity=Loan.class, fetch = FetchType.EAGER)

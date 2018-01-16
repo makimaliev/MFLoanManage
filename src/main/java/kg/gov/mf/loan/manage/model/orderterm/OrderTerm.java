@@ -25,113 +25,79 @@ import kg.gov.mf.loan.manage.model.order.CreditOrder;
 public class OrderTerm extends GenericModel{
 	
 	private String description;
-	
-	@Column(name = "amount")
 	private Double amount;
-	
-	@Column(name="installment_quantity")
 	private int installmentQuantity;
-	
-	@Column(name="installment_first_day")
 	private int installmentFirstDay;
 	
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Temporal(TemporalType.DATE)
-	@Column(name="first_installment_date", nullable=false)
+	@Column(nullable=false)
 	private Date firstInstallmentDate;
 	
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Temporal(TemporalType.DATE)
-	@Column(name="last_installment_date", nullable=false)
+	@Column(nullable=false)
 	private Date lastInstallmentDate;
 	
-	@Column(name="min_days_disb_first_inst")
 	private int minDaysDisbFirstInst;
-	
-	@Column(name="max_days_disb_first_inst")
 	private int maxDaysDisbFirstInst;
-
-	@Column(name="grace_on_principle_payment_inst")
 	private int graceOnPrinciplePaymentInst;
-	
-	@Column(name="grace_on_principle_payment_days")
 	private int graceOnPrinciplePaymentDays;
-	
-	@Column(name="grace_on_interest_payment_inst")
 	private int graceOnInterestPaymentInst;
-	
-	@Column(name="grace_on_interest_payment_days")
 	private int graceOnInterestPaymentDays;
-	
-	@Column(name="grace_on_interest_accr_inst")
 	private int graceOnInterestAccrInst;
-	
-	@Column(name="grace_on_interest_accr_days")
 	private int graceOnInterestAccrDays;
-	
-	@Column(name="interest_rate_value")
 	private Double interestRateValue;
-	
-	@Column(name="frequency_quantity")
 	private int frequencyQuantity;
-	
-	@Column(name="penalty_on_principle_overdue_rate_value")
 	private Double penaltyOnPrincipleOverdueRateValue;
 	
 	@ManyToOne(targetEntity=OrderTermFund.class, fetch = FetchType.EAGER)
-	@JoinColumn(name="fund_id")
+	@JoinColumn(name="fundId")
 	private OrderTermFund fund;
 	
-	@Column(name="penalty_on_interest_overdue_rate_value")
 	private Double penaltyOnInterestOverdueRateValue;
-	
-	@Column(name="early_repayment_allowed")
 	private boolean earlyRepaymentAllowed;
-	
-	@Column(name="penalty_percent_limit")
 	private Double penaltyLimitPercent;
-	
-	@Column(name="collateral_free")
 	private boolean collateralFree;
 	
 	@ManyToOne(targetEntity=OrderTermCurrency.class, fetch = FetchType.EAGER)
-	@JoinColumn(name="currency_id")
+	@JoinColumn(name="currencyId")
 	private OrderTermCurrency currency;
 	
 	@ManyToOne(targetEntity=OrderTermFrequencyType.class, fetch = FetchType.EAGER)
-	@JoinColumn(name="frequency_type_id")
+	@JoinColumn(name="frequencyTypeId")
 	private OrderTermFrequencyType frequencyType;
 	
 	@ManyToOne(targetEntity=OrderTermRatePeriod.class, fetch = FetchType.EAGER)
-	@JoinColumn(name="interest_rate_value_per_period_id")
+	@JoinColumn(name="interestRateValuePerPeriodId")
 	private OrderTermRatePeriod interestRateValuePerPeriod;
 	
 	@ManyToOne(targetEntity=OrderTermFloatingRateType.class, fetch = FetchType.EAGER)
-	@JoinColumn(name="interest_type_id")
+	@JoinColumn(name="interestTypeId")
 	private OrderTermFloatingRateType interestType;
 	
 	@ManyToOne(targetEntity=OrderTermFloatingRateType.class, fetch = FetchType.EAGER)
-	@JoinColumn(name="penalty_on_principle_overdue_type_id")
+	@JoinColumn(name="penaltyOnPrincipleOverdueTypeId")
 	private OrderTermFloatingRateType penaltyOnPrincipleOverdueType;
 	
 	@ManyToOne(targetEntity=OrderTermFloatingRateType.class, fetch = FetchType.EAGER)
-	@JoinColumn(name="penalty_on_interest_overdue_type_id")
+	@JoinColumn(name="penaltyOnInterestOverdueTypeId")
 	private OrderTermFloatingRateType penaltyOnInterestOverdueType;
 	
 	@ManyToOne(targetEntity=OrderTermDaysMethod.class, fetch = FetchType.EAGER)
-	@JoinColumn(name="days_in_year_method_id")
+	@JoinColumn(name="daysInYearMethodId")
 	private OrderTermDaysMethod daysInYearMethod;
 	
 	@ManyToOne(targetEntity=OrderTermDaysMethod.class, fetch = FetchType.EAGER)
-	@JoinColumn(name="days_in_month_method_id")
+	@JoinColumn(name="daysInMonthMethodId")
 	private OrderTermDaysMethod daysInMonthMethod;
 	
 	@ManyToOne(targetEntity=OrderTermTransactionOrder.class, fetch = FetchType.EAGER)
-	@JoinColumn(name="transaction_order_id")
+	@JoinColumn(name="transactionOrderId")
 	private OrderTermTransactionOrder transactionOrder;
 	
 	@ManyToOne(targetEntity=OrderTermAccrMethod.class, fetch = FetchType.EAGER)
-	@JoinColumn(name="interest_accr_method_id")
+	@JoinColumn(name="interestAccrMethodId")
 	private OrderTermAccrMethod interestAccrMethod;
 
 	@OneToMany(mappedBy = "orderTerm", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true)

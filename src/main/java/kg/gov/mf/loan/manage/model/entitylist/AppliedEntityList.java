@@ -24,20 +24,20 @@ import kg.gov.mf.loan.manage.model.order.CreditOrder;
 @Table(name="appliedEntityList")
 public class AppliedEntityList extends GenericModel{
 
-	@Column(name="list_number", nullable=false, length = 20)
+	@Column(nullable=false, length = 20)
 	private String listNumber;
 	
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
     @Temporal(TemporalType.DATE)
-	@Column(name="list_date", nullable=false)
+	@Column(nullable=false)
 	private Date listDate;
 
 	@ManyToOne(targetEntity=AppliedEntityListState.class, fetch = FetchType.EAGER)
-	@JoinColumn(name="applied_entity_list_state_id")
+	@JoinColumn(name="appliedEntityListStateId")
 	private AppliedEntityListState appliedEntityListState;
 	
 	@ManyToOne(targetEntity=AppliedEntityListType.class, fetch = FetchType.EAGER)
-	@JoinColumn(name="applied_entity_list_type_id")
+	@JoinColumn(name="appliedEntityListTypeId")
 	private AppliedEntityListType appliedEntityListType;
 	
 	@OneToMany(mappedBy = "appliedEntityList", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true)

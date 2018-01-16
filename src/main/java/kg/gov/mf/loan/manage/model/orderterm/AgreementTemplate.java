@@ -19,28 +19,29 @@ import kg.gov.mf.loan.manage.model.GenericModel;
 @Table(name="agreementTemplate")
 public class AgreementTemplate extends GenericModel {
 
-	@Column(name="name", nullable=false, length=50)
+	@Column(nullable=false, length=50)
 	private String name;
 	
-	@Column(name="created_by", nullable=false)
+	@Column(nullable=false)
 	private long createdBy;
 
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Temporal(TemporalType.DATE)
-	@Column(name="created_date", nullable=false)
+	@Column(nullable=false)
 	private Date createdDate;
 	
-	@Column(name="created_description", length=200)
+	@Column(length=200)
 	private String createdDescription;
 	
-	@Column(name="approved_by", nullable=false)
+	@Column(nullable=false)
 	private long approvedBy;
 	
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Temporal(TemporalType.DATE)
-	@Column(name="approved_date", nullable=false)
+	@Column(nullable=false)
 	private Date approvedDate;
 	
-	@Column(name="approved_description", length=200)
+	@Column(length=200)
 	private String approvedDescription;
 	
 	@ManyToOne(targetEntity=OrderTerm.class, fetch = FetchType.EAGER)

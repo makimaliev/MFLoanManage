@@ -21,10 +21,10 @@ public class ReconstructedList extends GenericModel{
 	
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Temporal(TemporalType.DATE)
-	@Column(name="on_date", nullable=false)
+	@Column(nullable=false)
 	private Date onDate;
 	
-	@Column(name="old_loan_id")
+	@Column(name="oldLoanId")
 	private long oldLoanId;
 	
 	@ManyToOne(targetEntity=Loan.class, fetch = FetchType.EAGER)

@@ -21,34 +21,34 @@ public class CollateralSummary extends GenericModel{
 	
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Temporal(TemporalType.DATE)
-	@Column(name="on_date", nullable=false)
+	@Column(nullable=false)
 	private Date onDate;
 	
-	@Column(name = "agreement_quantity", precision = 12, scale = 5)
+	@Column(precision = 12, scale = 5)
 	private Double agreementQuantity;
 	
-	@Column(name = "guarantor_quantity", precision = 12, scale = 5)
+	@Column(precision = 12, scale = 5)
 	private Double guarantorQuantity;
 	
-	@Column(name = "collateral_loan_cover_ratio", precision = 12, scale = 5)
+	@Column(precision = 12, scale = 5)
 	private Double collateralLoanCoverRatio;
 	
-	@Column(name = "collateral_amount", precision = 12, scale = 5)
+	@Column(precision = 12, scale = 5)
 	private Double collateralAmount;
 	
-	@Column(name = "loan_amount", precision = 12, scale = 5)
+	@Column(precision = 12, scale = 5)
 	private Double loanAmount;
 	
-	@Column(name = "item_average_condition", precision = 12, scale = 5)
+	@Column(precision = 12, scale = 5)
 	private Double itemAverageCondition;
 	
-	@Column(name = "item_worst_condition", precision = 12, scale = 5)
+	@Column(precision = 12, scale = 5)
 	private Double itemWorstCondition;
 	
-	@Column(name = "item_avg_condition_by_collateral", precision = 12, scale = 5)
+	@Column(precision = 12, scale = 5)
 	private Double itemAvgConditionByCollateral;
 	
-	@Column(name = "item_avg_condition_by_loan", precision = 12, scale = 5)
+	@Column(precision = 12, scale = 5)
 	private Double itemAvgConditionByLoan;
 	
 	@ManyToOne(targetEntity=Collateral.class, fetch = FetchType.EAGER)

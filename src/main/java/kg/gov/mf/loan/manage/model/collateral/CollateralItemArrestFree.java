@@ -21,14 +21,13 @@ public class CollateralItemArrestFree extends GenericModel {
 
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Temporal(TemporalType.DATE)
-	@Column(name="on_date", nullable=false)
+	@Column(nullable=false)
 	private Date onDate;
 	
-	@Column(name="arrest_fee_by")
 	private long arrestFreeBy;
 	
 	@ManyToOne(targetEntity=CollateralArrestFree.class, fetch = FetchType.EAGER)
-	@JoinColumn(name="collateralArrestFree_id")
+	@JoinColumn(name="collateralArrestFreeId")
 	private CollateralArrestFree collateralArrestFree;
 	
 	@ManyToOne(targetEntity=CollateralItem.class, fetch = FetchType.EAGER)

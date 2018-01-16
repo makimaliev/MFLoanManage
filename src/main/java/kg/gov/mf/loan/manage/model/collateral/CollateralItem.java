@@ -18,31 +18,31 @@ import kg.gov.mf.loan.manage.model.GenericModel;
 @Table(name="collateralItem")
 public class CollateralItem extends GenericModel {
 	
-	@Column(name="name", nullable=false, length=30)
+	@Column(nullable=false, length=30)
 	private String name;
 	
-	@Column(name="description", nullable=false, length=200)
+	@Column(nullable=false, length=200)
 	private String description;
 	
 	@ManyToOne(targetEntity=ItemType.class, fetch = FetchType.EAGER)
-	@JoinColumn(name="item_type_id")
+	@JoinColumn(name="itemTypeId")
 	private ItemType itemType;
 	
-	@Column(name = "quantity", precision = 12, scale = 5)
+	@Column(precision = 12, scale = 5)
 	private Double quantity;
 	
 	@ManyToOne(targetEntity=QuantityType.class, fetch = FetchType.EAGER)
-	@JoinColumn(name="quantity_type_id")
+	@JoinColumn(name="quantityTypeId")
 	private QuantityType quantityType;
 	
-	@Column(name = "collateral_value", precision = 12, scale = 5)
+	@Column(precision = 12, scale = 5)
 	private Double collateralValue;
 	
-	@Column(name = "estimated_value", precision = 12, scale = 5)
+	@Column(precision = 12, scale = 5)
 	private Double estimatedValue;
 	
 	@ManyToOne(targetEntity=ConditionType.class, fetch = FetchType.EAGER)
-	@JoinColumn(name="condition_type_id")
+	@JoinColumn(name="conditionTypeId")
 	private ConditionType conditionType;
 	
 	@OneToMany(mappedBy = "collateralItem", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true)

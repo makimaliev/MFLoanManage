@@ -20,11 +20,11 @@ import kg.gov.mf.loan.manage.model.entitylist.AppliedEntityList;
 @Table(name="appliedEntity")
 public class AppliedEntity extends GenericModel {
 	
-	@Column(name="name", nullable=false, length=40)
+	@Column(nullable=false, length=40)
 	private String name;
 	
 	@ManyToOne(targetEntity=AppliedEntityState.class, fetch = FetchType.EAGER)
-	@JoinColumn(name="applied_entity_state_id")
+	@JoinColumn(name="appliedEntityStateId")
 	private AppliedEntityState appliedEntityState;
 	
 	@OneToMany(mappedBy = "appliedEntity", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true)

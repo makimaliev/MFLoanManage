@@ -21,15 +21,15 @@ public class CollateralItemInspectionResult extends GenericModel {
 	
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Temporal(TemporalType.DATE)
-	@Column(name="on_date", nullable=false)
+	@Column(nullable=false)
 	private Date onDate;
 	
 	@ManyToOne(targetEntity=InspectionResultType.class, fetch = FetchType.EAGER)
-	@JoinColumn(name="inspectionResultType_id")
+	@JoinColumn(name="inspectionResultTypeId")
 	private InspectionResultType inspectionResultType;
 	
 	@ManyToOne(targetEntity=CollateralInspection.class, fetch = FetchType.EAGER)
-	@JoinColumn(name="collateralInspection_id")
+	@JoinColumn(name="collateralInspectionId")
 	private CollateralInspection collateralInspection;
 	
 	@ManyToOne(targetEntity=CollateralItem.class, fetch = FetchType.EAGER)

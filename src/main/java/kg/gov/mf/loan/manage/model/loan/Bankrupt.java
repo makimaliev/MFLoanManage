@@ -21,12 +21,12 @@ public class Bankrupt extends GenericModel{
 	
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Temporal(TemporalType.DATE)
-	@Column(name="started_on_date", nullable=false)
+	@Column(nullable=false)
 	private Date startedOnDate;
 	
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Temporal(TemporalType.DATE)
-	@Column(name="finished_on_date", nullable=false)
+	@Column(nullable=false)
 	private Date finishedOnDate;
 	
 	@ManyToOne(targetEntity=Loan.class, fetch = FetchType.EAGER)

@@ -13,13 +13,11 @@ import kg.gov.mf.loan.manage.model.GenericModel;
 @Table(name="loanGoods")
 public class LoanGoods extends GenericModel{
 	
-	@Column(name = "quantity", precision = 12, scale = 5)
+	@Column(precision = 12, scale = 5)
 	private Double quantity;
 	
-	@Column(name="unit_type_id")
 	private long unitTypeId;
 	
-	@Column(name="goods_type_id")
 	private long goodsTypeId;
 	
 	@ManyToOne(targetEntity=Loan.class, fetch = FetchType.EAGER)

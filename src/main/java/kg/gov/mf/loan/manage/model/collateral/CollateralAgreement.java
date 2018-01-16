@@ -23,36 +23,36 @@ import kg.gov.mf.loan.manage.model.GenericModel;
 @Table(name="collateralAgreement")
 public class CollateralAgreement extends GenericModel{
 	
-	@Column(name="agreement_number", nullable=false, length=50)
+	@Column(nullable=false, length=50)
 	private String agreementNumber;
 	
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Temporal(TemporalType.DATE)
-	@Column(name="agreement_date", nullable=false)
+	@Column(nullable=false)
 	private Date agreementDate;
 	
-	@Column(name="collateral_office_reg_number", nullable=false, length=50)
+	@Column(nullable=false, length=50)
 	private String collateralOfficeRegNumber;
 	
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Temporal(TemporalType.DATE)
-	@Column(name="collateral_office_reg_date", nullable=false)
+	@Column(nullable=false)
 	private Date collateralOfficeRegDate;
 	
-	@Column(name="notary_office_reg_number", nullable=false, length=50)
+	@Column(nullable=false, length=50)
 	private String notaryOfficeRegNumber;
 	
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Temporal(TemporalType.DATE)
-	@Column(name="notary_office_reg_date", nullable=false)
+	@Column( nullable=false)
 	private Date notaryOfficeRegDate;
 	
-	@Column(name="arrest_reg_number", nullable=false, length=50)
+	@Column(nullable=false, length=50)
 	private String arrestRegNumber;
 	
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Temporal(TemporalType.DATE)
-	@Column(name="arrest_reg_date", nullable=false)
+	@Column(nullable=false)
 	private Date arrestRegDate;
 	
 	@ManyToOne(targetEntity=Collateral.class, fetch = FetchType.EAGER)

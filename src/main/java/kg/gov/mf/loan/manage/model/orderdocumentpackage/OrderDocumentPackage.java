@@ -20,7 +20,7 @@ import kg.gov.mf.loan.manage.model.orderdocument.OrderDocument;
 @Table(name="orderDocumentPackage")
 public class OrderDocumentPackage extends GenericModel {
 
-	@Column(name="name", nullable=false, length = 50)
+	@Column(nullable=false, length = 50)
 	private String name;
 	
 	@ManyToOne(targetEntity=CreditOrder.class, fetch = FetchType.EAGER)

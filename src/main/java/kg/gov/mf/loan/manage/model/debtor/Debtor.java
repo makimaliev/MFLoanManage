@@ -19,19 +19,19 @@ import kg.gov.mf.loan.manage.model.loan.Loan;
 @Table(name="debtor")
 public class Debtor extends GenericModel{
 
-	@Column(name="name", nullable=false, length = 50)
+	@Column(nullable=false, length = 50)
 	private String name;
 	
 	@ManyToOne(targetEntity=DebtorType.class, fetch = FetchType.EAGER)
-	@JoinColumn(name="debtor_type_id")
+	@JoinColumn(name="debtorTypeId")
 	private DebtorType debtorType;
 	
 	@ManyToOne(targetEntity=OrganizationForm.class, fetch = FetchType.EAGER)
-	@JoinColumn(name="org_form_id")
+	@JoinColumn(name="orgFormId")
 	private OrganizationForm orgForm;
 	
 	@ManyToOne(targetEntity=WorkSector.class, fetch = FetchType.EAGER)
-	@JoinColumn(name="work_sector_id")
+	@JoinColumn(name="workSectorId")
 	WorkSector workSector;
 	
 	@OneToMany(mappedBy = "debtor", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true)

@@ -6,6 +6,6 @@ import javax.persistence.Table;
 import kg.gov.mf.loan.manage.model.Catalog;
 
 @Entity
-@Table(name="entity_document_state")
+@Table(name="entityDocumentState")
 public class EntityDocumentState extends Catalog {
 }

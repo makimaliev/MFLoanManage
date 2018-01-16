@@ -14,11 +14,11 @@ import kg.gov.mf.loan.manage.model.orderdocumentpackage.OrderDocumentPackage;
 @Table(name="orderDocument")
 public class OrderDocument extends GenericModel {
 
-	@Column(name="name", nullable=false, length=50)	
+	@Column(nullable=false, length=50)	
 	private String name;
 	
 	@ManyToOne(targetEntity=OrderDocumentType.class, fetch = FetchType.EAGER)
-	@JoinColumn(name="order_document_type_id")
+	@JoinColumn(name="orderDocumentTypeId")
 	private OrderDocumentType orderDocumentType;
 	
 	@ManyToOne(targetEntity=OrderDocumentPackage.class, fetch = FetchType.EAGER)

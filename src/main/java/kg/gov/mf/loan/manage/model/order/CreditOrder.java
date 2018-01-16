@@ -25,21 +25,21 @@ import kg.gov.mf.loan.manage.model.orderterm.OrderTerm;
 @Table(name="creditOrder")
 public class CreditOrder extends GenericModel {
 	
-	@Column(name="reg_number", nullable=false, length = 20)
+	@Column(nullable=false, length = 20)
 	private String regNumber;
 	private String description;
 
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
     @Temporal(TemporalType.DATE)
-	@Column(name="reg_date", nullable=false)
+	@Column(nullable=false)
 	private Date regDate;
 	
 	@ManyToOne(targetEntity=CreditOrderState.class, fetch = FetchType.EAGER)
-	@JoinColumn(name="credit_order_state_id")
+	@JoinColumn(name="creditOrderStateId")
 	private CreditOrderState creditOrderState;
 	
 	@ManyToOne(targetEntity=CreditOrderType.class, fetch = FetchType.EAGER)
-	@JoinColumn(name="credit_order_type_id")
+	@JoinColumn(name="creditOrderTypeId")
 	private CreditOrderType creditOrderType;
 	
 	@OneToMany(mappedBy = "creditOrder", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true)

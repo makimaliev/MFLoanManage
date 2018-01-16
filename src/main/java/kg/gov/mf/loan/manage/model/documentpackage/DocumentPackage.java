@@ -25,37 +25,36 @@ import kg.gov.mf.loan.manage.model.entitydocument.EntityDocument;
 @Table(name="documentPackage")
 public class DocumentPackage extends GenericModel{
 
-	@Column(name="name", nullable=false, length = 50)
+	@Column(nullable=false, length = 50)
 	private String name;
 	
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Temporal(TemporalType.DATE)
-	@Column(name="completed_date", nullable=false)
+	@Column(nullable=false)
 	private Date completedDate;
 	
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Temporal(TemporalType.DATE)
-	@Column(name="approved_date", nullable=false)
+	@Column(nullable=false)
 	private Date approvedDate;
 	
-	@Column(name = "completed_ratio", precision = 12, scale = 5)
+	@Column(precision = 12, scale = 5)
 	private Double completedRatio;
 	
-	@Column(name = "approved_ratio", precision = 12, scale = 5)
+	@Column(precision = 12, scale = 5)
 	private Double approvedRatio;
 	
-	@Column(name = "registered_ratio", precision = 12, scale = 5)
+	@Column(precision = 12, scale = 5)
 	private Double registeredRatio;
 	
-	@Column(name="order_document_package_id", nullable=true)
 	private long orderDocumentPackageId;
 	
 	@ManyToOne(targetEntity=DocumentPackageState.class, fetch = FetchType.EAGER)
-	@JoinColumn(name="document_package_state_id")
+	@JoinColumn(name="documentPackageStateId")
 	private DocumentPackageState documentPackageState;
 	
 	@ManyToOne(targetEntity=DocumentPackageType.class, fetch = FetchType.EAGER)
-	@JoinColumn(name="document_package_type_id")
+	@JoinColumn(name="documentPackageTypeId")
 	private DocumentPackageType documentPackageType;
 	
 	@ManyToOne(targetEntity=AppliedEntity.class, fetch = FetchType.EAGER)

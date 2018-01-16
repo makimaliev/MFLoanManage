@@ -25,52 +25,52 @@ public class CreditTerm extends GenericModel{
 	
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Temporal(TemporalType.DATE)
-	@Column(name="start_date", nullable=false)
+	@Column(nullable=false)
 	private Date startDate;
 	
-	@Column(name = "interest_rate_value", precision = 12, scale = 5)
+	@Column(precision = 12, scale = 5)
 	private Double interestRateValue;
 	
 	@ManyToOne(targetEntity=OrderTermRatePeriod.class, fetch = FetchType.EAGER)
-	@JoinColumn(name="rate_period_id")
+	@JoinColumn(name="ratePeriodId")
 	private OrderTermRatePeriod ratePeriod;
 	
 	@ManyToOne(targetEntity=OrderTermFloatingRateType.class, fetch = FetchType.EAGER)
-	@JoinColumn(name="floating_rate_type_id")
+	@JoinColumn(name="floatingRateTypeId")
 	private OrderTermFloatingRateType floatingRateType;
 	
-	@Column(name = "penalty_on_principle_overdue_rate_value", precision = 12, scale = 5)
+	@Column(precision = 12, scale = 5)
 	private Double penaltyOnPrincipleOverdueRateValue;
 	
 	@ManyToOne(targetEntity=OrderTermFloatingRateType.class, fetch = FetchType.EAGER)
-	@JoinColumn(name="penalty_on_principle_overdue_rate_type_id")
+	@JoinColumn(name="penaltyOnPrincipleOverdueRateTypeId")
 	private OrderTermFloatingRateType penaltyOnPrincipleOverdueRateType;
 	
-	@Column(name = "penalty_on_interest_overdue_rate_value", precision = 12, scale = 5)
+	@Column(name = "penaltyOnInterestOverdueRateValue", precision = 12, scale = 5)
 	private Double penaltyOnInterestOverdueRateValue;
 	
 	@ManyToOne(targetEntity=OrderTermFloatingRateType.class, fetch = FetchType.EAGER)
-	@JoinColumn(name="penalty_on_interest_overdue_rate_type_id")
+	@JoinColumn(name="penaltyOnInterestOverdueRateTypeId")
 	private OrderTermFloatingRateType penaltyOnInterestOverdueRateType;
 	
-	@Column(name = "penalty_limit_percent", precision = 12, scale = 5)
+	@Column(precision = 12, scale = 5)
 	private Double penaltyLimitPercent;
 	
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Temporal(TemporalType.DATE)
-	@Column(name="penalty_limit_end_date", nullable=false)
+	@Column(nullable=false)
 	private Date penaltyLimitEndDate;
 	
 	@ManyToOne(targetEntity=OrderTermTransactionOrder.class, fetch = FetchType.EAGER)
-	@JoinColumn(name="transaction_order_id")
+	@JoinColumn(name="transactionOrderId")
 	private OrderTermTransactionOrder transactionOrder;
 	
 	@ManyToOne(targetEntity=OrderTermDaysMethod.class, fetch = FetchType.EAGER)
-	@JoinColumn(name="days_in_month_method_id")
+	@JoinColumn(name="daysInMonthMethodId")
 	private OrderTermDaysMethod daysInMonthMethod;
 	
 	@ManyToOne(targetEntity=OrderTermDaysMethod.class, fetch = FetchType.EAGER)
-	@JoinColumn(name="days_in_year_method_id")
+	@JoinColumn(name="daysInYearMethodId")
 	private OrderTermDaysMethod daysInYearMethod;
 	
 	@ManyToOne(targetEntity=Loan.class, fetch = FetchType.EAGER)

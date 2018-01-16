@@ -17,51 +17,51 @@ import kg.gov.mf.loan.manage.model.GenericModel;
 import kg.gov.mf.loan.manage.model.documentpackage.DocumentPackage;
 
 @Entity
-@Table(name="entity_document")
+@Table(name="entityDocument")
 public class EntityDocument extends GenericModel {
 	
-	@Column(name="name", nullable=false, length=50)	
+	@Column(nullable=false, length=50)	
 	private String name;
 	
-	@Column(name="completed_by", nullable=false)
+	@Column(nullable=false)
 	private long completedBy;
 	
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Temporal(TemporalType.DATE)
-	@Column(name="completed_date", nullable=false)
+	@Column(nullable=false)
 	private Date completedDate;
 	
-	@Column(name="completed_description", length = 100)
+	@Column(length = 100)
 	private String completedDescription;
 	
-	@Column(name="approved_by", nullable=false)
+	@Column(nullable=false)
 	private long approvedBy;
 	
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Temporal(TemporalType.DATE)
-	@Column(name="approved_date", nullable=false)
+	@Column(nullable=false)
 	private Date approvedDate;
 	
-	@Column(name="approved_description", length = 100)
+	@Column(length = 100)
 	private String approvedDescription;
 	
-	@Column(name="registered_number", length = 20)
+	@Column(length = 20)
 	private String registeredNumber;
 	
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Temporal(TemporalType.DATE)
-	@Column(name="registered_date", nullable=false)
+	@Column(nullable=false)
 	private Date registeredDate;
 	
-	@Column(name="registered_description", length = 100)
+	@Column(length = 100)
 	private String registeredDescription;
 	
 	@ManyToOne(targetEntity=EntityDocumentRegisteredBy.class, fetch = FetchType.EAGER)
-	@JoinColumn(name="entity_document_registered_by_id")
+	@JoinColumn(name="entityDocumentRegisteredById")
 	private EntityDocumentRegisteredBy registeredBy;
 	
 	@ManyToOne(targetEntity=EntityDocumentState.class, fetch = FetchType.EAGER)
-	@JoinColumn(name="entity_document_state_id")
+	@JoinColumn(name="entityDocumentStateId")
 	private EntityDocumentState entityDocumentState;
 	
 	@ManyToOne(targetEntity=DocumentPackage.class, fetch = FetchType.EAGER)
