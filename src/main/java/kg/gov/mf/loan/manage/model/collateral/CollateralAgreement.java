@@ -9,7 +9,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -18,6 +19,7 @@ import javax.persistence.TemporalType;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import kg.gov.mf.loan.manage.model.GenericModel;
+import kg.gov.mf.loan.manage.model.loan.Loan;
 
 @Entity
 @Table(name="collateralAgreement")
@@ -55,16 +57,19 @@ public class CollateralAgreement extends GenericModel{
 	@Column(nullable=false)
 	private Date arrestRegDate;
 	
-	@ManyToOne(targetEntity=Collateral.class, fetch = FetchType.EAGER)
-    @JoinColumn(name="collateralId")
-	Collateral collateral;
-	
 	@OneToMany(mappedBy = "collateralAgreement", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true)
     private Set<CollateralInspection> collateralInspections = new HashSet<CollateralInspection>();
 	
 	@OneToMany(mappedBy = "collateralAgreement", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true)
     private Set<CollateralArrestFree> collateralArrestFrees = new HashSet<CollateralArrestFree>();
 
+	@ManyToMany
+	@JoinTable(
+			name="loan_collateralagreement",
+			joinColumns = { @JoinColumn(name = "collateralAgreementId") }, 
+	        inverseJoinColumns = { @JoinColumn(name = "loanId") })
+	Set<Loan> loans = new HashSet<Loan>();
+	
 	public String getAgreementNumber() {
 		return agreementNumber;
 	}
@@ -129,14 +134,6 @@ public class CollateralAgreement extends GenericModel{
 		this.arrestRegDate = arrestRegDate;
 	}
 
-	public Collateral getCollateral() {
-		return collateral;
-	}
-
-	public void setCollateral(Collateral collateral) {
-		this.collateral = collateral;
-	}
-
 	public Set<CollateralInspection> getCollateralInspections() {
 		return collateralInspections;
 	}
@@ -151,5 +148,13 @@ public class CollateralAgreement extends GenericModel{
 
 	public void setCollateralArrestFrees(Set<CollateralArrestFree> collateralArrestFrees) {
 		this.collateralArrestFrees = collateralArrestFrees;
+	}
+
+	public Set<Loan> getLoans() {
+		return loans;
+	}
+
+	public void setLoans(Set<Loan> loans) {
+		this.loans = loans;
 	}
 }

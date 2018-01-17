@@ -27,9 +27,6 @@ public class Collateral extends GenericModel{
     Loan loan;
 	
 	@OneToMany(mappedBy = "collateral", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true)
-    private Set<CollateralAgreement> agreements = new HashSet<CollateralAgreement>();
-	
-	@OneToMany(mappedBy = "collateral", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true)
     private Set<CollateralSummary> collateralSummaries = new HashSet<CollateralSummary>();
 
 	public String getName() {
@@ -46,14 +43,6 @@ public class Collateral extends GenericModel{
 
 	public void setLoan(Loan loan) {
 		this.loan = loan;
-	}
-
-	public Set<CollateralAgreement> getAgreements() {
-		return agreements;
-	}
-
-	public void setAgreements(Set<CollateralAgreement> agreements) {
-		this.agreements = agreements;
 	}
 
 	public Set<CollateralSummary> getCollateralSummaries() {

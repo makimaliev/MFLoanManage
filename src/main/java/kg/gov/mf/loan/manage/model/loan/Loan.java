@@ -9,6 +9,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -19,6 +20,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import kg.gov.mf.loan.manage.model.GenericModel;
 import kg.gov.mf.loan.manage.model.collateral.Collateral;
+import kg.gov.mf.loan.manage.model.collateral.CollateralAgreement;
 import kg.gov.mf.loan.manage.model.collection.Collection;
 import kg.gov.mf.loan.manage.model.collection.EventDetails;
 import kg.gov.mf.loan.manage.model.collection.PhaseDetails;
@@ -115,14 +117,8 @@ public class Loan extends GenericModel{
 	@OneToMany(mappedBy = "loan", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true)
     private Set<EventDetails> eventDetails = new HashSet<EventDetails>();
 	
-	/*
-	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(
-			name="loan_collateral",
-			joinColumns = { @JoinColumn(name = "loan_id") }, 
-	        inverseJoinColumns = { @JoinColumn(name = "collateralAgreement_id") })
+	@ManyToMany(mappedBy="loans")
 	Set<CollateralAgreement> collateralAgreements = new HashSet<CollateralAgreement>();
-	*/
 	
 	public String getRegNumber() {
 		return regNumber;
@@ -330,5 +326,13 @@ public class Loan extends GenericModel{
 
 	public void setSubLoans(Set<Loan> subLoans) {
 		this.subLoans = subLoans;
+	}
+
+	public Set<CollateralAgreement> getCollateralAgreements() {
+		return collateralAgreements;
+	}
+
+	public void setCollateralAgreements(Set<CollateralAgreement> collateralAgreements) {
+		this.collateralAgreements = collateralAgreements;
 	}
 }
