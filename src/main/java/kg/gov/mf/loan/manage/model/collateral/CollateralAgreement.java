@@ -63,7 +63,7 @@ public class CollateralAgreement extends GenericModel{
 	@OneToMany(mappedBy = "collateralAgreement", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true)
     private Set<CollateralArrestFree> collateralArrestFrees = new HashSet<CollateralArrestFree>();
 
-	@ManyToMany
+	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(
 			name="loan_collateralagreement",
 			joinColumns = { @JoinColumn(name = "collateralAgreementId") }, 

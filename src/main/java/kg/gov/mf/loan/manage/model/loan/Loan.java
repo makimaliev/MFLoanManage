@@ -117,7 +117,7 @@ public class Loan extends GenericModel{
 	@OneToMany(mappedBy = "loan", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true)
     private Set<EventDetails> eventDetails = new HashSet<EventDetails>();
 	
-	@ManyToMany(mappedBy="loans")
+	@ManyToMany(fetch = FetchType.EAGER, mappedBy="loans")
 	Set<CollateralAgreement> collateralAgreements = new HashSet<CollateralAgreement>();
 	
 	public String getRegNumber() {
