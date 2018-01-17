@@ -1,5 +1,6 @@
 package kg.gov.mf.loan.manage.dao;
 
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +32,7 @@ public abstract class GenericDaoImpl<E> implements GenericDao<E> {
     }
 
     public List<E> list() {
-        return getCurrentSession().createCriteria(entityClass).list();
+        return getCurrentSession().createCriteria(entityClass).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
     }
 
     public E getById(Long id) {

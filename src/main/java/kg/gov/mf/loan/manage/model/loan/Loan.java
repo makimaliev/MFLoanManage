@@ -59,8 +59,11 @@ public class Loan extends GenericModel{
 	private boolean hasSubLoan;
 	
 	@ManyToOne(targetEntity=Loan.class, fetch = FetchType.EAGER)
-	@JoinColumn(name="parentLoanId", nullable=true)
+	@JoinColumn(name="parentLoanId")
 	private Loan parentLoan;
+	
+	@OneToMany(mappedBy = "parentLoan", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true)
+    private Set<Loan> subLoans = new HashSet<Loan>();
 	
 	@ManyToOne(targetEntity=CreditOrder.class, fetch = FetchType.EAGER)
 	@JoinColumn(name="creditOrderId", nullable=true)
@@ -319,5 +322,13 @@ public class Loan extends GenericModel{
 
 	public void setEventDetails(Set<EventDetails> eventDetails) {
 		this.eventDetails = eventDetails;
+	}
+
+	public Set<Loan> getSubLoans() {
+		return subLoans;
+	}
+
+	public void setSubLoans(Set<Loan> subLoans) {
+		this.subLoans = subLoans;
 	}
 }
