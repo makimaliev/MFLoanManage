@@ -10,6 +10,7 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import kg.gov.mf.loan.manage.model.GenericModel;
@@ -45,14 +46,18 @@ public class CollateralItem extends GenericModel {
 	@JoinColumn(name="conditionTypeId")
 	private ConditionType conditionType;
 	
-	@OneToMany(mappedBy = "collateralItem", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true)
-    private Set<CollateralItemDetails> collateralItemDetails = new HashSet<CollateralItemDetails>();
+	@ManyToOne(targetEntity=CollateralAgreement.class, fetch = FetchType.EAGER)
+    @JoinColumn(name="collateralAgreementId")
+	CollateralAgreement collateralAgreement;
 	
 	@OneToMany(mappedBy = "collateralItem", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true)
     private Set<CollateralItemInspectionResult> collateralItemInspectionResults = new HashSet<CollateralItemInspectionResult>();
 	
-	@OneToMany(mappedBy = "collateralItem", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true)
-    private Set<CollateralItemArrestFree> collateralItemArrestFrees = new HashSet<CollateralItemArrestFree>();
+	@OneToOne(mappedBy = "collateralItem", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true)
+    private CollateralItemDetails collateralItemDetails;
+	
+	@OneToOne(mappedBy = "collateralItem", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true)
+    private CollateralItemArrestFree collateralItemArrestFree;
 
 	public String getName() {
 		return name;
@@ -118,14 +123,6 @@ public class CollateralItem extends GenericModel {
 		this.conditionType = conditionType;
 	}
 
-	public Set<CollateralItemDetails> getCollateralItemDetails() {
-		return collateralItemDetails;
-	}
-
-	public void setCollateralItemDetails(Set<CollateralItemDetails> collateralItemDetails) {
-		this.collateralItemDetails = collateralItemDetails;
-	}
-
 	public Set<CollateralItemInspectionResult> getCollateralItemInspectionResults() {
 		return collateralItemInspectionResults;
 	}
@@ -134,11 +131,28 @@ public class CollateralItem extends GenericModel {
 		this.collateralItemInspectionResults = collateralItemInspectionResults;
 	}
 
-	public Set<CollateralItemArrestFree> getCollateralItemArrestFrees() {
-		return collateralItemArrestFrees;
+	public CollateralAgreement getCollateralAgreement() {
+		return collateralAgreement;
 	}
 
-	public void setCollateralItemArrestFrees(Set<CollateralItemArrestFree> collateralItemArrestFrees) {
-		this.collateralItemArrestFrees = collateralItemArrestFrees;
+	public void setCollateralAgreement(CollateralAgreement collateralAgreement) {
+		this.collateralAgreement = collateralAgreement;
 	}
+
+	public CollateralItemDetails getCollateralItemDetails() {
+		return collateralItemDetails;
+	}
+
+	public void setCollateralItemDetails(CollateralItemDetails collateralItemDetails) {
+		this.collateralItemDetails = collateralItemDetails;
+	}
+
+	public CollateralItemArrestFree getCollateralItemArrestFree() {
+		return collateralItemArrestFree;
+	}
+
+	public void setCollateralItemArrestFree(CollateralItemArrestFree collateralItemArrestFree) {
+		this.collateralItemArrestFree = collateralItemArrestFree;
+	}
+	
 }

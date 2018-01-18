@@ -2,6 +2,7 @@ package kg.gov.mf.loan.manage.model.loan;
 
 import java.util.Date;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -334,5 +335,27 @@ public class Loan extends GenericModel{
 
 	public void setCollateralAgreements(Set<CollateralAgreement> collateralAgreements) {
 		this.collateralAgreements = collateralAgreements;
+	}
+	
+	@Override
+	public int hashCode() {
+		int hash = 5;
+		hash = 83 * hash + Objects.hashCode(this.getId());
+		return hash;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (obj == null) {
+			return false;
+		}
+		if (getClass() != obj.getClass()) {
+			return false;
+		}
+		final Loan other = (Loan) obj;
+		if (!Objects.equals(this.getId(), other.getId())) {
+			return false;
+		}
+		return true;
 	}
 }

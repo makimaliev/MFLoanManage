@@ -2,6 +2,7 @@ package kg.gov.mf.loan.manage.model.collateral;
 
 import java.util.Date;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -58,10 +59,15 @@ public class CollateralAgreement extends GenericModel{
 	private Date arrestRegDate;
 	
 	@OneToMany(mappedBy = "collateralAgreement", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true)
+    private Set<CollateralItem> collateralItems = new HashSet<CollateralItem>();
+	
+	/*
+	@OneToMany(mappedBy = "collateralAgreement", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true)
     private Set<CollateralInspection> collateralInspections = new HashSet<CollateralInspection>();
 	
 	@OneToMany(mappedBy = "collateralAgreement", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true)
     private Set<CollateralArrestFree> collateralArrestFrees = new HashSet<CollateralArrestFree>();
+	*/
 
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(
@@ -134,6 +140,7 @@ public class CollateralAgreement extends GenericModel{
 		this.arrestRegDate = arrestRegDate;
 	}
 
+	/*
 	public Set<CollateralInspection> getCollateralInspections() {
 		return collateralInspections;
 	}
@@ -149,6 +156,15 @@ public class CollateralAgreement extends GenericModel{
 	public void setCollateralArrestFrees(Set<CollateralArrestFree> collateralArrestFrees) {
 		this.collateralArrestFrees = collateralArrestFrees;
 	}
+	*/
+
+	public Set<CollateralItem> getCollateralItems() {
+		return collateralItems;
+	}
+
+	public void setCollateralItems(Set<CollateralItem> collateralItems) {
+		this.collateralItems = collateralItems;
+	}
 
 	public Set<Loan> getLoans() {
 		return loans;
@@ -156,5 +172,27 @@ public class CollateralAgreement extends GenericModel{
 
 	public void setLoans(Set<Loan> loans) {
 		this.loans = loans;
+	}
+	
+	@Override
+	public int hashCode() {
+		int hash = 5;
+		hash = 83 * hash + Objects.hashCode(this.getId());
+		return hash;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (obj == null) {
+			return false;
+		}
+		if (getClass() != obj.getClass()) {
+			return false;
+		}
+		final CollateralAgreement other = (CollateralAgreement) obj;
+		if (!Objects.equals(this.getId(), other.getId())) {
+			return false;
+		}
+		return true;
 	}
 }

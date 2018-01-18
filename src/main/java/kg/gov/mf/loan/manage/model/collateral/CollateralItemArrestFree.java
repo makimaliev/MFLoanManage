@@ -5,8 +5,8 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -26,12 +26,14 @@ public class CollateralItemArrestFree extends GenericModel {
 	
 	private long arrestFreeBy;
 	
+	/*
 	@ManyToOne(targetEntity=CollateralArrestFree.class, fetch = FetchType.EAGER)
 	@JoinColumn(name="collateralArrestFreeId")
 	private CollateralArrestFree collateralArrestFree;
+	*/
 	
-	@ManyToOne(targetEntity=CollateralItem.class, fetch = FetchType.EAGER)
-    @JoinColumn(name="collateralItemId")
+	@OneToOne(targetEntity=CollateralItem.class, fetch = FetchType.EAGER)
+	@PrimaryKeyJoinColumn
 	CollateralItem collateralItem;
 
 	public Date getOnDate() {
@@ -50,6 +52,7 @@ public class CollateralItemArrestFree extends GenericModel {
 		this.arrestFreeBy = arrestFreeBy;
 	}
 
+	/*
 	public CollateralArrestFree getCollateralArrestFree() {
 		return collateralArrestFree;
 	}
@@ -57,6 +60,7 @@ public class CollateralItemArrestFree extends GenericModel {
 	public void setCollateralArrestFree(CollateralArrestFree collateralArrestFree) {
 		this.collateralArrestFree = collateralArrestFree;
 	}
+	*/
 
 	public CollateralItem getCollateralItem() {
 		return collateralItem;

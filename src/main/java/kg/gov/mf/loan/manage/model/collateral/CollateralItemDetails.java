@@ -3,8 +3,8 @@ package kg.gov.mf.loan.manage.model.collateral;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 import kg.gov.mf.loan.manage.model.GenericModel;
@@ -31,10 +31,10 @@ public class CollateralItemDetails extends GenericModel{
 	@Column(nullable=false, length=100)
 	private String details6;
 	
-	@ManyToOne(targetEntity=CollateralItem.class, fetch = FetchType.EAGER)
-    @JoinColumn(name="collateralItemId")
+	@OneToOne(targetEntity=CollateralItem.class, fetch = FetchType.EAGER)
+	@PrimaryKeyJoinColumn
 	CollateralItem collateralItem;
-
+	
 	public String getDetails1() {
 		return details1;
 	}
