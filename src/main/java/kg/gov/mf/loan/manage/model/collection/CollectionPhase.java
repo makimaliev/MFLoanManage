@@ -1,14 +1,13 @@
 package kg.gov.mf.loan.manage.model.collection;
 
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -17,66 +16,49 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-@Entity
-@Table(name="collection_phase")
-public class CollectionPhase {
+import org.springframework.format.annotation.DateTimeFormat;
 
-	@Id
-	@GeneratedValue
-	@Column(name="id")
-	private long id;
-	
+import kg.gov.mf.loan.manage.model.GenericModel;
+import kg.gov.mf.loan.manage.model.collateral.CollateralItemDetails;
+import kg.gov.mf.loan.manage.model.loan.Loan;
+
+@Entity
+@Table(name="collectionPhase")
+public class CollectionPhase extends GenericModel{
+
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Temporal(TemporalType.DATE)
-	@Column(name="start_date", nullable=false)
+	@Column(nullable=false)
 	private Date startDate;
 	
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Temporal(TemporalType.DATE)
-	@Column(name="close_date", nullable=false)
+	@Column(nullable=false)
 	private Date closeDate;
 	
-	@Column(name="last_event")
 	private long lastEvent;
-	
-	@Column(name="last_status_id")
 	private long lastStatusId;
 	
-	@ManyToOne
-	private CollectionProcedure collectionProcedure;
+	@ManyToOne(targetEntity=CollectionProcedure.class, fetch = FetchType.EAGER)
+    @JoinColumn(name="collectionProcedureId")
+	CollectionProcedure collectionProcedure;
 	
-	@OneToOne
-	@JoinColumn(name="phase_status_id")
+	@ManyToOne(targetEntity=PhaseStatus.class, fetch = FetchType.EAGER)
+	@JoinColumn(name="phaseStatusId")
 	private PhaseStatus phaseStatus;
 	
-	@OneToOne
-	@JoinColumn(name="phase_type_id")
+	@ManyToOne(targetEntity=PhaseType.class, fetch = FetchType.EAGER)
+	@JoinColumn(name="phaseTypeId")
 	private PhaseType phaseType;
 	
-	@OneToMany(cascade=CascadeType.PERSIST, fetch = FetchType.EAGER)
-	@JoinColumn(name="collectionPhase_id")
-	private Set<CollectionEvent> collectionEvent;
-
-	public CollectionPhase()
-	{
-		
-	}
+	@OneToMany(mappedBy = "collectionPhase", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true)
+	private Set<Loan> loans = new HashSet<Loan>();
 	
-	public CollectionPhase(Date startDate, Date closeDate, long lastEvent, long lastStatusId, PhaseStatus phaseStatus,
-			PhaseType phaseType) {
-		this.startDate = startDate;
-		this.closeDate = closeDate;
-		this.lastEvent = lastEvent;
-		this.lastStatusId = lastStatusId;
-		this.phaseStatus = phaseStatus;
-		this.phaseType = phaseType;
-	}
-
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
-	}
+	@OneToMany(mappedBy = "collectionPhase", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true)
+	private Set<CollectionEvent> collectionEvents = new HashSet<CollectionEvent>();
+	
+	@OneToOne(mappedBy = "collectionPhase", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true)
+    private PhaseDetails phaseDetails;
 
 	public Date getStartDate() {
 		return startDate;
@@ -134,12 +116,28 @@ public class CollectionPhase {
 		this.phaseType = phaseType;
 	}
 
-	public Set<CollectionEvent> getCollectionEvent() {
-		return collectionEvent;
+	public Set<CollectionEvent> getCollectionEvents() {
+		return collectionEvents;
 	}
 
-	public void setCollectionEvent(Set<CollectionEvent> collectionEvent) {
-		this.collectionEvent = collectionEvent;
+	public void setCollectionEvents(Set<CollectionEvent> collectionEvents) {
+		this.collectionEvents = collectionEvents;
+	}
+
+	public Set<Loan> getLoans() {
+		return loans;
+	}
+
+	public void setLoans(Set<Loan> loans) {
+		this.loans = loans;
+	}
+
+	public PhaseDetails getPhaseDetails() {
+		return phaseDetails;
+	}
+
+	public void setPhaseDetails(PhaseDetails phaseDetails) {
+		this.phaseDetails = phaseDetails;
 	}
 	
 }

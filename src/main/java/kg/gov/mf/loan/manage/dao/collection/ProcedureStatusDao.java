@@ -1,14 +1,11 @@
 package kg.gov.mf.loan.manage.dao.collection;
 
-import java.util.List;
+import org.springframework.stereotype.Repository;
 
+import kg.gov.mf.loan.manage.dao.GenericDaoImpl;
 import kg.gov.mf.loan.manage.model.collection.ProcedureStatus;
 
-public interface ProcedureStatusDao {
+@Repository
+public class ProcedureStatusDao extends GenericDaoImpl<ProcedureStatus> {
 
-	List<ProcedureStatus> findAll();
-	ProcedureStatus findById(long id);
-    void save(ProcedureStatus entity);
-    void deleteById(long id);
-	
 }

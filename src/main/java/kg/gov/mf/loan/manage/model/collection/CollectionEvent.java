@@ -2,10 +2,10 @@ package kg.gov.mf.loan.manage.model.collection;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
@@ -13,53 +13,38 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-@Entity
-@Table(name="collection_event")
-public class CollectionEvent {
+import org.springframework.format.annotation.DateTimeFormat;
 
-	@Id
-	@GeneratedValue
-	@Column(name="id")
-	private long id;
-	
+import kg.gov.mf.loan.manage.model.GenericModel;
+
+@Entity
+@Table(name="collectionEvent")
+public class CollectionEvent extends GenericModel {
+
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Temporal(TemporalType.DATE)
-	@Column(name="start_date", nullable=false)
+	@Column(nullable=false)
 	private Date startDate;
 	
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Temporal(TemporalType.DATE)
-	@Column(name="close_date", nullable=false)
+	@Column(nullable=false)
 	private Date closeDate;
 	
-	@ManyToOne
-	private CollectionPhase collectionPhase;
+	@ManyToOne(targetEntity=CollectionPhase.class, fetch = FetchType.EAGER)
+    @JoinColumn(name="collectionPhaseId")
+	CollectionPhase collectionPhase;
 	
-	@OneToOne
-	@JoinColumn(name="event_status_id")
+	@ManyToOne(targetEntity=EventStatus.class, fetch = FetchType.EAGER)
+	@JoinColumn(name="eventStatusId")
 	private EventStatus eventStatus;
 	
-	@OneToOne
-	@JoinColumn(name="event_type_id")
+	@ManyToOne(targetEntity=EventType.class, fetch = FetchType.EAGER)
+	@JoinColumn(name="eventTypeId")
 	private EventType eventType;
 	
-	public CollectionEvent()
-	{
-		
-	}
-	
-	public CollectionEvent(Date startDate, Date closeDate, EventStatus eventStatus, EventType eventType) {
-		this.startDate = startDate;
-		this.closeDate = closeDate;
-		this.eventStatus = eventStatus;
-		this.eventType = eventType;
-	}
-
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
-	}
+	@OneToOne(mappedBy = "collectionEvent", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true)
+    private EventDetails eventDetails;
 
 	public Date getStartDate() {
 		return startDate;
@@ -99,5 +84,13 @@ public class CollectionEvent {
 
 	public void setEventType(EventType eventType) {
 		this.eventType = eventType;
+	}
+
+	public EventDetails getEventDetails() {
+		return eventDetails;
+	}
+
+	public void setEventDetails(EventDetails eventDetails) {
+		this.eventDetails = eventDetails;
 	}
 }

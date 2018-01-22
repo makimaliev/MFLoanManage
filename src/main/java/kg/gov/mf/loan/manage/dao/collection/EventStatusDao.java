@@ -1,14 +1,11 @@
 package kg.gov.mf.loan.manage.dao.collection;
 
-import java.util.List;
+import org.springframework.stereotype.Repository;
 
+import kg.gov.mf.loan.manage.dao.GenericDaoImpl;
 import kg.gov.mf.loan.manage.model.collection.EventStatus;
 
-public interface EventStatusDao {
+@Repository
+public class EventStatusDao extends GenericDaoImpl<EventStatus>{
 
-	List<EventStatus> findAll();
-	EventStatus findById(long id);
-    void save(EventStatus entity);
-    void deleteById(long id);
-	
 }

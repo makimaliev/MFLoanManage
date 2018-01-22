@@ -1,15 +1,7 @@
 package kg.gov.mf.loan.manage.service.collection;
 
-import java.util.List;
-
 import kg.gov.mf.loan.manage.model.collection.EventType;
+import kg.gov.mf.loan.manage.service.GenericService;
 
-public interface EventTypeService {
-	
-	EventType findById(long id);
-	void save(EventType type);
-	void update(EventType type);
-	void deleteById(long id);
-	List<EventType> findAll();
-	
+public interface EventTypeService extends GenericService<EventType> {
 }

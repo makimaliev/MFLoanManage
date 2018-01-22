@@ -2,103 +2,65 @@ package kg.gov.mf.loan.manage.model.collection;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.FetchType;
+import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
-import kg.gov.mf.loan.manage.model.loan.Loan;
+import kg.gov.mf.loan.manage.model.GenericModel;
 
 @Entity
-@Table(name="phase_details")
-public class PhaseDetails {
+@Table(name="phaseDetails")
+public class PhaseDetails extends GenericModel{
 
-	@Id
-	@GeneratedValue
-	@Column(name="id")
-	private long id;
-	
-	@Column(name = "start_total_amount", precision = 12, scale = 5)
+	@Column(precision = 12, scale = 5)
 	private Double startTotalAmount;
 	
-	@Column(name = "start_principal", precision = 12, scale = 5)
+	@Column(precision = 12, scale = 5)
 	private Double startPrincipal;
 	
-	@Column(name = "start_interest", precision = 12, scale = 5)
+	@Column(precision = 12, scale = 5)
 	private Double startInterest;
 	
-	@Column(name = "start_penalty", precision = 12, scale = 5)
+	@Column(precision = 12, scale = 5)
 	private Double startPenalty;
 	
-	@Column(name = "start_fee", precision = 12, scale = 5)
+	@Column(precision = 12, scale = 5)
 	private Double startFee;
 	
-	@Column(name = "close_total_amount", precision = 12, scale = 5)
+	@Column(precision = 12, scale = 5)
 	private Double closeTotalAmount;
 	
-	@Column(name = "close_principal", precision = 12, scale = 5)
+	@Column(precision = 12, scale = 5)
 	private Double closePrincipal;
 	
-	@Column(name = "close_interest", precision = 12, scale = 5)
+	@Column(precision = 12, scale = 5)
 	private Double closeInterest;
 	
-	@Column(name = "close_penalty", precision = 12, scale = 5)
+	@Column(precision = 12, scale = 5)
 	private Double closePenalty;
 	
-	@Column(name = "close_fee", precision = 12, scale = 5)
+	@Column(precision = 12, scale = 5)
 	private Double closeFee;
 	
-	@Column(name = "paid_total_amount", precision = 12, scale = 5)
+	@Column(precision = 12, scale = 5)
 	private Double paidTotalAmount;
 	
-	@Column(name = "paid_principal", precision = 12, scale = 5)
+	@Column(precision = 12, scale = 5)
 	private Double paidPrincipal;
 	
-	@Column(name = "paid_interest", precision = 12, scale = 5)
+	@Column(precision = 12, scale = 5)
 	private Double paidInterest;
 	
-	@Column(name = "paid_penalty", precision = 12, scale = 5)
+	@Column(precision = 12, scale = 5)
 	private Double paidPenalty;
 	
-	@Column(name = "paid_fee", precision = 12, scale = 5)
+	@Column(precision = 12, scale = 5)
 	private Double paidFee;
 	
-	@ManyToOne
-	private Loan loan;
-
-	public PhaseDetails()
-	{
-		
-	}
-	
-	public PhaseDetails(Double startTotalAmount, Double startPrincipal, Double startInterest, Double startPenalty,
-			Double startFee, Double closeTotalAmount, Double closePrincipal, Double closeInterest, Double closePenalty,
-			Double closeFee, Double paidTotalAmount, Double paidPrincipal, Double paidInterest, Double paidPenalty,
-			Double paidFee) {
-		this.startTotalAmount = startTotalAmount;
-		this.startPrincipal = startPrincipal;
-		this.startInterest = startInterest;
-		this.startPenalty = startPenalty;
-		this.startFee = startFee;
-		this.closeTotalAmount = closeTotalAmount;
-		this.closePrincipal = closePrincipal;
-		this.closeInterest = closeInterest;
-		this.closePenalty = closePenalty;
-		this.closeFee = closeFee;
-		this.paidTotalAmount = paidTotalAmount;
-		this.paidPrincipal = paidPrincipal;
-		this.paidInterest = paidInterest;
-		this.paidPenalty = paidPenalty;
-		this.paidFee = paidFee;
-	}
-
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
-	}
+	@OneToOne(targetEntity=CollectionPhase.class, fetch = FetchType.EAGER)
+	@PrimaryKeyJoinColumn
+	CollectionPhase collectionPhase;
 
 	public Double getStartTotalAmount() {
 		return startTotalAmount;
@@ -220,12 +182,11 @@ public class PhaseDetails {
 		this.paidFee = paidFee;
 	}
 
-	public Loan getLoan() {
-		return loan;
+	public CollectionPhase getCollectionPhase() {
+		return collectionPhase;
 	}
 
-	public void setLoan(Loan loan) {
-		this.loan = loan;
+	public void setCollectionPhase(CollectionPhase collectionPhase) {
+		this.collectionPhase = collectionPhase;
 	}
-	
 }

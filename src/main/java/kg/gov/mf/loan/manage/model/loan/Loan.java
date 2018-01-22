@@ -22,9 +22,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import kg.gov.mf.loan.manage.model.GenericModel;
 import kg.gov.mf.loan.manage.model.collateral.Collateral;
 import kg.gov.mf.loan.manage.model.collateral.CollateralAgreement;
-import kg.gov.mf.loan.manage.model.collection.Collection;
-import kg.gov.mf.loan.manage.model.collection.EventDetails;
-import kg.gov.mf.loan.manage.model.collection.PhaseDetails;
+import kg.gov.mf.loan.manage.model.collection.CollectionPhase;
 import kg.gov.mf.loan.manage.model.debtor.Debtor;
 import kg.gov.mf.loan.manage.model.order.CreditOrder;
 import kg.gov.mf.loan.manage.model.orderterm.OrderTermCurrency;
@@ -76,6 +74,10 @@ public class Loan extends GenericModel{
     @JoinColumn(name="debtorId")
 	Debtor debtor;
 	
+	@ManyToOne(targetEntity=CollectionPhase.class, fetch = FetchType.EAGER)
+    @JoinColumn(name="collectionPhaseId")
+	CollectionPhase collectionPhase;
+	
 	@OneToMany(mappedBy = "loan", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true)
     private Set<CreditTerm> creditTerms = new HashSet<CreditTerm>();
 	
@@ -108,15 +110,6 @@ public class Loan extends GenericModel{
 	
 	@OneToMany(mappedBy = "loan", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true)
     private Set<Collateral> collaterals = new HashSet<Collateral>();
-	
-	@OneToMany(mappedBy = "loan", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true)
-    private Set<Collection> collections = new HashSet<Collection>();
-	
-	@OneToMany(mappedBy = "loan", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true)
-    private Set<PhaseDetails> phaseDetails = new HashSet<PhaseDetails>();
-	
-	@OneToMany(mappedBy = "loan", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true)
-    private Set<EventDetails> eventDetails = new HashSet<EventDetails>();
 	
 	@ManyToMany(fetch = FetchType.EAGER, mappedBy="loans")
 	Set<CollateralAgreement> collateralAgreements = new HashSet<CollateralAgreement>();
@@ -193,6 +186,14 @@ public class Loan extends GenericModel{
 		this.parentLoan = parentLoan;
 	}
 
+	public Set<Loan> getSubLoans() {
+		return subLoans;
+	}
+
+	public void setSubLoans(Set<Loan> subLoans) {
+		this.subLoans = subLoans;
+	}
+
 	public CreditOrder getCreditOrder() {
 		return creditOrder;
 	}
@@ -207,6 +208,14 @@ public class Loan extends GenericModel{
 
 	public void setDebtor(Debtor debtor) {
 		this.debtor = debtor;
+	}
+
+	public CollectionPhase getCollectionPhase() {
+		return collectionPhase;
+	}
+
+	public void setCollectionPhase(CollectionPhase collectionPhase) {
+		this.collectionPhase = collectionPhase;
 	}
 
 	public Set<CreditTerm> getCreditTerms() {
@@ -297,38 +306,6 @@ public class Loan extends GenericModel{
 		this.collaterals = collaterals;
 	}
 
-	public Set<Collection> getCollections() {
-		return collections;
-	}
-
-	public void setCollections(Set<Collection> collections) {
-		this.collections = collections;
-	}
-
-	public Set<PhaseDetails> getPhaseDetails() {
-		return phaseDetails;
-	}
-
-	public void setPhaseDetails(Set<PhaseDetails> phaseDetails) {
-		this.phaseDetails = phaseDetails;
-	}
-
-	public Set<EventDetails> getEventDetails() {
-		return eventDetails;
-	}
-
-	public void setEventDetails(Set<EventDetails> eventDetails) {
-		this.eventDetails = eventDetails;
-	}
-
-	public Set<Loan> getSubLoans() {
-		return subLoans;
-	}
-
-	public void setSubLoans(Set<Loan> subLoans) {
-		this.subLoans = subLoans;
-	}
-
 	public Set<CollateralAgreement> getCollateralAgreements() {
 		return collateralAgreements;
 	}
@@ -336,7 +313,7 @@ public class Loan extends GenericModel{
 	public void setCollateralAgreements(Set<CollateralAgreement> collateralAgreements) {
 		this.collateralAgreements = collateralAgreements;
 	}
-	
+
 	@Override
 	public int hashCode() {
 		int hash = 5;

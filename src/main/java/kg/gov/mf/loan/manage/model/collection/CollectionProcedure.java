@@ -1,82 +1,51 @@
 package kg.gov.mf.loan.manage.model.collection;
 
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-@Entity
-@Table(name="collection_procedure")
-public class CollectionProcedure {
+import org.springframework.format.annotation.DateTimeFormat;
 
-	@Id
-	@GeneratedValue
-	@Column(name="id")
-	private long id;
-	
+import kg.gov.mf.loan.manage.model.GenericModel;
+
+@Entity
+@Table(name="collectionProcedure")
+public class CollectionProcedure extends GenericModel{
+
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Temporal(TemporalType.DATE)
-	@Column(name="start_date", nullable=false)
+	@Column(nullable=false)
 	private Date startDate;
 	
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Temporal(TemporalType.DATE)
-	@Column(name="close_date", nullable=false)
+	@Column(nullable=false)
 	private Date closeDate;
 	
-	@Column(name="last_phase")
 	private long lastPhase;
-	
-	@Column(name="last_status_id")
 	private long lastStatusId;
-	
-	@OneToOne
-	@JoinColumn(name="procedure_status_id")
+
+	@ManyToOne(targetEntity=ProcedureStatus.class, fetch = FetchType.EAGER)
+	@JoinColumn(name="procedureStatusId")
 	private ProcedureStatus procedureStatus;
 	
-	@OneToOne
-	@JoinColumn(name="procedure_type_id")
+	@ManyToOne(targetEntity=ProcedureType.class, fetch = FetchType.EAGER)
+	@JoinColumn(name="procedureTypeId")
 	private ProcedureType procedureType;
 	
-	@ManyToOne
-	private Collection collection;
-	
-	@OneToMany(cascade=CascadeType.PERSIST, fetch = FetchType.EAGER)
-	@JoinColumn(name="collectionProcedure_id")
-	private Set<CollectionPhase> collectionPhase;
-	
-	public CollectionProcedure()
-	{
-		
-	}
-	
-	public CollectionProcedure(Date startDate, Date closeDate, long lastPhase, long lastStatusId, ProcedureStatus procedureStatus,
-			ProcedureType procedureType) {
-		this.startDate = startDate;
-		this.closeDate = closeDate;
-		this.lastPhase = lastPhase;
-		this.lastStatusId = lastStatusId;
-		this.procedureStatus = procedureStatus;
-		this.procedureType = procedureType;
-	}
-
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
-	}
+	@OneToMany(mappedBy = "collectionProcedure", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true)
+    private Set<CollectionPhase> collectionPhases = new HashSet<CollectionPhase>();
 
 	public Date getStartDate() {
 		return startDate;
@@ -126,20 +95,12 @@ public class CollectionProcedure {
 		this.procedureType = procedureType;
 	}
 
-	public Collection getCollection() {
-		return collection;
+	public Set<CollectionPhase> getCollectionPhases() {
+		return collectionPhases;
 	}
 
-	public void setCollection(Collection collection) {
-		this.collection = collection;
-	}
-
-	public Set<CollectionPhase> getCollectionPhase() {
-		return collectionPhase;
-	}
-
-	public void setCollectionPhase(Set<CollectionPhase> collectionPhase) {
-		this.collectionPhase = collectionPhase;
+	public void setCollectionPhases(Set<CollectionPhase> collectionPhases) {
+		this.collectionPhases = collectionPhases;
 	}
 	
 }

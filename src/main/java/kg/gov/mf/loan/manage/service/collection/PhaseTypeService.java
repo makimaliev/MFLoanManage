@@ -1,15 +1,7 @@
 package kg.gov.mf.loan.manage.service.collection;
 
-import java.util.List;
-
 import kg.gov.mf.loan.manage.model.collection.PhaseType;
+import kg.gov.mf.loan.manage.service.GenericService;
 
-public interface PhaseTypeService {
-
-	PhaseType findById(long id);
-	void save(PhaseType type);
-	void update(PhaseType type);
-	void deleteById(long id);
-	List<PhaseType> findAll();
-	
+public interface PhaseTypeService extends GenericService<PhaseType> {
 }

@@ -1,15 +1,7 @@
 package kg.gov.mf.loan.manage.service.collection;
 
-import java.util.List;
-
 import kg.gov.mf.loan.manage.model.collection.ProcedureStatus;
+import kg.gov.mf.loan.manage.service.GenericService;
 
-public interface ProcedureStatusService {
-
-	ProcedureStatus findById(long id);
-	void save(ProcedureStatus status);
-	void update(ProcedureStatus status);
-	void deleteById(long id);
-	List<ProcedureStatus> findAll();
-	
+public interface ProcedureStatusService extends GenericService<ProcedureStatus> {
 }
