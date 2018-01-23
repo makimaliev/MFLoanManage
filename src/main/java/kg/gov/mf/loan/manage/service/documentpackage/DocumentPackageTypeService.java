@@ -4,4 +4,5 @@ import kg.gov.mf.loan.manage.model.documentpackage.DocumentPackageType;
 import kg.gov.mf.loan.manage.service.GenericService;
 
 public interface DocumentPackageTypeService extends GenericService<DocumentPackageType>{
+	DocumentPackageType getByName(String name);
 }

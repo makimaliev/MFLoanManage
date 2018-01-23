@@ -2,6 +2,7 @@ package kg.gov.mf.loan.manage.model.collection;
 
 import java.util.Date;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -19,7 +20,6 @@ import javax.persistence.TemporalType;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import kg.gov.mf.loan.manage.model.GenericModel;
-import kg.gov.mf.loan.manage.model.collateral.CollateralItemDetails;
 import kg.gov.mf.loan.manage.model.loan.Loan;
 
 @Entity
@@ -138,6 +138,28 @@ public class CollectionPhase extends GenericModel{
 
 	public void setPhaseDetails(PhaseDetails phaseDetails) {
 		this.phaseDetails = phaseDetails;
+	}
+	
+	@Override
+	public int hashCode() {
+		int hash = 5;
+		hash = 83 * hash + Objects.hashCode(this.getId());
+		return hash;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (obj == null) {
+			return false;
+		}
+		if (getClass() != obj.getClass()) {
+			return false;
+		}
+		final CollectionPhase other = (CollectionPhase) obj;
+		if (!Objects.equals(this.getId(), other.getId())) {
+			return false;
+		}
+		return true;
 	}
 	
 }
