@@ -10,7 +10,7 @@ import kg.gov.mf.loan.admin.org.model.Person;
 import kg.gov.mf.loan.manage.model.GenericModel;
 
 @Entity
-@Table(name="debtorOwner")
+@Table(name="owner")
 public class Owner extends GenericModel{
 
 	private long entityId;

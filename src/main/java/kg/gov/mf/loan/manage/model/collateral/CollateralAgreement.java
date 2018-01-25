@@ -13,6 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -20,6 +21,7 @@ import javax.persistence.TemporalType;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import kg.gov.mf.loan.manage.model.GenericModel;
+import kg.gov.mf.loan.manage.model.debtor.Owner;
 import kg.gov.mf.loan.manage.model.loan.Loan;
 
 @Entity
@@ -57,6 +59,10 @@ public class CollateralAgreement extends GenericModel{
 	@Temporal(TemporalType.DATE)
 	@Column(nullable=false)
 	private Date arrestRegDate;
+	
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+    @JoinColumn(name="ownerId")
+    Owner owner;
 	
 	@OneToMany(mappedBy = "collateralAgreement", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true)
     private Set<CollateralItem> collateralItems = new HashSet<CollateralItem>();
@@ -174,6 +180,14 @@ public class CollateralAgreement extends GenericModel{
 		this.loans = loans;
 	}
 	
+	public Owner getOwner() {
+		return owner;
+	}
+
+	public void setOwner(Owner owner) {
+		this.owner = owner;
+	}
+
 	@Override
 	public int hashCode() {
 		int hash = 5;
