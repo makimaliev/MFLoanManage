@@ -10,6 +10,7 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import kg.gov.mf.loan.manage.model.GenericModel;
@@ -33,6 +34,10 @@ public class Debtor extends GenericModel{
 	@ManyToOne(targetEntity=WorkSector.class, fetch = FetchType.EAGER)
 	@JoinColumn(name="workSectorId")
 	WorkSector workSector;
+	
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+    @JoinColumn(name="ownerId")
+    Owner owner;
 	
 	@OneToMany(mappedBy = "debtor", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true)
     private Set<Loan> loans = new HashSet<Loan>();
@@ -76,5 +81,12 @@ public class Debtor extends GenericModel{
 	public void setLoans(Set<Loan> loans) {
 		this.loans = loans;
 	}
-	
+
+	public Owner getOwner() {
+		return owner;
+	}
+
+	public void setOwner(Owner owner) {
+		this.owner = owner;
+	}
 }
