@@ -29,6 +29,12 @@ public abstract class GenericServiceImpl<E> implements GenericService<E> {
 
     @Override
     @Transactional(propagation = Propagation.REQUIRED, readOnly = true)
+    public List<E> listByParam(String param) {
+        return dao.listByParam(param);
+    }
+
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = true)
     public E getById(Long id) {
     	return dao.getById(id);
     }
