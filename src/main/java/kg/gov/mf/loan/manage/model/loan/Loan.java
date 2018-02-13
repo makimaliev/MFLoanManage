@@ -7,6 +7,9 @@ import java.util.Set;
 
 import javax.persistence.*;
 
+import kg.gov.mf.loan.process.model.Accrue;
+import kg.gov.mf.loan.process.model.LoanDetailedSummary;
+import kg.gov.mf.loan.process.model.LoanSummary;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import kg.gov.mf.loan.manage.model.GenericModel;
@@ -101,6 +104,15 @@ public class Loan extends GenericModel{
 	
 	@OneToMany(mappedBy = "loan", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true)
     private Set<Collateral> collaterals = new HashSet<Collateral>();
+
+	@OneToMany(mappedBy = "loan", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true)
+	private Set<Accrue> accrues = new HashSet<Accrue>();
+
+	@OneToMany(mappedBy = "loan", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true)
+	private Set<LoanSummary> loanSummaries = new HashSet<LoanSummary>();
+
+	@OneToMany(mappedBy = "loan", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true)
+	private Set<LoanDetailedSummary> loanDetailedSummaries = new HashSet<LoanDetailedSummary>();
 	
 	@ManyToMany(fetch = FetchType.EAGER, mappedBy="loans")
 	Set<CollateralAgreement> collateralAgreements = new HashSet<CollateralAgreement>();
@@ -303,6 +315,30 @@ public class Loan extends GenericModel{
 
 	public void setCollateralAgreements(Set<CollateralAgreement> collateralAgreements) {
 		this.collateralAgreements = collateralAgreements;
+	}
+
+	public Set<Accrue> getAccrues() {
+		return accrues;
+	}
+
+	public void setAccrues(Set<Accrue> accrues) {
+		this.accrues = accrues;
+	}
+
+	public Set<LoanSummary> getLoanSummaries() {
+		return loanSummaries;
+	}
+
+	public void setLoanSummaries(Set<LoanSummary> loanSummaries) {
+		this.loanSummaries = loanSummaries;
+	}
+
+	public Set<LoanDetailedSummary> getLoanDetailedSummaries() {
+		return loanDetailedSummaries;
+	}
+
+	public void setLoanDetailedSummaries(Set<LoanDetailedSummary> loanDetailedSummaries) {
+		this.loanDetailedSummaries = loanDetailedSummaries;
 	}
 
 	@Override
