@@ -78,7 +78,7 @@ public class Loan extends GenericModel{
     private Set<WriteOff> writeOffs = new HashSet<WriteOff>();
 	
 	@OneToMany(mappedBy = "loan", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true)
-	@OrderBy("id")
+	@OrderBy("expectedDate")
     private Set<PaymentSchedule> paymentSchedules = new HashSet<PaymentSchedule>();
 	
 	@OneToMany(mappedBy = "loan", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true)
