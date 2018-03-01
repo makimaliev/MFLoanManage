@@ -77,7 +77,7 @@ public class CollateralAgreement extends GenericModel{
 
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(
-			name="loan_collateralagreement",
+			name="loanCollateralAgreement",
 			joinColumns = { @JoinColumn(name = "collateralAgreementId") }, 
 	        inverseJoinColumns = { @JoinColumn(name = "loanId") })
 	Set<Loan> loans = new HashSet<Loan>();
