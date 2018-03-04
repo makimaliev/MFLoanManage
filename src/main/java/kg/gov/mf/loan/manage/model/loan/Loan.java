@@ -106,12 +106,15 @@ public class Loan extends GenericModel{
     private Set<Collateral> collaterals = new HashSet<Collateral>();
 
 	@OneToMany(mappedBy = "loan", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true)
+	@OrderBy("fromDate")
 	private Set<Accrue> accrues = new HashSet<Accrue>();
 
 	@OneToMany(mappedBy = "loan", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true)
+	@OrderBy("onDate")
 	private Set<LoanSummary> loanSummaries = new HashSet<LoanSummary>();
 
 	@OneToMany(mappedBy = "loan", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true)
+	@OrderBy("onDate")
 	private Set<LoanDetailedSummary> loanDetailedSummaries = new HashSet<LoanDetailedSummary>();
 	
 	@ManyToMany(fetch = FetchType.EAGER, mappedBy="loans")
