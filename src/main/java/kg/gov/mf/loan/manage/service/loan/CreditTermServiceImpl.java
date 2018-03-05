@@ -8,6 +8,8 @@ import org.springframework.transaction.annotation.Transactional;
 import kg.gov.mf.loan.manage.model.loan.CreditTerm;
 import kg.gov.mf.loan.manage.service.GenericServiceImpl;
 
+import java.util.Date;
+
 @Service("creditTermService")
 @Transactional
 public class CreditTermServiceImpl extends GenericServiceImpl<CreditTerm> implements CreditTermService{
@@ -15,8 +17,8 @@ public class CreditTermServiceImpl extends GenericServiceImpl<CreditTerm> implem
     @Autowired
     CreditTermDao termDao;
 
-    public CreditTerm getRecentTermByLoanId(long loanId)
+    public CreditTerm getRecentTermByLoanIdAndOnDate(long loanId, Date onDate)
     {
-        return this.termDao.getRecentTermByLoanId(loanId);
+        return this.termDao.getRecentTermByLoanIdAndOnDate(loanId, onDate);
     }
 }

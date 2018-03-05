@@ -15,14 +15,14 @@ public class PaymentDaoImpl extends GenericDaoImpl<Payment> implements PaymentDa
     @Override
     public List<Payment> getRowsUntilOnDate(Date onDate)
     {
-        return getCurrentSession().createQuery("from Payment where paymentDate < '" + onDate + "' order by paymentDate").list();
+        return getCurrentSession().createQuery("from Payment where paymentDate < '" + DateUtils.format(onDate, DateUtils.FORMAT_POSTGRES_DATE) + "' order by paymentDate").list();
     }
 
     @Override
     public Payment getRowDayBeforeOnDate(Date onDate)
     {
         Date date = DateUtils.subtract(onDate, DateUtils.DAY, 1);
-        return (Payment) getCurrentSession().createQuery("from Payment where paymentDate = '" + date + "'").uniqueResult();
+        return (Payment) getCurrentSession().createQuery("from Payment where paymentDate = '" + DateUtils.format(date, DateUtils.FORMAT_POSTGRES_DATE) + "'").uniqueResult();
     }
 
 }
