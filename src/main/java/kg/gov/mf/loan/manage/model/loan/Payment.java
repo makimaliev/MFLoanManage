@@ -39,9 +39,15 @@ public class Payment extends GenericModel{
 	@Column(precision = 12, scale = 5)
 	private Double fee;
 	
-	@Column(nullable=false, length=30)
+	@Column(nullable=false, length=100)
 	private String number;
-	
+
+	@Column(name="in_loan_currency")
+	private boolean in_loan_currency;
+
+	@Column(nullable=true, length=100)
+	private String details;
+
 	@ManyToOne(targetEntity=PaymentType.class, fetch = FetchType.EAGER)
 	@JoinColumn(name="paymentTypeId")
 	private PaymentType paymentType;
@@ -120,5 +126,21 @@ public class Payment extends GenericModel{
 
 	public void setLoan(Loan loan) {
 		this.loan = loan;
+	}
+
+	public boolean isIn_loan_currency() {
+		return in_loan_currency;
+	}
+
+	public void setIn_loan_currency(boolean in_loan_currency) {
+		this.in_loan_currency = in_loan_currency;
+	}
+
+	public String getDetails() {
+		return details;
+	}
+
+	public void setDetails(String details) {
+		this.details = details;
 	}
 }
