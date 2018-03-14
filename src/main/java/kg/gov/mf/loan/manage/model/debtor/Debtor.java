@@ -20,7 +20,7 @@ import kg.gov.mf.loan.manage.model.loan.Loan;
 @Table(name="debtor")
 public class Debtor extends GenericModel{
 
-	@Column(nullable=false, length = 50)
+	@Column(nullable=false, length = 200)
 	private String name;
 	
 	@ManyToOne(targetEntity=DebtorType.class, fetch = FetchType.EAGER)
