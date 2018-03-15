@@ -46,6 +46,15 @@ public class SupervisorPlan extends GenericModel{
     @JoinColumn(name="loanId")
     Loan loan;
 
+	@Column(nullable=false)
+	private long reg_by_id;
+
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@Temporal(TemporalType.DATE)
+	@Column(nullable=false)
+	private Date reg_date;
+
+
 	public Date getDate() {
 		return date;
 	}
@@ -108,5 +117,21 @@ public class SupervisorPlan extends GenericModel{
 
 	public void setLoan(Loan loan) {
 		this.loan = loan;
+	}
+
+	public long getReg_by_id() {
+		return reg_by_id;
+	}
+
+	public void setReg_by_id(long reg_by_id) {
+		this.reg_by_id = reg_by_id;
+	}
+
+	public Date getReg_date() {
+		return reg_date;
+	}
+
+	public void setReg_date(Date reg_date) {
+		this.reg_date = reg_date;
 	}
 }
