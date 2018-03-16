@@ -33,7 +33,7 @@ public class CollateralAgreement extends GenericModel{
 	
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Temporal(TemporalType.DATE)
-	@Column(nullable=false)
+	@Column(nullable=true)
 	private Date agreementDate;
 	
 	@Column(nullable=false, length=50)
@@ -41,7 +41,7 @@ public class CollateralAgreement extends GenericModel{
 	
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Temporal(TemporalType.DATE)
-	@Column(nullable=false)
+	@Column(nullable=true)
 	private Date collateralOfficeRegDate;
 	
 	@Column(nullable=false, length=50)
@@ -49,7 +49,7 @@ public class CollateralAgreement extends GenericModel{
 	
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Temporal(TemporalType.DATE)
-	@Column( nullable=false)
+	@Column( nullable=true)
 	private Date notaryOfficeRegDate;
 	
 	@Column(nullable=false, length=50)
@@ -57,7 +57,7 @@ public class CollateralAgreement extends GenericModel{
 	
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Temporal(TemporalType.DATE)
-	@Column(nullable=false)
+	@Column(nullable=true)
 	private Date arrestRegDate;
 	
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)

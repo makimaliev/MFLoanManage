@@ -19,7 +19,7 @@ import kg.gov.mf.loan.manage.model.GenericModel;
 @Table(name="collateralItem")
 public class CollateralItem extends GenericModel {
 	
-	@Column(nullable=false, length=30)
+	@Column(nullable=false, length=100)
 	private String name;
 	
 	@Column(nullable=false, length=200)
@@ -31,7 +31,14 @@ public class CollateralItem extends GenericModel {
 	
 	@Column(precision = 12, scale = 5)
 	private Double quantity;
-	
+
+	@Column(precision = 12, scale = 5)
+	private Double risk_rate;
+
+	@Column(precision = 12, scale = 5)
+	private Double demand_rate;
+
+
 	@ManyToOne(targetEntity=QuantityType.class, fetch = FetchType.EAGER)
 	@JoinColumn(name="quantityTypeId")
 	private QuantityType quantityType;
@@ -154,5 +161,21 @@ public class CollateralItem extends GenericModel {
 	public void setCollateralItemArrestFree(CollateralItemArrestFree collateralItemArrestFree) {
 		this.collateralItemArrestFree = collateralItemArrestFree;
 	}
-	
+
+
+	public Double getRisk_rate() {
+		return risk_rate;
+	}
+
+	public void setRisk_rate(Double risk_rate) {
+		this.risk_rate = risk_rate;
+	}
+
+	public Double getDemand_rate() {
+		return demand_rate;
+	}
+
+	public void setDemand_rate(Double demand_rate) {
+		this.demand_rate = demand_rate;
+	}
 }
