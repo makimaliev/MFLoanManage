@@ -28,15 +28,11 @@ public class CollateralItemInspectionResult extends GenericModel {
 	@JoinColumn(name="inspectionResultTypeId")
 	private InspectionResultType inspectionResultType;
 	
-	/*
-	@ManyToOne(targetEntity=CollateralInspection.class, fetch = FetchType.EAGER)
-	@JoinColumn(name="collateralInspectionId")
-	private CollateralInspection collateralInspection;
-	*/
-	
 	@ManyToOne(targetEntity=CollateralItem.class, fetch = FetchType.EAGER)
     @JoinColumn(name="collateralItemId")
 	CollateralItem collateralItem;
+
+	private String details;
 
 	public Date getOnDate() {
 		return onDate;
@@ -54,21 +50,19 @@ public class CollateralItemInspectionResult extends GenericModel {
 		this.inspectionResultType = inspectionResultType;
 	}
 
-	/*
-	public CollateralInspection getCollateralInspection() {
-		return collateralInspection;
-	}
-
-	public void setCollateralInspection(CollateralInspection collateralInspection) {
-		this.collateralInspection = collateralInspection;
-	}
-	*/
-
 	public CollateralItem getCollateralItem() {
 		return collateralItem;
 	}
 
 	public void setCollateralItem(CollateralItem collateralItem) {
 		this.collateralItem = collateralItem;
+	}
+
+	public String getDetails() {
+		return details;
+	}
+
+	public void setDetails(String details) {
+		this.details = details;
 	}
 }
