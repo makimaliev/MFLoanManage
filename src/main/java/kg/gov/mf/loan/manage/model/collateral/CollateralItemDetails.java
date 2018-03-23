@@ -29,13 +29,13 @@ public class CollateralItemDetails extends GenericModel{
 	@Column(nullable=false, length=100)
 	private String details6;
 
-	@Column(nullable=false, length=100)
+	@Column(nullable=true, length=300)
 	private String document;
 
-	@Column(nullable=false, length=100)
+	@Column(nullable=true, length=300)
 	private String incomplete_reason;
 
-	@Column(nullable=false, length=100)
+	@Column(nullable=true, length=100)
 	private String goods_type;
 
 	@Column(nullable=false, length=100)

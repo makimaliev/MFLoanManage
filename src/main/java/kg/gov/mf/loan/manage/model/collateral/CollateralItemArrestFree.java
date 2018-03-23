@@ -25,6 +25,9 @@ public class CollateralItemArrestFree extends GenericModel {
 	private Date onDate;
 	
 	private long arrestFreeBy;
+
+	@Column(nullable=true, length=300)
+	private String details;
 	
 	/*
 	@ManyToOne(targetEntity=CollateralArrestFree.class, fetch = FetchType.EAGER)
@@ -48,6 +51,7 @@ public class CollateralItemArrestFree extends GenericModel {
 		return arrestFreeBy;
 	}
 
+
 	public void setArrestFreeBy(long arrestFreeBy) {
 		this.arrestFreeBy = arrestFreeBy;
 	}
@@ -61,6 +65,14 @@ public class CollateralItemArrestFree extends GenericModel {
 		this.collateralArrestFree = collateralArrestFree;
 	}
 	*/
+
+	public String getDetails() {
+		return details;
+	}
+
+	public void setDetails(String details) {
+		this.details = details;
+	}
 
 	public CollateralItem getCollateralItem() {
 		return collateralItem;
