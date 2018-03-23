@@ -28,7 +28,7 @@ import kg.gov.mf.loan.manage.model.loan.Loan;
 @Table(name="collateralAgreement")
 public class CollateralAgreement extends GenericModel{
 	
-	@Column(nullable=false, length=50)
+	@Column(nullable=true, length=150)
 	private String agreementNumber;
 	
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -36,7 +36,7 @@ public class CollateralAgreement extends GenericModel{
 	@Column(nullable=true)
 	private Date agreementDate;
 	
-	@Column(nullable=false, length=50)
+	@Column(nullable=true, length=150)
 	private String collateralOfficeRegNumber;
 	
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -44,7 +44,7 @@ public class CollateralAgreement extends GenericModel{
 	@Column(nullable=true)
 	private Date collateralOfficeRegDate;
 	
-	@Column(nullable=false, length=50)
+	@Column(nullable=true, length=150)
 	private String notaryOfficeRegNumber;
 	
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -52,7 +52,7 @@ public class CollateralAgreement extends GenericModel{
 	@Column( nullable=true)
 	private Date notaryOfficeRegDate;
 	
-	@Column(nullable=false, length=50)
+	@Column(nullable=true, length=150)
 	private String arrestRegNumber;
 	
 	@DateTimeFormat(pattern = "yyyy-MM-dd")

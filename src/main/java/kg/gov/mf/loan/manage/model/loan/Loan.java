@@ -24,7 +24,7 @@ import kg.gov.mf.loan.manage.model.orderterm.OrderTermCurrency;
 @Table(name="loan")
 public class Loan extends GenericModel{
 	
-	@Column(nullable=false, length=50)
+	@Column(nullable=false, length=150)
 	private String regNumber;
 	
 	@DateTimeFormat(pattern = "yyyy-MM-dd")

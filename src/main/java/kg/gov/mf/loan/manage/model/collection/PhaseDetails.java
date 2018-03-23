@@ -57,6 +57,10 @@ public class PhaseDetails extends GenericModel{
 	
 	@Column(precision = 12, scale = 5)
 	private Double paidFee;
+
+	@Column
+	private long loan_id;
+
 	
 	@OneToOne(targetEntity=CollectionPhase.class, fetch = FetchType.EAGER)
 	@PrimaryKeyJoinColumn
@@ -188,5 +192,13 @@ public class PhaseDetails extends GenericModel{
 
 	public void setCollectionPhase(CollectionPhase collectionPhase) {
 		this.collectionPhase = collectionPhase;
+	}
+
+	public long getLoan_id() {
+		return loan_id;
+	}
+
+	public void setLoan_id(long loan_id) {
+		this.loan_id = loan_id;
 	}
 }

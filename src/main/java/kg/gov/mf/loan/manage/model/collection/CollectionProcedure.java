@@ -25,12 +25,12 @@ public class CollectionProcedure extends GenericModel{
 
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Temporal(TemporalType.DATE)
-	@Column(nullable=false)
+	@Column(nullable=true)
 	private Date startDate;
 	
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Temporal(TemporalType.DATE)
-	@Column(nullable=false)
+	@Column(nullable=true)
 	private Date closeDate;
 	
 	private long lastPhase;

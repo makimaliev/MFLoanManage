@@ -19,10 +19,10 @@ import kg.gov.mf.loan.manage.model.GenericModel;
 @Table(name="collateralItem")
 public class CollateralItem extends GenericModel {
 	
-	@Column(nullable=false, length=100)
+	@Column(nullable=true, length=200)
 	private String name;
 	
-	@Column(nullable=false, length=200)
+	@Column(nullable=true, length=200)
 	private String description;
 	
 	@ManyToOne(targetEntity=ItemType.class, fetch = FetchType.EAGER)
