@@ -64,7 +64,7 @@ public class CollateralAgreement extends GenericModel{
     @JoinColumn(name="ownerId")
     Owner owner;
 	
-	@OneToMany(mappedBy = "collateralAgreement", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true)
+	@OneToMany(mappedBy = "collateralAgreement", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<CollateralItem> collateralItems = new HashSet<CollateralItem>();
 	
 	/*
@@ -75,7 +75,7 @@ public class CollateralAgreement extends GenericModel{
     private Set<CollateralArrestFree> collateralArrestFrees = new HashSet<CollateralArrestFree>();
 	*/
 
-	@ManyToMany(fetch = FetchType.EAGER)
+	@ManyToMany(cascade = {CascadeType.ALL})
 	@JoinTable(
 			name="loanCollateralAgreement",
 			joinColumns = { @JoinColumn(name = "collateralAgreementId") }, 

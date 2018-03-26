@@ -52,18 +52,18 @@ public class Loan extends GenericModel{
 	
 	private boolean hasSubLoan;
 	
-	@ManyToOne(targetEntity=Loan.class, fetch = FetchType.EAGER)
+	@ManyToOne(targetEntity=Loan.class, fetch = FetchType.LAZY)
 	@JoinColumn(name="parentLoanId")
 	private Loan parentLoan;
 	
-	@OneToMany(mappedBy = "parentLoan", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true)
+	@OneToMany(mappedBy = "parentLoan", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Loan> subLoans = new HashSet<Loan>();
 	
 	@ManyToOne(targetEntity=CreditOrder.class, fetch = FetchType.EAGER)
 	@JoinColumn(name="creditOrderId", nullable=true)
 	private CreditOrder creditOrder;
 	
-	@ManyToOne(targetEntity=Debtor.class, fetch = FetchType.EAGER)
+	@ManyToOne(targetEntity=Debtor.class, fetch = FetchType.LAZY)
     @JoinColumn(name="debtorId")
 	Debtor debtor;
 	
@@ -71,53 +71,53 @@ public class Loan extends GenericModel{
     @JoinColumn(name="collectionPhaseId")
 	CollectionPhase collectionPhase;
 	
-	@OneToMany(mappedBy = "loan", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true)
+	@OneToMany(mappedBy = "loan", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<CreditTerm> creditTerms = new HashSet<CreditTerm>();
 	
-	@OneToMany(mappedBy = "loan", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true)
+	@OneToMany(mappedBy = "loan", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<WriteOff> writeOffs = new HashSet<WriteOff>();
 	
-	@OneToMany(mappedBy = "loan", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true)
+	@OneToMany(mappedBy = "loan", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@OrderBy("expectedDate")
     private Set<PaymentSchedule> paymentSchedules = new HashSet<PaymentSchedule>();
 	
-	@OneToMany(mappedBy = "loan", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true)
+	@OneToMany(mappedBy = "loan", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Payment> payments = new HashSet<Payment>();
 	
-	@OneToMany(mappedBy = "loan", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true)
+	@OneToMany(mappedBy = "loan", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<SupervisorPlan> supervisorPlans = new HashSet<SupervisorPlan>();
 	
-	@OneToMany(mappedBy = "loan", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true)
+	@OneToMany(mappedBy = "loan", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<LoanGoods> loanGoods = new HashSet<LoanGoods>();
 	
-	@OneToMany(mappedBy = "loan", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true)
+	@OneToMany(mappedBy = "loan", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<DebtTransfer> debtTransfers = new HashSet<DebtTransfer>();
 	
-	@OneToMany(mappedBy = "loan", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true)
+	@OneToMany(mappedBy = "loan", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<TargetedUse> targetedUses = new HashSet<TargetedUse>();
 	
-	@OneToMany(mappedBy = "loan", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true)
+	@OneToMany(mappedBy = "loan", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<ReconstructedList> reconstructedLists = new HashSet<ReconstructedList>();
 	
-	@OneToMany(mappedBy = "loan", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true)
+	@OneToMany(mappedBy = "loan", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Bankrupt> bankrupts = new HashSet<Bankrupt>();
 	
-	@OneToMany(mappedBy = "loan", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true)
+	@OneToMany(mappedBy = "loan", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Collateral> collaterals = new HashSet<Collateral>();
 
-	@OneToMany(mappedBy = "loan", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true)
+	@OneToMany(mappedBy = "loan", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@OrderBy("fromDate")
 	private Set<Accrue> accrues = new HashSet<Accrue>();
 
-	@OneToMany(mappedBy = "loan", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true)
+	@OneToMany(mappedBy = "loan", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@OrderBy("onDate")
 	private Set<LoanSummary> loanSummaries = new HashSet<LoanSummary>();
 
-	@OneToMany(mappedBy = "loan", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true)
+	@OneToMany(mappedBy = "loan", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@OrderBy("onDate")
 	private Set<LoanDetailedSummary> loanDetailedSummaries = new HashSet<LoanDetailedSummary>();
 	
-	@ManyToMany(fetch = FetchType.EAGER, mappedBy="loans")
+	@ManyToMany(mappedBy="loans")
 	Set<CollateralAgreement> collateralAgreements = new HashSet<CollateralAgreement>();
 	
 	public String getRegNumber() {

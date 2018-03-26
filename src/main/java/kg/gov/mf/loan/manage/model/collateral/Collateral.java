@@ -22,7 +22,7 @@ public class Collateral extends GenericModel{
 	@Column(nullable=false, length=50)
 	private String name;
 	
-	@ManyToOne(targetEntity=Loan.class, fetch = FetchType.EAGER)
+	@ManyToOne(targetEntity=Loan.class, fetch = FetchType.LAZY)
     @JoinColumn(name="loanId")
     Loan loan;
 	

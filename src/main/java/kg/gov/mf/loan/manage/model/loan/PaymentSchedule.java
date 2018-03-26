@@ -43,7 +43,7 @@ public class PaymentSchedule extends GenericModel{
 	@JoinColumn(name="installmentStateId")
 	private InstallmentState installmentState;
 	
-	@ManyToOne(targetEntity=Loan.class, fetch = FetchType.EAGER)
+	@ManyToOne(targetEntity=Loan.class, fetch = FetchType.LAZY)
     @JoinColumn(name="loanId")
     Loan loan;
 

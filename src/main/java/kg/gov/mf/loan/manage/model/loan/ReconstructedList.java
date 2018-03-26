@@ -27,7 +27,7 @@ public class ReconstructedList extends GenericModel{
 	@Column(name="oldLoanId")
 	private long oldLoanId;
 	
-	@ManyToOne(targetEntity=Loan.class, fetch = FetchType.EAGER)
+	@ManyToOne(targetEntity=Loan.class, fetch = FetchType.LAZY)
     @JoinColumn(name="loanId")
     Loan loan;
 

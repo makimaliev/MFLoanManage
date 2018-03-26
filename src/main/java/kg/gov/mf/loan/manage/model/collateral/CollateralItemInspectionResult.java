@@ -28,7 +28,7 @@ public class CollateralItemInspectionResult extends GenericModel {
 	@JoinColumn(name="inspectionResultTypeId")
 	private InspectionResultType inspectionResultType;
 	
-	@ManyToOne(targetEntity=CollateralItem.class, fetch = FetchType.EAGER)
+	@ManyToOne(targetEntity=CollateralItem.class, fetch = FetchType.LAZY)
     @JoinColumn(name="collateralItemId")
 	CollateralItem collateralItem;
 

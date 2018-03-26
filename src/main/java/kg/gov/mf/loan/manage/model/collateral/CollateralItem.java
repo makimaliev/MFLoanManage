@@ -53,11 +53,11 @@ public class CollateralItem extends GenericModel {
 	@JoinColumn(name="conditionTypeId")
 	private ConditionType conditionType;
 	
-	@ManyToOne(targetEntity=CollateralAgreement.class, fetch = FetchType.EAGER)
+	@ManyToOne(targetEntity=CollateralAgreement.class, fetch = FetchType.LAZY)
     @JoinColumn(name="collateralAgreementId")
 	CollateralAgreement collateralAgreement;
 	
-	@OneToMany(mappedBy = "collateralItem", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true)
+	@OneToMany(mappedBy = "collateralItem", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<CollateralItemInspectionResult> collateralItemInspectionResults = new HashSet<CollateralItemInspectionResult>();
 	
 	@OneToOne(mappedBy = "collateralItem", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true)

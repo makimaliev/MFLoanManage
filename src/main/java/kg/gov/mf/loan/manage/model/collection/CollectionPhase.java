@@ -39,7 +39,7 @@ public class CollectionPhase extends GenericModel{
 	private long lastEvent;
 	private long lastStatusId;
 	
-	@ManyToOne(targetEntity=CollectionProcedure.class, fetch = FetchType.EAGER)
+	@ManyToOne(targetEntity=CollectionProcedure.class, fetch = FetchType.LAZY)
     @JoinColumn(name="collectionProcedureId")
 	CollectionProcedure collectionProcedure;
 	
@@ -51,10 +51,10 @@ public class CollectionPhase extends GenericModel{
 	@JoinColumn(name="phaseTypeId")
 	private PhaseType phaseType;
 	
-	@OneToMany(mappedBy = "collectionPhase", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true)
+	@OneToMany(mappedBy = "collectionPhase", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Set<Loan> loans = new HashSet<Loan>();
 	
-	@OneToMany(mappedBy = "collectionPhase", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true)
+	@OneToMany(mappedBy = "collectionPhase", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Set<CollectionEvent> collectionEvents = new HashSet<CollectionEvent>();
 	
 	@OneToOne(mappedBy = "collectionPhase", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true)

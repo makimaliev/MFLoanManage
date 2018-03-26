@@ -31,7 +31,7 @@ public class CollectionEvent extends GenericModel {
 	@Column(nullable=false)
 	private Date closeDate;
 	
-	@ManyToOne(targetEntity=CollectionPhase.class, fetch = FetchType.EAGER)
+	@ManyToOne(targetEntity=CollectionPhase.class, fetch = FetchType.LAZY)
     @JoinColumn(name="collectionPhaseId")
 	CollectionPhase collectionPhase;
 	

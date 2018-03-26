@@ -29,7 +29,7 @@ public class Bankrupt extends GenericModel{
 	@Column(nullable=false)
 	private Date finishedOnDate;
 	
-	@ManyToOne(targetEntity=Loan.class, fetch = FetchType.EAGER)
+	@ManyToOne(targetEntity=Loan.class, fetch = FetchType.LAZY)
     @JoinColumn(name="loanId")
     Loan loan;
 

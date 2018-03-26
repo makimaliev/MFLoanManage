@@ -42,7 +42,7 @@ public class WriteOff extends GenericModel {
 	@Column(nullable=true, length=50)
 	private String description;
 	
-	@ManyToOne(targetEntity=Loan.class, fetch = FetchType.EAGER)
+	@ManyToOne(targetEntity=Loan.class, fetch = FetchType.LAZY)
     @JoinColumn(name="loanId")
     Loan loan;
 

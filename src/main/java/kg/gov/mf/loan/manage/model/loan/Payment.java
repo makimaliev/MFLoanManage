@@ -52,7 +52,7 @@ public class Payment extends GenericModel{
 	@JoinColumn(name="paymentTypeId")
 	private PaymentType paymentType;
 	
-	@ManyToOne(targetEntity=Loan.class, fetch = FetchType.EAGER)
+	@ManyToOne(targetEntity=Loan.class, fetch = FetchType.LAZY)
     @JoinColumn(name="loanId")
     Loan loan;
 

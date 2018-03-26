@@ -39,7 +39,7 @@ public class Debtor extends GenericModel{
     @JoinColumn(name="ownerId")
     Owner owner;
 	
-	@OneToMany(mappedBy = "debtor", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true)
+	@OneToMany(mappedBy = "debtor", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Loan> loans = new HashSet<Loan>();
 
 	public String getName() {

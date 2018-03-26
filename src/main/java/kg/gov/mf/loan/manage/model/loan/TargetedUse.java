@@ -44,7 +44,7 @@ public class TargetedUse extends GenericModel{
 	
 	private long attachmentId;
 	
-	@ManyToOne(targetEntity=Loan.class, fetch = FetchType.EAGER)
+	@ManyToOne(targetEntity=Loan.class, fetch = FetchType.LAZY)
     @JoinColumn(name="loanId")
     Loan loan;
 
