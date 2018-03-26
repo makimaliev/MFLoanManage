@@ -156,9 +156,17 @@ public class CollectionPhase extends GenericModel{
 			return false;
 		}
 		final CollectionPhase other = (CollectionPhase) obj;
+
+
+		if(this.getId()!=0)
 		if (!Objects.equals(this.getId(), other.getId())) {
 			return false;
 		}
+
+		if (!Objects.equals(this.startDate, other.startDate)) {
+			return false;
+		}
+
 		return true;
 	}
 	
