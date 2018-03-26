@@ -23,11 +23,11 @@ public class OrderDocumentPackage extends GenericModel {
 	@Column(nullable=false, length = 50)
 	private String name;
 	
-	@ManyToOne(targetEntity=CreditOrder.class, fetch = FetchType.EAGER)
+	@ManyToOne(targetEntity=CreditOrder.class, fetch = FetchType.LAZY)
     @JoinColumn(name="creditOrderId")
     CreditOrder creditOrder;
 	
-	@OneToMany(mappedBy = "orderDocumentPackage", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true)
+	@OneToMany(mappedBy = "orderDocumentPackage", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<OrderDocument> orderDocuments = new HashSet<OrderDocument>();
 
 	public String getName() {

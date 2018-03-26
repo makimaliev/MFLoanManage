@@ -57,11 +57,11 @@ public class DocumentPackage extends GenericModel{
 	@JoinColumn(name="documentPackageTypeId")
 	private DocumentPackageType documentPackageType;
 	
-	@ManyToOne(targetEntity=AppliedEntity.class, fetch = FetchType.EAGER)
+	@ManyToOne(targetEntity=AppliedEntity.class, fetch = FetchType.LAZY)
     @JoinColumn(name="appliedEntityId")
 	AppliedEntity appliedEntity;
 	
-	@OneToMany(mappedBy = "documentPackage", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true)
+	@OneToMany(mappedBy = "documentPackage", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<EntityDocument> entityDocuments = new HashSet<EntityDocument>();
 
 	public String getName() {

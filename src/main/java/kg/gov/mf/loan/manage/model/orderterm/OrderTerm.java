@@ -100,10 +100,10 @@ public class OrderTerm extends GenericModel{
 	@JoinColumn(name="interestAccrMethodId")
 	private OrderTermAccrMethod interestAccrMethod;
 
-	@OneToMany(mappedBy = "orderTerm", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true)
+	@OneToMany(mappedBy = "orderTerm", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<AgreementTemplate> agreementTemplates = new HashSet<AgreementTemplate>();
 	
-	@ManyToOne(targetEntity=CreditOrder.class, fetch = FetchType.EAGER)
+	@ManyToOne(targetEntity=CreditOrder.class, fetch = FetchType.LAZY)
     @JoinColumn(name="creditOrderId")
     CreditOrder creditOrder;
 

@@ -27,10 +27,10 @@ public class AppliedEntity extends GenericModel {
 	@JoinColumn(name="appliedEntityStateId")
 	private AppliedEntityState appliedEntityState;
 	
-	@OneToMany(mappedBy = "appliedEntity", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true)
+	@OneToMany(mappedBy = "appliedEntity", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<DocumentPackage> documentPackages = new HashSet<DocumentPackage>();
 	
-	@ManyToOne(targetEntity=AppliedEntityList.class, fetch = FetchType.EAGER)
+	@ManyToOne(targetEntity=AppliedEntityList.class, fetch = FetchType.LAZY)
     @JoinColumn(name="appliedEntityListId")
 	AppliedEntityList appliedEntityList;
 

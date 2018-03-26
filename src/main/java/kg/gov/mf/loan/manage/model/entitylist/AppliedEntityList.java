@@ -40,10 +40,10 @@ public class AppliedEntityList extends GenericModel{
 	@JoinColumn(name="appliedEntityListTypeId")
 	private AppliedEntityListType appliedEntityListType;
 	
-	@OneToMany(mappedBy = "appliedEntityList", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true)
+	@OneToMany(mappedBy = "appliedEntityList", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<AppliedEntity> appliedEntities = new HashSet<AppliedEntity>();
 	
-	@ManyToOne(targetEntity=CreditOrder.class, fetch = FetchType.EAGER)
+	@ManyToOne(targetEntity=CreditOrder.class, fetch = FetchType.LAZY)
     @JoinColumn(name="creditOrderId")
     CreditOrder creditOrder;
 

@@ -42,13 +42,13 @@ public class CreditOrder extends GenericModel {
 	@JoinColumn(name="creditOrderTypeId")
 	private CreditOrderType creditOrderType;
 	
-	@OneToMany(mappedBy = "creditOrder", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true)
+	@OneToMany(mappedBy = "creditOrder", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<AppliedEntityList> appliedEntityLists = new HashSet<AppliedEntityList>();
 	
-	@OneToMany(mappedBy = "creditOrder", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true)
+	@OneToMany(mappedBy = "creditOrder", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<OrderDocumentPackage> orderDocumentPackages = new HashSet<OrderDocumentPackage>();
 	
-	@OneToMany(mappedBy = "creditOrder", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true)
+	@OneToMany(mappedBy = "creditOrder", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<OrderTerm> orderTerms = new HashSet<OrderTerm>();
 
 	public String getRegNumber() {

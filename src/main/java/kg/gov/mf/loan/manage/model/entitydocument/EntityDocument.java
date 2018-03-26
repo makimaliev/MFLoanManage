@@ -64,7 +64,7 @@ public class EntityDocument extends GenericModel {
 	@JoinColumn(name="entityDocumentStateId")
 	private EntityDocumentState entityDocumentState;
 	
-	@ManyToOne(targetEntity=DocumentPackage.class, fetch = FetchType.EAGER)
+	@ManyToOne(targetEntity=DocumentPackage.class, fetch = FetchType.LAZY)
     @JoinColumn(name="documentPackageId")
 	DocumentPackage documentPackage;
 

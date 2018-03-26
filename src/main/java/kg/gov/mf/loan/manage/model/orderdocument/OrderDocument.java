@@ -21,7 +21,7 @@ public class OrderDocument extends GenericModel {
 	@JoinColumn(name="orderDocumentTypeId")
 	private OrderDocumentType orderDocumentType;
 	
-	@ManyToOne(targetEntity=OrderDocumentPackage.class, fetch = FetchType.EAGER)
+	@ManyToOne(targetEntity=OrderDocumentPackage.class, fetch = FetchType.LAZY)
     @JoinColumn(name="orderDocumentPackageId")
 	OrderDocumentPackage orderDocumentPackage;
 

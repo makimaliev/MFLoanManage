@@ -44,7 +44,7 @@ public class AgreementTemplate extends GenericModel {
 	@Column(length=200)
 	private String approvedDescription;
 	
-	@ManyToOne(targetEntity=OrderTerm.class, fetch = FetchType.EAGER)
+	@ManyToOne(targetEntity=OrderTerm.class, fetch = FetchType.LAZY)
     @JoinColumn(name="orderTermId")
     OrderTerm orderTerm;
 
