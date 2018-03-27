@@ -7,9 +7,9 @@ import java.util.Set;
 
 import javax.persistence.*;
 
-import kg.gov.mf.loan.process.model.Accrue;
-import kg.gov.mf.loan.process.model.LoanDetailedSummary;
-import kg.gov.mf.loan.process.model.LoanSummary;
+import kg.gov.mf.loan.manage.model.process.Accrue;
+import kg.gov.mf.loan.manage.model.process.LoanDetailedSummary;
+import kg.gov.mf.loan.manage.model.process.LoanSummary;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import kg.gov.mf.loan.manage.model.GenericModel;
