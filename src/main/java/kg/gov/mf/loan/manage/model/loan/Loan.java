@@ -117,7 +117,7 @@ public class Loan extends GenericModel{
 	@OrderBy("onDate")
 	private Set<LoanDetailedSummary> loanDetailedSummaries = new HashSet<LoanDetailedSummary>();
 	
-	@ManyToMany(mappedBy="loans")
+	@ManyToMany(mappedBy="loans", fetch = FetchType.EAGER)
 	Set<CollateralAgreement> collateralAgreements = new HashSet<CollateralAgreement>();
 	
 	public String getRegNumber() {
