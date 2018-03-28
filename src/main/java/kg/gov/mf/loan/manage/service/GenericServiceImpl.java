@@ -29,8 +29,26 @@ public abstract class GenericServiceImpl<E> implements GenericService<E> {
 
     @Override
     @Transactional(propagation = Propagation.REQUIRED, readOnly = true)
+    public List<E> list(int firstResult, int maxResults) {
+        return dao.list(firstResult ,maxResults);
+    }
+
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = true)
     public List<E> listByParam(String param) {
         return dao.listByParam(param);
+    }
+
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = true)
+    public List<E> listByParam(String param, int firstResult, int maxResults) {
+        return dao.listByParam(param, firstResult, maxResults);
+    }
+
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = true)
+    public int count() {
+        return dao.count();
     }
 
     @Override

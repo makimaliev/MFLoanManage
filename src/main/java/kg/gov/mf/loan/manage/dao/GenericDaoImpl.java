@@ -1,6 +1,7 @@
 package kg.gov.mf.loan.manage.dao;
 
 import org.hibernate.Criteria;
+import org.hibernate.ScrollableResults;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Order;
@@ -36,8 +37,34 @@ public abstract class GenericDaoImpl<E> implements GenericDao<E> {
         return getCurrentSession().createCriteria(entityClass).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
     }
 
+    public List<E> list(int firstResult, int maxResults) {
+        Criteria criteria = getCurrentSession().createCriteria(entityClass);
+        criteria.setFirstResult(firstResult);
+        criteria.setMaxResults(maxResults);
+        criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+        return criteria.list();
+    }
+
     public List<E> listByParam(String param) {
         return getCurrentSession().createCriteria(entityClass).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).addOrder(Order.asc(param)).list();
+    }
+
+    public List<E> listByParam(String param, int firstResult, int maxResults) {
+        Criteria criteria = getCurrentSession().createCriteria(entityClass);
+        criteria.setFirstResult(firstResult);
+        criteria.setMaxResults(maxResults);
+        criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+        criteria.addOrder(Order.asc(param));
+        return criteria.list();
+    }
+
+    public int count()
+    {
+        Criteria criteria = getCurrentSession().createCriteria(entityClass);
+        criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+        ScrollableResults scrollableResults = criteria.scroll();
+        scrollableResults.last();
+        return  scrollableResults.getRowNumber()+1;
     }
 
     public E getById(Long id) {
