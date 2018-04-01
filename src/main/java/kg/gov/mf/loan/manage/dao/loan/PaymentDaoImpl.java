@@ -19,10 +19,10 @@ public class PaymentDaoImpl extends GenericDaoImpl<Payment> implements PaymentDa
     }
 
     @Override
-    public Payment getRowDayBeforeOnDateByLoanId(Long loanId, Date onDate)
+    public List<Payment> getRowDayBeforeOnDateByLoanId(Long loanId, Date onDate)
     {
         Date date = DateUtils.subtract(onDate, DateUtils.DAY, 1);
-        return (Payment) getCurrentSession().createQuery("from Payment where loanId ='"+ loanId + "' and paymentDate = '" + DateUtils.format(date, DateUtils.FORMAT_POSTGRES_DATE) + "'").uniqueResult();
+        return getCurrentSession().createQuery("from Payment where loanId ='"+ loanId + "' and paymentDate = '" + DateUtils.format(date, DateUtils.FORMAT_POSTGRES_DATE) + "'").list();
     }
 
 }

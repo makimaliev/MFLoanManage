@@ -25,7 +25,7 @@ public class PaymentServiceImpl extends GenericServiceImpl<Payment> implements P
     }
 
     @Override
-    public Payment getRowDayBeforeOnDateByLoanId(Long loanId, Date onDate)
+    public List<Payment> getRowDayBeforeOnDateByLoanId(Long loanId, Date onDate)
     {
         return this.paymentDao.getRowDayBeforeOnDateByLoanId(loanId, onDate);
     }
