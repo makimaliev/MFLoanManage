@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface PaymentDao extends GenericDao<Payment> {
 
-    Payment getRowDayBeforeOnDate(Date onDate);
-    List<Payment> getRowsUntilOnDate(Date onDate);
+    Payment getRowDayBeforeOnDateByLoanId(Long loanId, Date onDate);
+    List<Payment> getRowsUntilOnDateByLoanId(Long loanId, Date onDate);
 
 }

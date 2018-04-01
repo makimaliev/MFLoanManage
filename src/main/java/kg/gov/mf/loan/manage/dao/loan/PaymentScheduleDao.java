@@ -8,6 +8,6 @@ import java.util.List;
 
 public interface PaymentScheduleDao extends GenericDao<PaymentSchedule>{
 
-    List<PaymentSchedule> getRowsUntilOnDate(Date onDate);
+    List<PaymentSchedule> getRowsUntilOnDateByLoanId(Long loanId, Date onDate);
 
 }

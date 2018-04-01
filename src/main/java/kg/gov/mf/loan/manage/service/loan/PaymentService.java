@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface PaymentService extends GenericService<Payment> {
 
-    Payment getRowDayBeforeOnDate(Date onDate);
-    List<Payment> getRowsUntilOnDate(Date onDate);
+    Payment getRowDayBeforeOnDateByLoanId(Long loanId, Date onDate);
+    List<Payment> getRowsUntilOnDateByLoanId(Long loanId, Date onDate);
 
 }

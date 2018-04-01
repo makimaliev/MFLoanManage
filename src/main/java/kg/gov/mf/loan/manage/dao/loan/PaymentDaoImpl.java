@@ -13,16 +13,16 @@ import java.util.List;
 public class PaymentDaoImpl extends GenericDaoImpl<Payment> implements PaymentDao{
 
     @Override
-    public List<Payment> getRowsUntilOnDate(Date onDate)
+    public List<Payment> getRowsUntilOnDateByLoanId(Long loanId, Date onDate)
     {
-        return getCurrentSession().createQuery("from Payment where paymentDate < '" + DateUtils.format(onDate, DateUtils.FORMAT_POSTGRES_DATE) + "' order by paymentDate").list();
+        return getCurrentSession().createQuery("from Payment where loanId ='"+ loanId + "' and paymentDate < '" + DateUtils.format(onDate, DateUtils.FORMAT_POSTGRES_DATE) + "' order by paymentDate").list();
     }
 
     @Override
-    public Payment getRowDayBeforeOnDate(Date onDate)
+    public Payment getRowDayBeforeOnDateByLoanId(Long loanId, Date onDate)
     {
         Date date = DateUtils.subtract(onDate, DateUtils.DAY, 1);
-        return (Payment) getCurrentSession().createQuery("from Payment where paymentDate = '" + DateUtils.format(date, DateUtils.FORMAT_POSTGRES_DATE) + "'").uniqueResult();
+        return (Payment) getCurrentSession().createQuery("from Payment where loanId ='"+ loanId + "' and paymentDate = '" + DateUtils.format(date, DateUtils.FORMAT_POSTGRES_DATE) + "'").uniqueResult();
     }
 
 }

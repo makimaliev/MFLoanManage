@@ -8,6 +8,6 @@ import java.util.List;
 
 public interface PaymentScheduleService extends GenericService<PaymentSchedule> {
 
-    List<PaymentSchedule> getRowsUntilOnDate(Date onDate);
+    List<PaymentSchedule> getRowsUntilOnDateByLoanId(Long loanId, Date onDate);
 
 }

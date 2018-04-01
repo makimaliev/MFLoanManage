@@ -14,8 +14,8 @@ import java.util.List;
 public class PaymentScheduleDaoImpl extends GenericDaoImpl<PaymentSchedule> implements PaymentScheduleDao{
 
     @Override
-    public List<PaymentSchedule> getRowsUntilOnDate(Date onDate)
+    public List<PaymentSchedule> getRowsUntilOnDateByLoanId(Long loanId, Date onDate)
     {
-        return getCurrentSession().createQuery("from PaymentSchedule where expectedDate < '" + DateUtils.format(onDate, DateUtils.FORMAT_POSTGRES_DATE) + "' order by expectedDate").list();
+        return getCurrentSession().createQuery("from PaymentSchedule where loanId ='"+ loanId + "' and expectedDate < '" + DateUtils.format(onDate, DateUtils.FORMAT_POSTGRES_DATE) + "' order by expectedDate").list();
     }
 }

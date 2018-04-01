@@ -19,9 +19,9 @@ public class PaymentScheduleServiceImpl extends GenericServiceImpl<PaymentSchedu
     PaymentScheduleDao scheduleDao;
 
     @Override
-    public List<PaymentSchedule> getRowsUntilOnDate(Date onDate)
+    public List<PaymentSchedule> getRowsUntilOnDateByLoanId(Long loanId, Date onDate)
     {
-        return this.scheduleDao.getRowsUntilOnDate(onDate);
+        return this.scheduleDao.getRowsUntilOnDateByLoanId(loanId, onDate);
     }
 
 }
