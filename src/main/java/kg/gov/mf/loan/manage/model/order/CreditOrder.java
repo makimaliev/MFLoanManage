@@ -25,13 +25,13 @@ import kg.gov.mf.loan.manage.model.orderterm.OrderTerm;
 @Table(name="creditOrder")
 public class CreditOrder extends GenericModel {
 	
-	@Column(nullable=false, length = 20)
+	@Column(nullable=false, length = 100)
 	private String regNumber;
 	private String description;
 
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
     @Temporal(TemporalType.DATE)
-	@Column(nullable=false)
+	@Column(nullable=true)
 	private Date regDate;
 	
 	@ManyToOne(targetEntity=CreditOrderState.class, fetch = FetchType.EAGER)
