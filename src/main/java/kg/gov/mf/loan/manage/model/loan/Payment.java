@@ -38,6 +38,10 @@ public class Payment extends GenericModel{
 	
 	@Column(precision = 12, scale = 5)
 	private Double fee;
+
+	@Column(precision = 12, scale = 5)
+	private Double exchange_rate;
+
 	
 	@Column(nullable=false, length=100)
 	private String number;
@@ -102,6 +106,14 @@ public class Payment extends GenericModel{
 
 	public void setFee(Double fee) {
 		this.fee = fee;
+	}
+
+	public Double getExchange_rate() {
+		return exchange_rate;
+	}
+
+	public void setExchange_rate(Double exchange_rate) {
+		this.exchange_rate = exchange_rate;
 	}
 
 	public String getNumber() {
