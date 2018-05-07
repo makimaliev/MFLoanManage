@@ -15,12 +15,15 @@ import javax.persistence.Table;
 
 import kg.gov.mf.loan.manage.model.GenericModel;
 import kg.gov.mf.loan.manage.model.loan.Loan;
+import org.hibernate.search.annotations.*;
 
+@Indexed
 @Entity
 @Table(name="debtor")
 public class Debtor extends GenericModel{
 
 	@Column(nullable=false, length = 200)
+    @Field(index = Index.YES, analyze = Analyze.YES, store = Store.NO)
 	private String name;
 	
 	@ManyToOne(targetEntity=DebtorType.class, fetch = FetchType.EAGER)

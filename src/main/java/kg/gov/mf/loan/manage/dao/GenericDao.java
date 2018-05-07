@@ -13,5 +13,7 @@ public interface GenericDao<E> {
     E getById(Long id);
     void update(E entity);
     void remove(E entity);
-	
+    List<E> search(String searchText, List<String> onFields, String param, int firstResult, int maxResults);
+    void indexEntity();
+    int searchCount();
 }
