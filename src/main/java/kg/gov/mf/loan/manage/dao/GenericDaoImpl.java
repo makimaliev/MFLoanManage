@@ -1,16 +1,16 @@
 package kg.gov.mf.loan.manage.dao;
 
-import org.apache.commons.lang3.StringUtils;
-import org.apache.lucene.search.Sort;
-import org.apache.lucene.search.SortField;
+//import org.apache.commons.lang3.StringUtils;
+//import org.apache.lucene.search.Sort;
+//import org.apache.lucene.search.SortField;
 import org.hibernate.Criteria;
 import org.hibernate.ScrollableResults;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Order;
-import org.hibernate.search.FullTextSession;
-import org.hibernate.search.Search;
-import org.hibernate.search.query.dsl.QueryBuilder;
+//import org.hibernate.search.FullTextSession;
+//import org.hibernate.search.Search;
+//import org.hibernate.search.query.dsl.QueryBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -87,6 +87,7 @@ public abstract class GenericDaoImpl<E> implements GenericDao<E> {
         getCurrentSession().delete(entity);
     }
 
+    /*
     public List<E> search(String searchText, List<String> onFields, String param, int firstResult, int maxResults)
     {
         FullTextSession fullTextSession = Search.getFullTextSession(getCurrentSession());
@@ -134,5 +135,6 @@ public abstract class GenericDaoImpl<E> implements GenericDao<E> {
     {
         return this.searchCount;
     }
+    */
 
 }

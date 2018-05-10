@@ -69,6 +69,7 @@ public abstract class GenericServiceImpl<E> implements GenericService<E> {
     	dao.remove(entity);
     }
 
+    /*
     @Override
     @Transactional(propagation = Propagation.REQUIRED, readOnly = true)
     public List<E> search(String searchText, List<String> onFields, String param, int firstResult, int maxResults) {
@@ -88,4 +89,5 @@ public abstract class GenericServiceImpl<E> implements GenericService<E> {
     {
        return this.dao.searchCount();
     }
+    */
 }
