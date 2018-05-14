@@ -57,8 +57,8 @@ public class CollectionPhase extends GenericModel{
 	@OneToMany(mappedBy = "collectionPhase", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Set<CollectionEvent> collectionEvents = new HashSet<CollectionEvent>();
 	
-	@OneToOne(mappedBy = "collectionPhase", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true)
-    private PhaseDetails phaseDetails;
+	@OneToMany(mappedBy = "collectionPhase", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<PhaseDetails> phaseDetails = new HashSet<PhaseDetails>();
 
 	public Date getStartDate() {
 		return startDate;
@@ -132,14 +132,14 @@ public class CollectionPhase extends GenericModel{
 		this.loans = loans;
 	}
 
-	public PhaseDetails getPhaseDetails() {
+	public Set<PhaseDetails> getPhaseDetails() {
 		return phaseDetails;
 	}
 
-	public void setPhaseDetails(PhaseDetails phaseDetails) {
+	public void setPhaseDetails(Set<PhaseDetails> phaseDetails) {
 		this.phaseDetails = phaseDetails;
 	}
-	
+
 	@Override
 	public int hashCode() {
 		int hash = 5;

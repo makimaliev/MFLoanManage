@@ -1,11 +1,6 @@
 package kg.gov.mf.loan.manage.model.collection;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.OneToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import kg.gov.mf.loan.manage.model.GenericModel;
 
@@ -60,10 +55,9 @@ public class PhaseDetails extends GenericModel{
 
 	@Column
 	private long loan_id;
-
 	
-	@OneToOne(targetEntity=CollectionPhase.class, fetch = FetchType.EAGER)
-	@PrimaryKeyJoinColumn
+	@ManyToOne(targetEntity=CollectionPhase.class, fetch = FetchType.LAZY)
+	@JoinColumn(name="collectionPhaseId")
 	CollectionPhase collectionPhase;
 
 	public Double getStartTotalAmount() {
@@ -201,4 +195,6 @@ public class PhaseDetails extends GenericModel{
 	public void setLoan_id(long loan_id) {
 		this.loan_id = loan_id;
 	}
+
+
 }

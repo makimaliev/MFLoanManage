@@ -1,11 +1,6 @@
 package kg.gov.mf.loan.manage.model.collection;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.OneToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import kg.gov.mf.loan.manage.model.GenericModel;
 
@@ -58,8 +53,8 @@ public class EventDetails extends GenericModel{
 	@Column(precision = 12, scale = 5)
 	private Double paidFee;
 	
-	@OneToOne(targetEntity=CollectionEvent.class, fetch = FetchType.EAGER)
-	@PrimaryKeyJoinColumn
+	@ManyToOne(targetEntity=CollectionEvent.class, fetch = FetchType.LAZY)
+	@JoinColumn(name="collectionEventId")
 	CollectionEvent collectionEvent;
 
 	public Double getStartTotalAmount() {

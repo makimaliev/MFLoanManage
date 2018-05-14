@@ -1,17 +1,10 @@
 package kg.gov.mf.loan.manage.model.collection;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -43,8 +36,8 @@ public class CollectionEvent extends GenericModel {
 	@JoinColumn(name="eventTypeId")
 	private EventType eventType;
 	
-	@OneToOne(mappedBy = "collectionEvent", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true)
-    private EventDetails eventDetails;
+	@OneToMany(mappedBy = "collectionEvent", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<EventDetails> eventDetails = new HashSet<>();
 
 	public Date getStartDate() {
 		return startDate;
@@ -86,11 +79,11 @@ public class CollectionEvent extends GenericModel {
 		this.eventType = eventType;
 	}
 
-	public EventDetails getEventDetails() {
+	public Set<EventDetails> getEventDetails() {
 		return eventDetails;
 	}
 
-	public void setEventDetails(EventDetails eventDetails) {
+	public void setEventDetails(Set<EventDetails> eventDetails) {
 		this.eventDetails = eventDetails;
 	}
 }
