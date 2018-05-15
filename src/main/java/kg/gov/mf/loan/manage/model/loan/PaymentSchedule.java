@@ -2,22 +2,14 @@ package kg.gov.mf.loan.manage.model.loan;
 
 import java.util.Date;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
 
+import kg.gov.mf.loan.manage.model.BaseModel;
 import org.springframework.format.annotation.DateTimeFormat;
-
-import kg.gov.mf.loan.manage.model.GenericModel;
 
 @Entity
 @Table(name="paymentSchedule")
-public class PaymentSchedule extends GenericModel{
+public class PaymentSchedule extends BaseModel {
 
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Temporal(TemporalType.DATE)
@@ -38,13 +30,12 @@ public class PaymentSchedule extends GenericModel{
 	
 	@Column(precision = 12, scale = 5)
 	private Double collectedPenaltyPayment;
-	
-	@ManyToOne(targetEntity=InstallmentState.class, fetch = FetchType.EAGER)
-	@JoinColumn(name="installmentStateId")
+
+	@Enumerated(EnumType.STRING)
 	private InstallmentState installmentState;
 	
-	@ManyToOne(targetEntity=Loan.class, fetch = FetchType.LAZY)
-    @JoinColumn(name="loanId")
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "loanId", nullable = false)
     Loan loan;
 
 	public Date getExpectedDate() {

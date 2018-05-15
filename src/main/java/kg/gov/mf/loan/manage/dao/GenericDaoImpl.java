@@ -1,16 +1,10 @@
 package kg.gov.mf.loan.manage.dao;
 
-//import org.apache.commons.lang3.StringUtils;
-//import org.apache.lucene.search.Sort;
-//import org.apache.lucene.search.SortField;
 import org.hibernate.Criteria;
 import org.hibernate.ScrollableResults;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Order;
-//import org.hibernate.search.FullTextSession;
-//import org.hibernate.search.Search;
-//import org.hibernate.search.query.dsl.QueryBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -20,7 +14,7 @@ import java.util.List;
 
 @Repository
 public abstract class GenericDaoImpl<E> implements GenericDao<E> {
-	
+
 	@Autowired
     protected SessionFactory sessionFactory;
     protected Class<? extends E> entityClass;
@@ -86,55 +80,4 @@ public abstract class GenericDaoImpl<E> implements GenericDao<E> {
     public void remove(E entity) {
         getCurrentSession().delete(entity);
     }
-
-    /*
-    public List<E> search(String searchText, List<String> onFields, String param, int firstResult, int maxResults)
-    {
-        FullTextSession fullTextSession = Search.getFullTextSession(getCurrentSession());
-
-        QueryBuilder qb = fullTextSession.getSearchFactory()
-                .buildQueryBuilder().forEntity(entityClass).get();
-
-        org.apache.lucene.search.Query query = qb
-                .keyword()
-                .fuzzy()
-                .withEditDistanceUpTo(2)
-                .withPrefixLength(0)
-                .onFields(StringUtils.join(onFields, ','))
-                .matching(searchText)
-                .createQuery();
-
-        Sort sort = new Sort( new SortField( param, SortField.Type.STRING, false ) );
-
-        org.hibernate.search.FullTextQuery hibQuery = fullTextSession.createFullTextQuery(query, entityClass)
-                .setFirstResult(firstResult)
-                .setMaxResults(maxResults)
-                .setSort(sort);
-
-        this.searchCount = hibQuery.getResultSize();
-
-        List<E> results = hibQuery.list();
-
-        return results;
-    }
-
-    public void indexEntity()
-    {
-        try
-        {
-            FullTextSession fullTextSession = Search.getFullTextSession(getCurrentSession());
-            fullTextSession.createIndexer().startAndWait();
-        }
-        catch(Exception e)
-        {
-            e.printStackTrace();
-        }
-    }
-
-    public int searchCount()
-    {
-        return this.searchCount;
-    }
-    */
-
 }

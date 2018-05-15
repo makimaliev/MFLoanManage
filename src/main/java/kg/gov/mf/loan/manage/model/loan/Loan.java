@@ -7,13 +7,9 @@ import java.util.Set;
 
 import javax.persistence.*;
 
-import kg.gov.mf.loan.manage.model.process.Accrue;
-import kg.gov.mf.loan.manage.model.process.LoanDetailedSummary;
-import kg.gov.mf.loan.manage.model.process.LoanSummary;
+import kg.gov.mf.loan.manage.model.BaseModel;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import kg.gov.mf.loan.manage.model.GenericModel;
-import kg.gov.mf.loan.manage.model.collateral.Collateral;
 import kg.gov.mf.loan.manage.model.collateral.CollateralAgreement;
 import kg.gov.mf.loan.manage.model.collection.CollectionPhase;
 import kg.gov.mf.loan.manage.model.debtor.Debtor;
@@ -22,7 +18,7 @@ import kg.gov.mf.loan.manage.model.orderterm.OrderTermCurrency;
 
 @Entity
 @Table(name="loan")
-public class Loan extends GenericModel{
+public class Loan extends BaseModel {
 	
 	@Column(nullable=false, length=150)
 	private String regNumber;
@@ -34,92 +30,49 @@ public class Loan extends GenericModel{
 	
 	@Column(precision = 12, scale = 5)
 	private Double amount;
-	
-	@ManyToOne(targetEntity=OrderTermCurrency.class, fetch = FetchType.EAGER)
-	@JoinColumn(name="currencyId")
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "currencyId", nullable = false)
 	private OrderTermCurrency currency;
-	
-	@ManyToOne(targetEntity=LoanType.class, fetch = FetchType.EAGER)
-	@JoinColumn(name="loanTypeId")
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "loanTypeId", nullable = false)
 	private LoanType loanType;
-	
-	@ManyToOne(targetEntity=LoanState.class, fetch = FetchType.EAGER)
-	@JoinColumn(name="loanStateId")
+
+	@Enumerated(EnumType.STRING)
 	private LoanState loanState;
 	
 	@Column(nullable=false)
 	private long supervisorId;
 	
 	private boolean hasSubLoan;
-	
-	@ManyToOne(targetEntity=Loan.class, fetch = FetchType.LAZY)
-	@JoinColumn(name="parentLoanId")
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "parentLoanId")
 	private Loan parentLoan;
 	
-	@OneToMany(mappedBy = "parentLoan", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Set<Loan> subLoans = new HashSet<Loan>();
-	
-	@ManyToOne(targetEntity=CreditOrder.class, fetch = FetchType.EAGER)
-	@JoinColumn(name="creditOrderId", nullable=true)
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "creditOrderId", nullable = false)
 	private CreditOrder creditOrder;
 	
-	@ManyToOne(targetEntity=Debtor.class, fetch = FetchType.LAZY)
-    @JoinColumn(name="debtorId")
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "debtorId", nullable = false)
 	Debtor debtor;
 	
-	@ManyToOne(targetEntity=CollectionPhase.class, fetch = FetchType.EAGER)
-    @JoinColumn(name="collectionPhaseId")
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "collectionPhaseId", nullable = false)
 	CollectionPhase collectionPhase;
-	
-	@OneToMany(mappedBy = "loan", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Set<CreditTerm> creditTerms = new HashSet<CreditTerm>();
-	
-	@OneToMany(mappedBy = "loan", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Set<WriteOff> writeOffs = new HashSet<WriteOff>();
-	
-	@OneToMany(mappedBy = "loan", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	@OrderBy("expectedDate")
-    private Set<PaymentSchedule> paymentSchedules = new HashSet<PaymentSchedule>();
-	
-	@OneToMany(mappedBy = "loan", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Set<Payment> payments = new HashSet<Payment>();
-	
-	@OneToMany(mappedBy = "loan", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Set<SupervisorPlan> supervisorPlans = new HashSet<SupervisorPlan>();
-	
-	@OneToMany(mappedBy = "loan", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Set<LoanGoods> loanGoods = new HashSet<LoanGoods>();
-	
-	@OneToMany(mappedBy = "loan", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Set<DebtTransfer> debtTransfers = new HashSet<DebtTransfer>();
-	
-	@OneToMany(mappedBy = "loan", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Set<TargetedUse> targetedUses = new HashSet<TargetedUse>();
-	
-	@OneToMany(mappedBy = "loan", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Set<ReconstructedList> reconstructedLists = new HashSet<ReconstructedList>();
-	
-	@OneToMany(mappedBy = "loan", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Set<Bankrupt> bankrupts = new HashSet<Bankrupt>();
-	
-	@OneToMany(mappedBy = "loan", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Set<Collateral> collaterals = new HashSet<Collateral>();
 
-	@OneToMany(mappedBy = "loan", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	@OrderBy("fromDate")
-	private Set<Accrue> accrues = new HashSet<Accrue>();
+	@ManyToMany(fetch = FetchType.LAZY,
+			cascade = {
+					CascadeType.PERSIST,
+					CascadeType.MERGE
+			})
+	@JoinTable(name = "loan_collateral_agreement",
+			joinColumns = { @JoinColumn(name = "loanId") },
+			inverseJoinColumns = { @JoinColumn(name = "collateralAgreementId") })
+	private Set<CollateralAgreement> collateralAgreements = new HashSet<>();
 
-	@OneToMany(mappedBy = "loan", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	@OrderBy("onDate")
-	private Set<LoanSummary> loanSummaries = new HashSet<LoanSummary>();
-
-	@OneToMany(mappedBy = "loan", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	@OrderBy("onDate")
-	private Set<LoanDetailedSummary> loanDetailedSummaries = new HashSet<LoanDetailedSummary>();
-	
-	@ManyToMany(mappedBy="loans", fetch = FetchType.EAGER)
-	Set<CollateralAgreement> collateralAgreements = new HashSet<CollateralAgreement>();
-	
 	public String getRegNumber() {
 		return regNumber;
 	}
@@ -192,14 +145,6 @@ public class Loan extends GenericModel{
 		this.parentLoan = parentLoan;
 	}
 
-	public Set<Loan> getSubLoans() {
-		return subLoans;
-	}
-
-	public void setSubLoans(Set<Loan> subLoans) {
-		this.subLoans = subLoans;
-	}
-
 	public CreditOrder getCreditOrder() {
 		return creditOrder;
 	}
@@ -224,124 +169,12 @@ public class Loan extends GenericModel{
 		this.collectionPhase = collectionPhase;
 	}
 
-	public Set<CreditTerm> getCreditTerms() {
-		return creditTerms;
-	}
-
-	public void setCreditTerms(Set<CreditTerm> creditTerms) {
-		this.creditTerms = creditTerms;
-	}
-
-	public Set<WriteOff> getWriteOffs() {
-		return writeOffs;
-	}
-
-	public void setWriteOffs(Set<WriteOff> writeOffs) {
-		this.writeOffs = writeOffs;
-	}
-
-	public Set<PaymentSchedule> getPaymentSchedules() {
-		return paymentSchedules;
-	}
-
-	public void setPaymentSchedules(Set<PaymentSchedule> paymentSchedules) {
-		this.paymentSchedules = paymentSchedules;
-	}
-
-	public Set<Payment> getPayments() {
-		return payments;
-	}
-
-	public void setPayments(Set<Payment> payments) {
-		this.payments = payments;
-	}
-
-	public Set<SupervisorPlan> getSupervisorPlans() {
-		return supervisorPlans;
-	}
-
-	public void setSupervisorPlans(Set<SupervisorPlan> supervisorPlans) {
-		this.supervisorPlans = supervisorPlans;
-	}
-
-	public Set<LoanGoods> getLoanGoods() {
-		return loanGoods;
-	}
-
-	public void setLoanGoods(Set<LoanGoods> loanGoods) {
-		this.loanGoods = loanGoods;
-	}
-
-	public Set<DebtTransfer> getDebtTransfers() {
-		return debtTransfers;
-	}
-
-	public void setDebtTransfers(Set<DebtTransfer> debtTransfers) {
-		this.debtTransfers = debtTransfers;
-	}
-
-	public Set<TargetedUse> getTargetedUses() {
-		return targetedUses;
-	}
-
-	public void setTargetedUses(Set<TargetedUse> targetedUses) {
-		this.targetedUses = targetedUses;
-	}
-
-	public Set<ReconstructedList> getReconstructedLists() {
-		return reconstructedLists;
-	}
-
-	public void setReconstructedLists(Set<ReconstructedList> reconstructedLists) {
-		this.reconstructedLists = reconstructedLists;
-	}
-
-	public Set<Bankrupt> getBankrupts() {
-		return bankrupts;
-	}
-
-	public void setBankrupts(Set<Bankrupt> bankrupts) {
-		this.bankrupts = bankrupts;
-	}
-
-	public Set<Collateral> getCollaterals() {
-		return collaterals;
-	}
-
-	public void setCollaterals(Set<Collateral> collaterals) {
-		this.collaterals = collaterals;
-	}
-
 	public Set<CollateralAgreement> getCollateralAgreements() {
 		return collateralAgreements;
 	}
 
 	public void setCollateralAgreements(Set<CollateralAgreement> collateralAgreements) {
 		this.collateralAgreements = collateralAgreements;
-	}
-
-	public Set<Accrue> getAccrues() {
-		return accrues;
-	}
-
-	public void setAccrues(Set<Accrue> accrues) {
-		this.accrues = accrues;
-	}
-
-	public Set<LoanSummary> getLoanSummaries() {
-		return loanSummaries;
-	}
-
-	public void setLoanSummaries(Set<LoanSummary> loanSummaries) {
-		this.loanSummaries = loanSummaries;
-	}
-
-	public Set<LoanDetailedSummary> getLoanDetailedSummaries() {
-		return loanDetailedSummaries;
-	}
-
-	public void setLoanDetailedSummaries(Set<LoanDetailedSummary> loanDetailedSummaries) {
-		this.loanDetailedSummaries = loanDetailedSummaries;
 	}
 
 	@Override

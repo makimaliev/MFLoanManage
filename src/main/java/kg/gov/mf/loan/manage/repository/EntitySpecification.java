@@ -1,4 +1,4 @@
-package kg.gov.mf.loan.manage.dao;
+package kg.gov.mf.loan.manage.repository;
 
 import kg.gov.mf.loan.manage.util.SpecSearchCriteria;
 import org.springframework.data.jpa.domain.Specification;

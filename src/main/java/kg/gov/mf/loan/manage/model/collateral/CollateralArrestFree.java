@@ -1,23 +1,18 @@
 package kg.gov.mf.loan.manage.model.collateral;
 
+import kg.gov.mf.loan.manage.model.BaseModel;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
-import kg.gov.mf.loan.manage.model.GenericModel;
-
 @Entity
 @Table(name="collateralArrestFree")
-public class CollateralArrestFree extends GenericModel {
+public class CollateralArrestFree extends BaseModel {
 	
 	@Column(nullable=false, length=20)	
 	private String name;
-	
-	/*
-	@ManyToOne(targetEntity=CollateralAgreement.class, fetch = FetchType.EAGER)
-    @JoinColumn(name="collateralAgreementId")
-	CollateralAgreement collateralAgreement;
-	*/
+
 	public String getName() {
 		return name;
 	}
@@ -25,14 +20,4 @@ public class CollateralArrestFree extends GenericModel {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
-	/*
-	public CollateralAgreement getCollateralAgreement() {
-		return collateralAgreement;
-	}
-
-	public void setCollateralAgreement(CollateralAgreement collateralAgreement) {
-		this.collateralAgreement = collateralAgreement;
-	}
-	*/
 }

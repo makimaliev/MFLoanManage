@@ -11,7 +11,7 @@ import java.util.List;
 
 @Service
 public abstract class GenericServiceImpl<E> implements GenericService<E> {
-	
+
 	@Autowired
     protected GenericDao<E> dao;
 
@@ -68,26 +68,4 @@ public abstract class GenericServiceImpl<E> implements GenericService<E> {
     public void remove(E entity) {
     	dao.remove(entity);
     }
-
-    /*
-    @Override
-    @Transactional(propagation = Propagation.REQUIRED, readOnly = true)
-    public List<E> search(String searchText, List<String> onFields, String param, int firstResult, int maxResults) {
-        return dao.search(searchText, onFields, param, firstResult, maxResults);
-    }
-
-    @Override
-    @Transactional(propagation = Propagation.REQUIRED, readOnly = true)
-    public void indexEntity()
-    {
-        this.dao.indexEntity();
-    }
-
-    @Override
-    @Transactional(propagation = Propagation.REQUIRED, readOnly = true)
-    public int searchCount()
-    {
-       return this.dao.searchCount();
-    }
-    */
 }

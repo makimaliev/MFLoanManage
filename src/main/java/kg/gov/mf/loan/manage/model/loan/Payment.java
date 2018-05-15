@@ -11,13 +11,12 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import kg.gov.mf.loan.manage.model.BaseModel;
 import org.springframework.format.annotation.DateTimeFormat;
-
-import kg.gov.mf.loan.manage.model.GenericModel;
 
 @Entity
 @Table(name="payment")
-public class Payment extends GenericModel{
+public class Payment extends BaseModel {
 	
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Temporal(TemporalType.DATE)
@@ -42,7 +41,6 @@ public class Payment extends GenericModel{
 	@Column(precision = 12, scale = 5)
 	private Double exchange_rate;
 
-	
 	@Column(nullable=false, length=100)
 	private String number;
 
@@ -52,12 +50,12 @@ public class Payment extends GenericModel{
 	@Column(nullable=true, length=100)
 	private String details;
 
-	@ManyToOne(targetEntity=PaymentType.class, fetch = FetchType.EAGER)
-	@JoinColumn(name="paymentTypeId")
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "paymentTypeId", nullable = false)
 	private PaymentType paymentType;
-	
-	@ManyToOne(targetEntity=Loan.class, fetch = FetchType.LAZY)
-    @JoinColumn(name="loanId")
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "loanId", nullable = false)
     Loan loan;
 
 	public Date getPaymentDate() {

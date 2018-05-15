@@ -11,13 +11,12 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import kg.gov.mf.loan.manage.model.BaseModel;
 import org.springframework.format.annotation.DateTimeFormat;
-
-import kg.gov.mf.loan.manage.model.GenericModel;
 
 @Entity
 @Table(name="supervisorPlan")
-public class SupervisorPlan extends GenericModel{
+public class SupervisorPlan extends BaseModel {
 
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Temporal(TemporalType.DATE)
@@ -41,9 +40,9 @@ public class SupervisorPlan extends GenericModel{
 	
 	@Column(nullable=true, length=50)
 	private String description;
-	
-	@ManyToOne(targetEntity=Loan.class, fetch = FetchType.LAZY)
-    @JoinColumn(name="loanId")
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "loanId", nullable = false)
     Loan loan;
 
 	@Column(nullable=false)

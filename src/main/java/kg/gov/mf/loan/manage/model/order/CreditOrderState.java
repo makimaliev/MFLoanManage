@@ -1,12 +1,5 @@
 package kg.gov.mf.loan.manage.model.order;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
-
-import kg.gov.mf.loan.manage.model.Catalog;
-
-@Entity
-@Table(name="creditOrderState")
-public class CreditOrderState extends Catalog {
-	
+public enum CreditOrderState{
+	APPROVED, PENDING
 }
