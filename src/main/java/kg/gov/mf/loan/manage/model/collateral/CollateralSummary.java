@@ -11,12 +11,13 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import kg.gov.mf.loan.manage.model.BaseModel;
 import org.springframework.format.annotation.DateTimeFormat;
+
+import kg.gov.mf.loan.manage.model.GenericModel;
 
 @Entity
 @Table(name="collateralSummary")
-public class CollateralSummary extends BaseModel {
+public class CollateralSummary extends GenericModel{
 	
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Temporal(TemporalType.DATE)
@@ -50,8 +51,8 @@ public class CollateralSummary extends BaseModel {
 	@Column(precision = 12, scale = 5)
 	private Double itemAvgConditionByLoan;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "collateralId", nullable = false)
+	@ManyToOne(targetEntity=Collateral.class, fetch = FetchType.EAGER)
+    @JoinColumn(name="collateralId")
 	Collateral collateral;
 
 	public Date getOnDate() {

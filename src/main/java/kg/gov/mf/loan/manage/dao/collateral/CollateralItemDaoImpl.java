@@ -8,4 +8,13 @@ import kg.gov.mf.loan.manage.model.collateral.CollateralItem;
 
 @Repository("collateralItemDao")
 public class CollateralItemDaoImpl extends GenericDaoImpl<CollateralItem> implements CollateralItemDao{
+
+    @Override
+    public CollateralItem getById(Long id)
+    {
+        CollateralItem result = super.getById(id);
+        Hibernate.initialize(result.getCollateralItemInspectionResults());
+        return result;
+    }
+
 }

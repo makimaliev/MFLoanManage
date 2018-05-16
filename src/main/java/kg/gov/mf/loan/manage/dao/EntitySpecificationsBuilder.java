@@ -1,4 +1,4 @@
-package kg.gov.mf.loan.manage.repository;
+package kg.gov.mf.loan.manage.dao;
 
 import kg.gov.mf.loan.manage.util.SearchOperation;
 import kg.gov.mf.loan.manage.util.SpecSearchCriteria;

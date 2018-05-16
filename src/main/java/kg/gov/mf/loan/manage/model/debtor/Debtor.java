@@ -1,30 +1,49 @@
 package kg.gov.mf.loan.manage.model.debtor;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import kg.gov.mf.loan.manage.model.BaseModel;
+import java.util.HashSet;
+import java.util.Set;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
+import kg.gov.mf.loan.manage.model.GenericModel;
+import kg.gov.mf.loan.manage.model.loan.Loan;
+//import org.hibernate.search.annotations.*;
+
+//@Indexed
 @Entity
 @Table(name="debtor")
-public class Debtor extends BaseModel {
+public class Debtor extends GenericModel{
 
 	@Column(nullable=false, length = 200)
+    //#@Field(index = Index.YES, analyze = Analyze.YES, store = Store.NO)
 	private String name;
-
-	@Enumerated(EnumType.STRING)
+	
+	@ManyToOne(targetEntity=DebtorType.class, fetch = FetchType.EAGER)
+	@JoinColumn(name="debtorTypeId")
 	private DebtorType debtorType;
-
-	@Enumerated(EnumType.STRING)
-	private OrganizationForm organizationForm;
-
-	@Enumerated(EnumType.STRING)
-	private WorkSector workSector;
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "ownerId", nullable = false)
-	@JsonIgnore
-	private Owner owner;
+	
+	@ManyToOne(targetEntity=OrganizationForm.class, fetch = FetchType.EAGER)
+	@JoinColumn(name="orgFormId")
+	private OrganizationForm orgForm;
+	
+	@ManyToOne(targetEntity=WorkSector.class, fetch = FetchType.EAGER)
+	@JoinColumn(name="workSectorId")
+	WorkSector workSector;
+	
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+    @JoinColumn(name="ownerId")
+    Owner owner;
+	
+	@OneToMany(mappedBy = "debtor", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<Loan> loans;
 
 	public String getName() {
 		return name;
@@ -42,12 +61,12 @@ public class Debtor extends BaseModel {
 		this.debtorType = debtorType;
 	}
 
-	public OrganizationForm getOrganizationForm() {
-		return organizationForm;
+	public OrganizationForm getOrgForm() {
+		return orgForm;
 	}
 
-	public void setOrganizationForm(OrganizationForm organizationForm) {
-		this.organizationForm = organizationForm;
+	public void setOrgForm(OrganizationForm orgForm) {
+		this.orgForm = orgForm;
 	}
 
 	public WorkSector getWorkSector() {
@@ -56,6 +75,14 @@ public class Debtor extends BaseModel {
 
 	public void setWorkSector(WorkSector workSector) {
 		this.workSector = workSector;
+	}
+
+	public Set<Loan> getLoans() {
+		return loans;
+	}
+
+	public void setLoans(Set<Loan> loans) {
+		this.loans = loans;
 	}
 
 	public Owner getOwner() {

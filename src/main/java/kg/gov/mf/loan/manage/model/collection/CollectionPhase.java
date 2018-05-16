@@ -1,15 +1,30 @@
 package kg.gov.mf.loan.manage.model.collection;
 
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Objects;
-import javax.persistence.*;
+import java.util.Set;
 
-import kg.gov.mf.loan.manage.model.BaseModel;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
 import org.springframework.format.annotation.DateTimeFormat;
+
+import kg.gov.mf.loan.manage.model.GenericModel;
+import kg.gov.mf.loan.manage.model.loan.Loan;
 
 @Entity
 @Table(name="collectionPhase")
-public class CollectionPhase extends BaseModel {
+public class CollectionPhase extends GenericModel{
 
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Temporal(TemporalType.DATE)
@@ -24,17 +39,26 @@ public class CollectionPhase extends BaseModel {
 	private long lastEvent;
 	private long lastStatusId;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "collectionProcedureId", nullable = false)
+	@ManyToOne(targetEntity=CollectionProcedure.class, fetch = FetchType.LAZY)
+    @JoinColumn(name="collectionProcedureId")
 	CollectionProcedure collectionProcedure;
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "phaseStatusId", nullable = false)
+	
+	@ManyToOne(targetEntity=PhaseStatus.class, fetch = FetchType.EAGER)
+	@JoinColumn(name="phaseStatusId")
 	private PhaseStatus phaseStatus;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "phaseTypeId", nullable = false)
+	@ManyToOne(targetEntity=PhaseType.class, fetch = FetchType.EAGER)
+	@JoinColumn(name="phaseTypeId")
 	private PhaseType phaseType;
+	
+	@OneToMany(mappedBy = "collectionPhase", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private Set<Loan> loans = new HashSet<Loan>();
+	
+	@OneToMany(mappedBy = "collectionPhase", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private Set<CollectionEvent> collectionEvents = new HashSet<CollectionEvent>();
+	
+	@OneToMany(mappedBy = "collectionPhase", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<PhaseDetails> phaseDetails = new HashSet<PhaseDetails>();
 
 	public Date getStartDate() {
 		return startDate;
@@ -90,6 +114,30 @@ public class CollectionPhase extends BaseModel {
 
 	public void setPhaseType(PhaseType phaseType) {
 		this.phaseType = phaseType;
+	}
+
+	public Set<CollectionEvent> getCollectionEvents() {
+		return collectionEvents;
+	}
+
+	public void setCollectionEvents(Set<CollectionEvent> collectionEvents) {
+		this.collectionEvents = collectionEvents;
+	}
+
+	public Set<Loan> getLoans() {
+		return loans;
+	}
+
+	public void setLoans(Set<Loan> loans) {
+		this.loans = loans;
+	}
+
+	public Set<PhaseDetails> getPhaseDetails() {
+		return phaseDetails;
+	}
+
+	public void setPhaseDetails(Set<PhaseDetails> phaseDetails) {
+		this.phaseDetails = phaseDetails;
 	}
 
 	@Override

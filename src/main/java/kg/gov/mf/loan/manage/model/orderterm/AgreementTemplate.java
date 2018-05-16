@@ -11,12 +11,13 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import kg.gov.mf.loan.manage.model.BaseModel;
 import org.springframework.format.annotation.DateTimeFormat;
+
+import kg.gov.mf.loan.manage.model.GenericModel;
 
 @Entity
 @Table(name="agreementTemplate")
-public class AgreementTemplate extends BaseModel {
+public class AgreementTemplate extends GenericModel {
 
 	@Column(nullable=false, length=50)
 	private String name;
@@ -43,8 +44,8 @@ public class AgreementTemplate extends BaseModel {
 	@Column(length=200)
 	private String approvedDescription;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "orderTermId", nullable = false)
+	@ManyToOne(targetEntity=OrderTerm.class, fetch = FetchType.LAZY)
+    @JoinColumn(name="orderTermId")
     OrderTerm orderTerm;
 
 	public String getName() {

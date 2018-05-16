@@ -11,12 +11,13 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import kg.gov.mf.loan.manage.model.BaseModel;
 import org.springframework.format.annotation.DateTimeFormat;
+
+import kg.gov.mf.loan.manage.model.GenericModel;
 
 @Entity
 @Table(name="debtTransfer")
-public class DebtTransfer extends BaseModel {
+public class DebtTransfer extends GenericModel{
 
 	@Column(nullable=false, length=50)
 	private String number;
@@ -44,9 +45,9 @@ public class DebtTransfer extends BaseModel {
 	private long transferPersonId;
 	
 	private long goodsTypeId;
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "loanId", nullable = false)
+	
+	@ManyToOne(targetEntity=Loan.class, fetch = FetchType.LAZY)
+    @JoinColumn(name="loanId")
     Loan loan;
 
 	public String getNumber() {

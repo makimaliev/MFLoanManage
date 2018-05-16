@@ -1,6 +1,6 @@
 package kg.gov.mf.loan.manage.model.process;
 
-import kg.gov.mf.loan.manage.model.BaseModel;
+import kg.gov.mf.loan.manage.model.GenericModel;
 import kg.gov.mf.loan.manage.model.loan.Loan;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -9,7 +9,7 @@ import java.util.Date;
 
 @Entity
 @Table(name="loanDetailedSummary")
-public class LoanDetailedSummary extends BaseModel {
+public class LoanDetailedSummary extends GenericModel{
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Temporal(TemporalType.DATE)
@@ -111,8 +111,8 @@ public class LoanDetailedSummary extends BaseModel {
     @Column(precision = 12, scale = 5)
     private Double penaltyOverdue;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "loanId", nullable = false)
+    @ManyToOne(targetEntity=Loan.class, fetch = FetchType.LAZY)
+    @JoinColumn(name="loanId")
     Loan loan;
 
     public Date getOnDate() {

@@ -14,12 +14,10 @@ import java.util.List;
 
 @Repository
 public abstract class GenericDaoImpl<E> implements GenericDao<E> {
-
+	
 	@Autowired
     protected SessionFactory sessionFactory;
     protected Class<? extends E> entityClass;
-
-    public int searchCount;
 
     public GenericDaoImpl() {
         Type t = getClass().getGenericSuperclass();
@@ -80,4 +78,5 @@ public abstract class GenericDaoImpl<E> implements GenericDao<E> {
     public void remove(E entity) {
         getCurrentSession().delete(entity);
     }
+
 }

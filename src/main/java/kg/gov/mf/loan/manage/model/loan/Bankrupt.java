@@ -11,12 +11,13 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import kg.gov.mf.loan.manage.model.BaseModel;
 import org.springframework.format.annotation.DateTimeFormat;
+
+import kg.gov.mf.loan.manage.model.GenericModel;
 
 @Entity
 @Table(name="bankrupt")
-public class Bankrupt extends BaseModel {
+public class Bankrupt extends GenericModel{
 	
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Temporal(TemporalType.DATE)
@@ -28,8 +29,8 @@ public class Bankrupt extends BaseModel {
 	@Column(nullable=false)
 	private Date finishedOnDate;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "loanId", nullable = false)
+	@ManyToOne(targetEntity=Loan.class, fetch = FetchType.LAZY)
+    @JoinColumn(name="loanId")
     Loan loan;
 
 	public Date getStartedOnDate() {

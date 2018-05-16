@@ -1,7 +1,5 @@
 package kg.gov.mf.loan.manage.model.loan;
 
-import kg.gov.mf.loan.manage.model.BaseModel;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -9,9 +7,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import kg.gov.mf.loan.manage.model.GenericModel;
+
 @Entity
 @Table(name="loanGoods")
-public class LoanGoods extends BaseModel {
+public class LoanGoods extends GenericModel{
 	
 	@Column(precision = 12, scale = 5)
 	private Double quantity;
@@ -19,9 +19,9 @@ public class LoanGoods extends BaseModel {
 	private long unitTypeId;
 	
 	private long goodsTypeId;
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "loanId", nullable = false)
+	
+	@ManyToOne(targetEntity=Loan.class, fetch = FetchType.LAZY)
+    @JoinColumn(name="loanId")
     Loan loan;
 
 	public Double getQuantity() {

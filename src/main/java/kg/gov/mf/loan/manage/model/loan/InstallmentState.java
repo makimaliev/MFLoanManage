@@ -1,5 +1,11 @@
 package kg.gov.mf.loan.manage.model.loan;
 
-public enum InstallmentState{
-    NOT_CONFIRMED, NOT_ADVANCED, ADVANCED, NOT_PAID, PAID
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+import kg.gov.mf.loan.manage.model.Catalog;
+
+@Entity
+@Table(name="installmentState")
+public class InstallmentState extends Catalog{
 }

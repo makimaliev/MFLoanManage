@@ -15,12 +15,13 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import kg.gov.mf.loan.manage.model.BaseModel;
 import org.springframework.format.annotation.DateTimeFormat;
+
+import kg.gov.mf.loan.manage.model.GenericModel;
 
 @Entity
 @Table(name="collectionProcedure")
-public class CollectionProcedure extends BaseModel {
+public class CollectionProcedure extends GenericModel{
 
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Temporal(TemporalType.DATE)
@@ -35,12 +36,12 @@ public class CollectionProcedure extends BaseModel {
 	private long lastPhase;
 	private long lastStatusId;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "procedureStatusId", nullable = false)
+	@ManyToOne(targetEntity=ProcedureStatus.class, fetch = FetchType.EAGER)
+	@JoinColumn(name="procedureStatusId")
 	private ProcedureStatus procedureStatus;
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "procedureTypeId", nullable = false)
+	
+	@ManyToOne(targetEntity=ProcedureType.class, fetch = FetchType.EAGER)
+	@JoinColumn(name="procedureTypeId")
 	private ProcedureType procedureType;
 	
 	@OneToMany(mappedBy = "collectionProcedure", cascade = CascadeType.ALL, fetch = FetchType.LAZY)

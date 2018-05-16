@@ -11,12 +11,13 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import kg.gov.mf.loan.manage.model.BaseModel;
 import org.springframework.format.annotation.DateTimeFormat;
+
+import kg.gov.mf.loan.manage.model.GenericModel;
 
 @Entity
 @Table(name="writeOff")
-public class WriteOff extends BaseModel {
+public class WriteOff extends GenericModel {
 
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Temporal(TemporalType.DATE)
@@ -40,9 +41,9 @@ public class WriteOff extends BaseModel {
 	
 	@Column(nullable=true, length=50)
 	private String description;
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "loanId", nullable = false)
+	
+	@ManyToOne(targetEntity=Loan.class, fetch = FetchType.LAZY)
+    @JoinColumn(name="loanId")
     Loan loan;
 
 	public Date getDate() {

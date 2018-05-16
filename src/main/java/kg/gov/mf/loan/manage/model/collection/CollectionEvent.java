@@ -1,15 +1,18 @@
 package kg.gov.mf.loan.manage.model.collection;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.*;
 
-import kg.gov.mf.loan.manage.model.BaseModel;
 import org.springframework.format.annotation.DateTimeFormat;
+
+import kg.gov.mf.loan.manage.model.GenericModel;
 
 @Entity
 @Table(name="collectionEvent")
-public class CollectionEvent extends BaseModel {
+public class CollectionEvent extends GenericModel {
 
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Temporal(TemporalType.DATE)
@@ -21,17 +24,21 @@ public class CollectionEvent extends BaseModel {
 	@Column(nullable=false)
 	private Date closeDate;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "collectionPhaseId", nullable = false)
+	@ManyToOne(targetEntity=CollectionPhase.class, fetch = FetchType.LAZY)
+    @JoinColumn(name="collectionPhaseId")
 	CollectionPhase collectionPhase;
-
-	@Enumerated(EnumType.STRING)
+	
+	@ManyToOne(targetEntity=EventStatus.class, fetch = FetchType.EAGER)
+	@JoinColumn(name="eventStatusId")
 	private EventStatus eventStatus;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "eventTypeId", nullable = false)
+	@ManyToOne(targetEntity=EventType.class, fetch = FetchType.EAGER)
+	@JoinColumn(name="eventTypeId")
 	private EventType eventType;
 	
+	@OneToMany(mappedBy = "collectionEvent", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<EventDetails> eventDetails = new HashSet<>();
+
 	public Date getStartDate() {
 		return startDate;
 	}
@@ -70,5 +77,13 @@ public class CollectionEvent extends BaseModel {
 
 	public void setEventType(EventType eventType) {
 		this.eventType = eventType;
+	}
+
+	public Set<EventDetails> getEventDetails() {
+		return eventDetails;
+	}
+
+	public void setEventDetails(Set<EventDetails> eventDetails) {
+		this.eventDetails = eventDetails;
 	}
 }

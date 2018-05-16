@@ -4,16 +4,25 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
-import kg.gov.mf.loan.manage.model.BaseModel;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import kg.gov.mf.loan.manage.model.GenericModel;
 import kg.gov.mf.loan.manage.model.order.CreditOrder;
 
 @Entity
 @Table(name="orderTerm")
-public class OrderTerm extends BaseModel {
+public class OrderTerm extends GenericModel{
 	
 	private String description;
 	private Double amount;
@@ -42,54 +51,60 @@ public class OrderTerm extends BaseModel {
 	private int frequencyQuantity;
 	private Double penaltyOnPrincipleOverdueRateValue;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "fundId", nullable = false)
+	@ManyToOne(targetEntity=OrderTermFund.class, fetch = FetchType.EAGER)
+	@JoinColumn(name="fundId")
 	private OrderTermFund fund;
 	
 	private Double penaltyOnInterestOverdueRateValue;
 	private boolean earlyRepaymentAllowed;
 	private Double penaltyLimitPercent;
 	private boolean collateralFree;
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "currencyId", nullable = false)
+	
+	@ManyToOne(targetEntity=OrderTermCurrency.class, fetch = FetchType.EAGER)
+	@JoinColumn(name="currencyId")
 	private OrderTermCurrency currency;
-
-	@Enumerated(EnumType.STRING)
+	
+	@ManyToOne(targetEntity=OrderTermFrequencyType.class, fetch = FetchType.EAGER)
+	@JoinColumn(name="frequencyTypeId")
 	private OrderTermFrequencyType frequencyType;
-
-	@Enumerated(EnumType.STRING)
+	
+	@ManyToOne(targetEntity=OrderTermRatePeriod.class, fetch = FetchType.EAGER)
+	@JoinColumn(name="interestRateValuePerPeriodId")
 	private OrderTermRatePeriod interestRateValuePerPeriod;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "interestTypeId", nullable = false)
+	@ManyToOne(targetEntity=OrderTermFloatingRateType.class, fetch = FetchType.EAGER)
+	@JoinColumn(name="interestTypeId")
 	private OrderTermFloatingRateType interestType;
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "penaltyOnPrincipleOverdueTypeId", nullable = false)
+	
+	@ManyToOne(targetEntity=OrderTermFloatingRateType.class, fetch = FetchType.EAGER)
+	@JoinColumn(name="penaltyOnPrincipleOverdueTypeId")
 	private OrderTermFloatingRateType penaltyOnPrincipleOverdueType;
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "penaltyOnInterestOverdueTypeId", nullable = false)
+	
+	@ManyToOne(targetEntity=OrderTermFloatingRateType.class, fetch = FetchType.EAGER)
+	@JoinColumn(name="penaltyOnInterestOverdueTypeId")
 	private OrderTermFloatingRateType penaltyOnInterestOverdueType;
-
-	@Enumerated(EnumType.STRING)
+	
+	@ManyToOne(targetEntity=OrderTermDaysMethod.class, fetch = FetchType.EAGER)
+	@JoinColumn(name="daysInYearMethodId")
 	private OrderTermDaysMethod daysInYearMethod;
-
-	@Enumerated(EnumType.STRING)
+	
+	@ManyToOne(targetEntity=OrderTermDaysMethod.class, fetch = FetchType.EAGER)
+	@JoinColumn(name="daysInMonthMethodId")
 	private OrderTermDaysMethod daysInMonthMethod;
-
-	@Enumerated(EnumType.STRING)
+	
+	@ManyToOne(targetEntity=OrderTermTransactionOrder.class, fetch = FetchType.EAGER)
+	@JoinColumn(name="transactionOrderId")
 	private OrderTermTransactionOrder transactionOrder;
-
-	@Enumerated(EnumType.STRING)
+	
+	@ManyToOne(targetEntity=OrderTermAccrMethod.class, fetch = FetchType.EAGER)
+	@JoinColumn(name="interestAccrMethodId")
 	private OrderTermAccrMethod interestAccrMethod;
 
 	@OneToMany(mappedBy = "orderTerm", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<AgreementTemplate> agreementTemplates = new HashSet<AgreementTemplate>();
 	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "creditOrderId", nullable = false)
+	@ManyToOne(targetEntity=CreditOrder.class, fetch = FetchType.LAZY)
+    @JoinColumn(name="creditOrderId")
     CreditOrder creditOrder;
 
 	public String getDescription() {
@@ -363,4 +378,5 @@ public class OrderTerm extends BaseModel {
 	public void setCreditOrder(CreditOrder creditOrder) {
 		this.creditOrder = creditOrder;
 	}
+	
 }

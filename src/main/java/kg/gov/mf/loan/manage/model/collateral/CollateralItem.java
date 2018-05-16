@@ -1,12 +1,23 @@
 package kg.gov.mf.loan.manage.model.collateral;
 
-import kg.gov.mf.loan.manage.model.BaseModel;
+import java.util.HashSet;
+import java.util.Set;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
+import kg.gov.mf.loan.manage.model.GenericModel;
 
 @Entity
 @Table(name="collateralItem")
-public class CollateralItem extends BaseModel {
+public class CollateralItem extends GenericModel {
 	
 	@Column(nullable=true, length=200)
 	private String name;
@@ -27,7 +38,9 @@ public class CollateralItem extends BaseModel {
 	@Column(precision = 12, scale = 5)
 	private Double demand_rate;
 
-	@Enumerated(EnumType.STRING)
+
+	@ManyToOne(targetEntity=QuantityType.class, fetch = FetchType.EAGER)
+	@JoinColumn(name="quantityTypeId")
 	private QuantityType quantityType;
 	
 	@Column(precision = 12, scale = 5)
@@ -35,13 +48,17 @@ public class CollateralItem extends BaseModel {
 	
 	@Column(precision = 12, scale = 5)
 	private Double estimatedValue;
-
-	@Enumerated(EnumType.STRING)
+	
+	@ManyToOne(targetEntity=ConditionType.class, fetch = FetchType.EAGER)
+	@JoinColumn(name="conditionTypeId")
 	private ConditionType conditionType;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "collateralAgreementId", nullable = false)
+	@ManyToOne(targetEntity=CollateralAgreement.class, fetch = FetchType.LAZY)
+    @JoinColumn(name="collateralAgreementId")
 	CollateralAgreement collateralAgreement;
+	
+	@OneToMany(mappedBy = "collateralItem", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<CollateralItemInspectionResult> collateralItemInspectionResults = new HashSet<CollateralItemInspectionResult>();
 	
 	@OneToOne(mappedBy = "collateralItem", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true)
     private CollateralItemDetails collateralItemDetails;
@@ -81,22 +98,6 @@ public class CollateralItem extends BaseModel {
 		this.quantity = quantity;
 	}
 
-	public Double getRisk_rate() {
-		return risk_rate;
-	}
-
-	public void setRisk_rate(Double risk_rate) {
-		this.risk_rate = risk_rate;
-	}
-
-	public Double getDemand_rate() {
-		return demand_rate;
-	}
-
-	public void setDemand_rate(Double demand_rate) {
-		this.demand_rate = demand_rate;
-	}
-
 	public QuantityType getQuantityType() {
 		return quantityType;
 	}
@@ -129,6 +130,14 @@ public class CollateralItem extends BaseModel {
 		this.conditionType = conditionType;
 	}
 
+	public Set<CollateralItemInspectionResult> getCollateralItemInspectionResults() {
+		return collateralItemInspectionResults;
+	}
+
+	public void setCollateralItemInspectionResults(Set<CollateralItemInspectionResult> collateralItemInspectionResults) {
+		this.collateralItemInspectionResults = collateralItemInspectionResults;
+	}
+
 	public CollateralAgreement getCollateralAgreement() {
 		return collateralAgreement;
 	}
@@ -151,5 +160,22 @@ public class CollateralItem extends BaseModel {
 
 	public void setCollateralItemArrestFree(CollateralItemArrestFree collateralItemArrestFree) {
 		this.collateralItemArrestFree = collateralItemArrestFree;
+	}
+
+
+	public Double getRisk_rate() {
+		return risk_rate;
+	}
+
+	public void setRisk_rate(Double risk_rate) {
+		this.risk_rate = risk_rate;
+	}
+
+	public Double getDemand_rate() {
+		return demand_rate;
+	}
+
+	public void setDemand_rate(Double demand_rate) {
+		this.demand_rate = demand_rate;
 	}
 }

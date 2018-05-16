@@ -1,22 +1,37 @@
 package kg.gov.mf.loan.manage.model.entity;
 
-import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
-import kg.gov.mf.loan.manage.model.BaseModel;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+import kg.gov.mf.loan.manage.model.GenericModel;
+import kg.gov.mf.loan.manage.model.documentpackage.DocumentPackage;
 import kg.gov.mf.loan.manage.model.entitylist.AppliedEntityList;
 
 @Entity
 @Table(name="appliedEntity")
-public class AppliedEntity extends BaseModel {
+public class AppliedEntity extends GenericModel {
 	
 	@Column(nullable=false, length=40)
 	private String name;
-
-	@Enumerated(EnumType.STRING)
+	
+	@ManyToOne(targetEntity=AppliedEntityState.class, fetch = FetchType.EAGER)
+	@JoinColumn(name="appliedEntityStateId")
 	private AppliedEntityState appliedEntityState;
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "appliedEntityListId", nullable = false)
+	
+	@OneToMany(mappedBy = "appliedEntity", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<DocumentPackage> documentPackages = new HashSet<DocumentPackage>();
+	
+	@ManyToOne(targetEntity=AppliedEntityList.class, fetch = FetchType.LAZY)
+    @JoinColumn(name="appliedEntityListId")
 	AppliedEntityList appliedEntityList;
 
 	public String getName() {
@@ -42,4 +57,13 @@ public class AppliedEntity extends BaseModel {
 	public void setAppliedEntityList(AppliedEntityList appliedEntityList) {
 		this.appliedEntityList = appliedEntityList;
 	}
+
+	public Set<DocumentPackage> getDocumentPackages() {
+		return documentPackages;
+	}
+
+	public void setDocumentPackages(Set<DocumentPackage> documentPackages) {
+		this.documentPackages = documentPackages;
+	}
+	
 }

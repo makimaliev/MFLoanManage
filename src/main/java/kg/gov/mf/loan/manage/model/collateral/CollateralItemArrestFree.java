@@ -11,12 +11,13 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import kg.gov.mf.loan.manage.model.BaseModel;
 import org.springframework.format.annotation.DateTimeFormat;
+
+import kg.gov.mf.loan.manage.model.GenericModel;
 
 @Entity
 @Table(name="collateralItemArrestFree")
-public class CollateralItemArrestFree extends BaseModel {
+public class CollateralItemArrestFree extends GenericModel {
 
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Temporal(TemporalType.DATE)
@@ -27,6 +28,12 @@ public class CollateralItemArrestFree extends BaseModel {
 
 	@Column(nullable=true, length=300)
 	private String details;
+	
+	/*
+	@ManyToOne(targetEntity=CollateralArrestFree.class, fetch = FetchType.EAGER)
+	@JoinColumn(name="collateralArrestFreeId")
+	private CollateralArrestFree collateralArrestFree;
+	*/
 	
 	@OneToOne(targetEntity=CollateralItem.class, fetch = FetchType.EAGER)
 	@PrimaryKeyJoinColumn
@@ -44,9 +51,20 @@ public class CollateralItemArrestFree extends BaseModel {
 		return arrestFreeBy;
 	}
 
+
 	public void setArrestFreeBy(long arrestFreeBy) {
 		this.arrestFreeBy = arrestFreeBy;
 	}
+
+	/*
+	public CollateralArrestFree getCollateralArrestFree() {
+		return collateralArrestFree;
+	}
+
+	public void setCollateralArrestFree(CollateralArrestFree collateralArrestFree) {
+		this.collateralArrestFree = collateralArrestFree;
+	}
+	*/
 
 	public String getDetails() {
 		return details;

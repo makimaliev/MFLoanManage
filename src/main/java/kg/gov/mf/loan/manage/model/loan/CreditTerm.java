@@ -2,11 +2,18 @@ package kg.gov.mf.loan.manage.model.loan;
 
 import java.util.Date;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
-import kg.gov.mf.loan.manage.model.BaseModel;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import kg.gov.mf.loan.manage.model.GenericModel;
 import kg.gov.mf.loan.manage.model.orderterm.OrderTermDaysMethod;
 import kg.gov.mf.loan.manage.model.orderterm.OrderTermFloatingRateType;
 import kg.gov.mf.loan.manage.model.orderterm.OrderTermRatePeriod;
@@ -14,7 +21,7 @@ import kg.gov.mf.loan.manage.model.orderterm.OrderTermTransactionOrder;
 
 @Entity
 @Table(name="creditTerm")
-public class CreditTerm extends BaseModel {
+public class CreditTerm extends GenericModel{
 	
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Temporal(TemporalType.DATE)
@@ -23,26 +30,27 @@ public class CreditTerm extends BaseModel {
 	
 	@Column(precision = 12, scale = 5)
 	private Double interestRateValue;
-
-	@Enumerated(EnumType.STRING)
+	
+	@ManyToOne(targetEntity=OrderTermRatePeriod.class, fetch = FetchType.EAGER)
+	@JoinColumn(name="ratePeriodId")
 	private OrderTermRatePeriod ratePeriod;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "floatingRateTypeId", nullable = false)
+	@ManyToOne(targetEntity=OrderTermFloatingRateType.class, fetch = FetchType.EAGER)
+	@JoinColumn(name="floatingRateTypeId")
 	private OrderTermFloatingRateType floatingRateType;
 	
 	@Column(precision = 12, scale = 5)
 	private Double penaltyOnPrincipleOverdueRateValue;
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "penaltyOnPrincipleOverdueRateTypeId", nullable = false)
+	
+	@ManyToOne(targetEntity=OrderTermFloatingRateType.class, fetch = FetchType.EAGER)
+	@JoinColumn(name="penaltyOnPrincipleOverdueRateTypeId")
 	private OrderTermFloatingRateType penaltyOnPrincipleOverdueRateType;
 	
 	@Column(name = "penaltyOnInterestOverdueRateValue", precision = 12, scale = 5)
 	private Double penaltyOnInterestOverdueRateValue;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "penaltyOnInterestOverdueRateTypeId", nullable = false)
+	@ManyToOne(targetEntity=OrderTermFloatingRateType.class, fetch = FetchType.EAGER)
+	@JoinColumn(name="penaltyOnInterestOverdueRateTypeId")
 	private OrderTermFloatingRateType penaltyOnInterestOverdueRateType;
 	
 	@Column(precision = 12, scale = 5)
@@ -52,18 +60,21 @@ public class CreditTerm extends BaseModel {
 	@Temporal(TemporalType.DATE)
 	@Column(nullable=true)
 	private Date penaltyLimitEndDate;
-
-	@Enumerated(EnumType.STRING)
+	
+	@ManyToOne(targetEntity=OrderTermTransactionOrder.class, fetch = FetchType.EAGER)
+	@JoinColumn(name="transactionOrderId")
 	private OrderTermTransactionOrder transactionOrder;
-
-	@Enumerated(EnumType.STRING)
+	
+	@ManyToOne(targetEntity=OrderTermDaysMethod.class, fetch = FetchType.EAGER)
+	@JoinColumn(name="daysInMonthMethodId")
 	private OrderTermDaysMethod daysInMonthMethod;
-
-	@Enumerated(EnumType.STRING)
+	
+	@ManyToOne(targetEntity=OrderTermDaysMethod.class, fetch = FetchType.EAGER)
+	@JoinColumn(name="daysInYearMethodId")
 	private OrderTermDaysMethod daysInYearMethod;
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "loanId", nullable = false)
+	
+	@ManyToOne(targetEntity=Loan.class, fetch = FetchType.LAZY)
+    @JoinColumn(name="loanId")
     Loan loan;
 
 	public Date getStartDate() {
@@ -177,4 +188,5 @@ public class CreditTerm extends BaseModel {
 	public void setLoan(Loan loan) {
 		this.loan = loan;
 	}
+	
 }

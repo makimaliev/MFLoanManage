@@ -1,14 +1,17 @@
 package kg.gov.mf.loan.manage.model.debtor;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.Table;
 
 import kg.gov.mf.loan.admin.org.model.Organization;
 import kg.gov.mf.loan.admin.org.model.Person;
-import kg.gov.mf.loan.manage.model.BaseModel;
+import kg.gov.mf.loan.manage.model.GenericModel;
 
 @Entity
 @Table(name="owner")
-public class Owner extends BaseModel {
+public class Owner extends GenericModel{
 
 	private long entityId;
 	
@@ -16,7 +19,7 @@ public class Owner extends BaseModel {
 	
 	@Enumerated(EnumType.STRING)
 	private OwnerType ownerType;
-
+	
 	public Owner() {
 	}
 	

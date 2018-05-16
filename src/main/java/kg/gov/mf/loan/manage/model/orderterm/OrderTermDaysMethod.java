@@ -1,5 +1,11 @@
 package kg.gov.mf.loan.manage.model.orderterm;
 
-public enum OrderTermDaysMethod{
-    CALENDAR, FINANCIAL
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+import kg.gov.mf.loan.manage.model.Catalog;
+
+@Entity
+@Table(name="orderTermDaysMethod")
+public class OrderTermDaysMethod extends Catalog{
 }

@@ -1,5 +1,11 @@
 package kg.gov.mf.loan.manage.model.orderterm;
 
-public enum OrderTermAccrMethod{
-    SIMPLE_RATE, ANNUITY, OTHER
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+import kg.gov.mf.loan.manage.model.Catalog;
+
+@Entity
+@Table(name="orderTermAccrMethod")
+public class OrderTermAccrMethod extends Catalog {
 }

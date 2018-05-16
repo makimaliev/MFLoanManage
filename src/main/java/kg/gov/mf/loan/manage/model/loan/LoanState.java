@@ -1,5 +1,11 @@
 package kg.gov.mf.loan.manage.model.loan;
 
-public enum LoanState{
-    REGISTRATION, ACTIVE, CANCELED, ZERO_RECONCILIATION
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+import kg.gov.mf.loan.manage.model.Catalog;
+
+@Entity
+@Table(name="loanState")
+public class LoanState extends Catalog{
 }

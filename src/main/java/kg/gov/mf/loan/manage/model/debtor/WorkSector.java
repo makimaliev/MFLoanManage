@@ -1,5 +1,11 @@
 package kg.gov.mf.loan.manage.model.debtor;
 
-public enum WorkSector{
-    AGRO, ENERGY, CONSTRUCTION
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+import kg.gov.mf.loan.manage.model.Catalog;
+
+@Entity
+@Table(name="workSector")
+public class WorkSector extends Catalog{
 }

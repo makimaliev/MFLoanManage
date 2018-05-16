@@ -5,17 +5,28 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
-import kg.gov.mf.loan.manage.model.BaseModel;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import kg.gov.mf.loan.manage.model.GenericModel;
 import kg.gov.mf.loan.manage.model.debtor.Owner;
 import kg.gov.mf.loan.manage.model.loan.Loan;
 
 @Entity
 @Table(name="collateralAgreement")
-public class CollateralAgreement extends BaseModel {
+public class CollateralAgreement extends GenericModel{
 	
 	@Column(nullable=true, length=150)
 	private String agreementNumber;
@@ -48,19 +59,29 @@ public class CollateralAgreement extends BaseModel {
 	@Temporal(TemporalType.DATE)
 	@Column(nullable=true)
 	private Date arrestRegDate;
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "ownerId", nullable = false)
+	
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+    @JoinColumn(name="ownerId")
     Owner owner;
+	
+	@OneToMany(mappedBy = "collateralAgreement", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<CollateralItem> collateralItems = new HashSet<CollateralItem>();
+	
+	/*
+	@OneToMany(mappedBy = "collateralAgreement", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true)
+    private Set<CollateralInspection> collateralInspections = new HashSet<CollateralInspection>();
+	
+	@OneToMany(mappedBy = "collateralAgreement", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true)
+    private Set<CollateralArrestFree> collateralArrestFrees = new HashSet<CollateralArrestFree>();
+	*/
 
-	@ManyToMany(fetch = FetchType.LAZY,
-			cascade = {
-					CascadeType.PERSIST,
-					CascadeType.MERGE
-			},
-			mappedBy = "collateralAgreements")
-	private Set<Loan> loans = new HashSet<>();
-
+	@ManyToMany(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
+	@JoinTable(
+			name="loanCollateralAgreement",
+			joinColumns = { @JoinColumn(name = "collateralAgreementId") }, 
+	        inverseJoinColumns = { @JoinColumn(name = "loanId") })
+	Set<Loan> loans = new HashSet<Loan>();
+	
 	public String getAgreementNumber() {
 		return agreementNumber;
 	}
@@ -125,12 +146,30 @@ public class CollateralAgreement extends BaseModel {
 		this.arrestRegDate = arrestRegDate;
 	}
 
-	public Owner getOwner() {
-		return owner;
+	/*
+	public Set<CollateralInspection> getCollateralInspections() {
+		return collateralInspections;
 	}
 
-	public void setOwner(Owner owner) {
-		this.owner = owner;
+	public void setCollateralInspections(Set<CollateralInspection> collateralInspections) {
+		this.collateralInspections = collateralInspections;
+	}
+
+	public Set<CollateralArrestFree> getCollateralArrestFrees() {
+		return collateralArrestFrees;
+	}
+
+	public void setCollateralArrestFrees(Set<CollateralArrestFree> collateralArrestFrees) {
+		this.collateralArrestFrees = collateralArrestFrees;
+	}
+	*/
+
+	public Set<CollateralItem> getCollateralItems() {
+		return collateralItems;
+	}
+
+	public void setCollateralItems(Set<CollateralItem> collateralItems) {
+		this.collateralItems = collateralItems;
 	}
 
 	public Set<Loan> getLoans() {
@@ -139,6 +178,14 @@ public class CollateralAgreement extends BaseModel {
 
 	public void setLoans(Set<Loan> loans) {
 		this.loans = loans;
+	}
+	
+	public Owner getOwner() {
+		return owner;
+	}
+
+	public void setOwner(Owner owner) {
+		this.owner = owner;
 	}
 
 	@Override

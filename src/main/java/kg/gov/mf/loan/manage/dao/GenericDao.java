@@ -2,7 +2,7 @@ package kg.gov.mf.loan.manage.dao;
 
 import java.util.List;
 
-public interface GenericDao<E>{
+public interface GenericDao<E> {
 
 	void add(E entity);
     List<E> list();

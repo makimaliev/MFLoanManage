@@ -1,16 +1,29 @@
 package kg.gov.mf.loan.manage.model.documentpackage;
 
 import java.util.Date;
-import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
-import kg.gov.mf.loan.manage.model.BaseModel;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
 import org.springframework.format.annotation.DateTimeFormat;
 
+import kg.gov.mf.loan.manage.model.GenericModel;
 import kg.gov.mf.loan.manage.model.entity.AppliedEntity;
+import kg.gov.mf.loan.manage.model.entitydocument.EntityDocument;
 
 @Entity
 @Table(name="documentPackage")
-public class DocumentPackage extends BaseModel {
+public class DocumentPackage extends GenericModel{
 
 	@Column(nullable=false, length = 50)
 	private String name;
@@ -35,16 +48,21 @@ public class DocumentPackage extends BaseModel {
 	private Double registeredRatio;
 	
 	private long orderDocumentPackageId;
-
-	@Enumerated(EnumType.STRING)
+	
+	@ManyToOne(targetEntity=DocumentPackageState.class, fetch = FetchType.EAGER)
+	@JoinColumn(name="documentPackageStateId")
 	private DocumentPackageState documentPackageState;
-
-	@Enumerated(EnumType.STRING)
+	
+	@ManyToOne(targetEntity=DocumentPackageType.class, fetch = FetchType.EAGER)
+	@JoinColumn(name="documentPackageTypeId")
 	private DocumentPackageType documentPackageType;
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "appliedEntityId", nullable = false)
+	
+	@ManyToOne(targetEntity=AppliedEntity.class, fetch = FetchType.LAZY)
+    @JoinColumn(name="appliedEntityId")
 	AppliedEntity appliedEntity;
+	
+	@OneToMany(mappedBy = "documentPackage", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<EntityDocument> entityDocuments = new HashSet<EntityDocument>();
 
 	public String getName() {
 		return name;
@@ -125,4 +143,13 @@ public class DocumentPackage extends BaseModel {
 	public void setAppliedEntity(AppliedEntity appliedEntity) {
 		this.appliedEntity = appliedEntity;
 	}
+
+	public Set<EntityDocument> getEntityDocuments() {
+		return entityDocuments;
+	}
+
+	public void setEntityDocuments(Set<EntityDocument> entityDocuments) {
+		this.entityDocuments = entityDocuments;
+	}
+
 }
