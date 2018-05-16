@@ -11,25 +11,24 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import kg.gov.mf.loan.manage.model.BaseModel;
 import org.springframework.format.annotation.DateTimeFormat;
-
-import kg.gov.mf.loan.manage.model.GenericModel;
 
 @Entity
 @Table(name="collateralItemInspectionResult")
-public class CollateralItemInspectionResult extends GenericModel {
+public class CollateralItemInspectionResult extends BaseModel {
 	
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Temporal(TemporalType.DATE)
 	@Column(nullable=false)
 	private Date onDate;
 	
-	@ManyToOne(targetEntity=InspectionResultType.class, fetch = FetchType.EAGER)
-	@JoinColumn(name="inspectionResultTypeId")
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "inspectionResultTypeId", nullable = false)
 	private InspectionResultType inspectionResultType;
-	
-	@ManyToOne(targetEntity=CollateralItem.class, fetch = FetchType.LAZY)
-    @JoinColumn(name="collateralItemId")
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "collateralItemId", nullable = false)
 	CollateralItem collateralItem;
 
 	private String details;

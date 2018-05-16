@@ -1,11 +1,5 @@
 package kg.gov.mf.loan.manage.model.documentpackage;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
-
-import kg.gov.mf.loan.manage.model.Catalog;
-
-@Entity
-@Table(name="documentPackageType")
-public class DocumentPackageType extends Catalog{
+public enum DocumentPackageType{
+    LOAN_PACKAGE_DOC, COLLATERAL_PACKAGE_DOC, DEBT_TRANSFER_PACKAGE_DOC, OTHER
 }

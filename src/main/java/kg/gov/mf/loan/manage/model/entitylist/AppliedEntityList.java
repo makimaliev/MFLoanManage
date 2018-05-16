@@ -1,28 +1,16 @@
 package kg.gov.mf.loan.manage.model.entitylist;
 
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import javax.persistence.*;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import kg.gov.mf.loan.manage.model.BaseModel;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import kg.gov.mf.loan.manage.model.GenericModel;
-import kg.gov.mf.loan.manage.model.entity.AppliedEntity;
 import kg.gov.mf.loan.manage.model.order.CreditOrder;
 
 @Entity
 @Table(name="appliedEntityList")
-public class AppliedEntityList extends GenericModel{
+public class AppliedEntityList extends BaseModel {
 
 	@Column(nullable=false, length = 20)
 	private String listNumber;
@@ -32,20 +20,15 @@ public class AppliedEntityList extends GenericModel{
 	@Column(nullable=false)
 	private Date listDate;
 
-	@ManyToOne(targetEntity=AppliedEntityListState.class, fetch = FetchType.EAGER)
-	@JoinColumn(name="appliedEntityListStateId")
+	@Enumerated(EnumType.STRING)
 	private AppliedEntityListState appliedEntityListState;
-	
-	@ManyToOne(targetEntity=AppliedEntityListType.class, fetch = FetchType.EAGER)
-	@JoinColumn(name="appliedEntityListTypeId")
+
+	@Enumerated(EnumType.STRING)
 	private AppliedEntityListType appliedEntityListType;
 	
-	@OneToMany(mappedBy = "appliedEntityList", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Set<AppliedEntity> appliedEntities = new HashSet<AppliedEntity>();
-	
-	@ManyToOne(targetEntity=CreditOrder.class, fetch = FetchType.LAZY)
-    @JoinColumn(name="creditOrderId")
-    CreditOrder creditOrder;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "creditOrderId", nullable = false)
+	private CreditOrder creditOrder;
 
 	public String getListNumber() {
 		return listNumber;
@@ -85,14 +68,6 @@ public class AppliedEntityList extends GenericModel{
 
 	public void setCreditOrder(CreditOrder creditOrder) {
 		this.creditOrder = creditOrder;
-	}
-
-	public Set<AppliedEntity> getAppliedEntities() {
-		return appliedEntities;
-	}
-
-	public void setAppliedEntities(Set<AppliedEntity> appliedEntities) {
-		this.appliedEntities = appliedEntities;
 	}
 }
 

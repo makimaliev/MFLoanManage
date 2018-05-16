@@ -1,6 +1,6 @@
 package kg.gov.mf.loan.manage.model.process;
 
-import kg.gov.mf.loan.manage.model.GenericModel;
+import kg.gov.mf.loan.manage.model.BaseModel;
 import kg.gov.mf.loan.manage.model.loan.Loan;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -9,7 +9,7 @@ import java.util.Date;
 
 @Entity
 @Table(name="accrue")
-public class Accrue extends GenericModel {
+public class Accrue extends BaseModel {
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Temporal(TemporalType.DATE)
@@ -37,8 +37,8 @@ public class Accrue extends GenericModel {
 
     private boolean lastInstPassed;
 
-    @ManyToOne(targetEntity=Loan.class, fetch = FetchType.LAZY)
-    @JoinColumn(name="loanId")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "loanId", nullable = false)
     Loan loan;
 
     public Date getFromDate() {

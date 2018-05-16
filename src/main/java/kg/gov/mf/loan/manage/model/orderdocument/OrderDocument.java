@@ -1,28 +1,22 @@
 package kg.gov.mf.loan.manage.model.orderdocument;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
-import kg.gov.mf.loan.manage.model.GenericModel;
+import kg.gov.mf.loan.manage.model.BaseModel;
 import kg.gov.mf.loan.manage.model.orderdocumentpackage.OrderDocumentPackage;
 
 @Entity
 @Table(name="orderDocument")
-public class OrderDocument extends GenericModel {
+public class OrderDocument extends BaseModel {
 
 	@Column(nullable=false, length=50)	
 	private String name;
-	
-	@ManyToOne(targetEntity=OrderDocumentType.class, fetch = FetchType.EAGER)
-	@JoinColumn(name="orderDocumentTypeId")
+
+	@Enumerated(EnumType.STRING)
 	private OrderDocumentType orderDocumentType;
-	
-	@ManyToOne(targetEntity=OrderDocumentPackage.class, fetch = FetchType.LAZY)
-    @JoinColumn(name="orderDocumentPackageId")
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "orderDocumentPackageId", nullable = false)
 	OrderDocumentPackage orderDocumentPackage;
 
 	public String getName() {

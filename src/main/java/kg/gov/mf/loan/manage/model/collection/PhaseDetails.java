@@ -1,12 +1,12 @@
 package kg.gov.mf.loan.manage.model.collection;
 
-import javax.persistence.*;
+import kg.gov.mf.loan.manage.model.BaseModel;
 
-import kg.gov.mf.loan.manage.model.GenericModel;
+import javax.persistence.*;
 
 @Entity
 @Table(name="phaseDetails")
-public class PhaseDetails extends GenericModel{
+public class PhaseDetails extends BaseModel {
 
 	@Column(precision = 12, scale = 5)
 	private Double startTotalAmount;
@@ -55,9 +55,9 @@ public class PhaseDetails extends GenericModel{
 
 	@Column
 	private long loan_id;
-	
-	@ManyToOne(targetEntity=CollectionPhase.class, fetch = FetchType.LAZY)
-	@JoinColumn(name="collectionPhaseId")
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "collectionPhaseId", nullable = false)
 	CollectionPhase collectionPhase;
 
 	public Double getStartTotalAmount() {

@@ -2,23 +2,16 @@ package kg.gov.mf.loan.manage.model.entitydocument;
 
 import java.util.Date;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
 
+import kg.gov.mf.loan.manage.model.BaseModel;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import kg.gov.mf.loan.manage.model.GenericModel;
 import kg.gov.mf.loan.manage.model.documentpackage.DocumentPackage;
 
 @Entity
 @Table(name="entityDocument")
-public class EntityDocument extends GenericModel {
+public class EntityDocument extends BaseModel {
 	
 	@Column(nullable=false, length=50)	
 	private String name;
@@ -55,17 +48,15 @@ public class EntityDocument extends GenericModel {
 	
 	@Column(length = 100)
 	private String registeredDescription;
-	
-	@ManyToOne(targetEntity=EntityDocumentRegisteredBy.class, fetch = FetchType.EAGER)
-	@JoinColumn(name="entityDocumentRegisteredById")
+
+	@Enumerated(EnumType.STRING)
 	private EntityDocumentRegisteredBy registeredBy;
-	
-	@ManyToOne(targetEntity=EntityDocumentState.class, fetch = FetchType.EAGER)
-	@JoinColumn(name="entityDocumentStateId")
+
+	@Enumerated(EnumType.STRING)
 	private EntityDocumentState entityDocumentState;
 	
-	@ManyToOne(targetEntity=DocumentPackage.class, fetch = FetchType.LAZY)
-    @JoinColumn(name="documentPackageId")
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "documentPackageId", nullable = false)
 	DocumentPackage documentPackage;
 
 	public String getName() {
@@ -171,5 +162,4 @@ public class EntityDocument extends GenericModel {
 	public void setDocumentPackage(DocumentPackage documentPackage) {
 		this.documentPackage = documentPackage;
 	}
-
 }

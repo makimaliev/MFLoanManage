@@ -1,11 +1,5 @@
 package kg.gov.mf.loan.manage.model.orderdocument;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
-
-import kg.gov.mf.loan.manage.model.Catalog;
-
-@Entity
-@Table(name="orderDocumentType")
-public class OrderDocumentType extends Catalog{
+public enum OrderDocumentType{
+    LOAN_AGREEMENT, COLLATERAL_AGREEMENT, PASSPORT_OR_REGISTRATION_TESTIMONY
 }

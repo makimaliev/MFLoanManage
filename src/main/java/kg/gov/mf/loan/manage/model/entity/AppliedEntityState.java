@@ -1,11 +1,5 @@
 package kg.gov.mf.loan.manage.model.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
-
-import kg.gov.mf.loan.manage.model.Catalog;
-
-@Entity
-@Table(name="appliedEntityState")
-public class AppliedEntityState extends Catalog {
+public enum AppliedEntityState{
+    ON_REGISTRATION_STAGE, REGISTRATION_COMPLETED, RECEIVER_REJECTION, OTHER
 }

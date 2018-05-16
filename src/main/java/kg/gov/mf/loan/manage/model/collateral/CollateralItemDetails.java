@@ -2,14 +2,14 @@ package kg.gov.mf.loan.manage.model.collateral;
 
 import javax.persistence.*;
 
-import kg.gov.mf.loan.manage.model.GenericModel;
+import kg.gov.mf.loan.manage.model.BaseModel;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
 @Entity
 @Table(name="collateralItemDetails")
-public class CollateralItemDetails extends GenericModel{
+public class CollateralItemDetails extends BaseModel {
 
 	@Column(nullable=false, length=100)
 	private String details1;
@@ -46,7 +46,6 @@ public class CollateralItemDetails extends GenericModel{
 
 	@Column
 	private long arrest_by;
-
 
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Temporal(TemporalType.DATE)
