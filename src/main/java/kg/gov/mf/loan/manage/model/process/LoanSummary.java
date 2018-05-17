@@ -67,6 +67,18 @@ public class LoanSummary extends GenericModel {
     @Column(precision = 12, scale = 5)
     private Double overdueFee;
 
+    @Column(precision = 12, scale = 5)
+    private Double totalPrincipalPaid;
+
+    @Column(precision = 12, scale = 5)
+    private Double totalInterestPaid;
+
+    @Column(precision = 12, scale = 5)
+    private Double totalPenaltyPaid;
+
+    @Column(precision = 12, scale = 5)
+    private Double totalFeePaid;
+
     @ManyToOne(targetEntity=Loan.class, fetch = FetchType.LAZY)
     @JoinColumn(name="loanId")
     Loan loan;
@@ -221,5 +233,37 @@ public class LoanSummary extends GenericModel {
 
     public void setLoan(Loan loan) {
         this.loan = loan;
+    }
+
+    public Double getTotalPrincipalPaid() {
+        return totalPrincipalPaid;
+    }
+
+    public void setTotalPrincipalPaid(Double totalPrincipalPaid) {
+        this.totalPrincipalPaid = totalPrincipalPaid;
+    }
+
+    public Double getTotalInterestPaid() {
+        return totalInterestPaid;
+    }
+
+    public void setTotalInterestPaid(Double totalInterestPaid) {
+        this.totalInterestPaid = totalInterestPaid;
+    }
+
+    public Double getTotalPenaltyPaid() {
+        return totalPenaltyPaid;
+    }
+
+    public void setTotalPenaltyPaid(Double totalPenaltyPaid) {
+        this.totalPenaltyPaid = totalPenaltyPaid;
+    }
+
+    public Double getTotalFeePaid() {
+        return totalFeePaid;
+    }
+
+    public void setTotalFeePaid(Double totalFeePaid) {
+        this.totalFeePaid = totalFeePaid;
     }
 }
