@@ -1,10 +1,8 @@
 package kg.gov.mf.loan.manage.model.debtor;
 
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.Table;
+import javax.persistence.*;
 
+import kg.gov.mf.loan.admin.org.model.Address;
 import kg.gov.mf.loan.admin.org.model.Organization;
 import kg.gov.mf.loan.admin.org.model.Person;
 import kg.gov.mf.loan.manage.model.GenericModel;
@@ -19,6 +17,10 @@ public class Owner extends GenericModel{
 	
 	@Enumerated(EnumType.STRING)
 	private OwnerType ownerType;
+
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+	@JoinColumn(name="addressId")
+	private Address address;
 	
 	public Owner() {
 	}
@@ -28,6 +30,7 @@ public class Owner extends GenericModel{
 		this.ownerType = type;
 		this.entityId = p.getId();
 		this.name = p.getName();
+		this.address = p.getAddress();
 	}
 	
 	public Owner(OwnerType type, Organization o)
@@ -35,6 +38,7 @@ public class Owner extends GenericModel{
 		this.ownerType = type;
 		this.entityId = o.getId();
 		this.name = o.getName();
+		this.address = o.getAddress();
 	}
 	
 	public void setEntityId(long entityId)
