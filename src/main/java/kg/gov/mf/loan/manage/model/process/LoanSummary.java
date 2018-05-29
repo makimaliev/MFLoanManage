@@ -79,6 +79,9 @@ public class LoanSummary extends GenericModel {
     @Column(precision = 12, scale = 5)
     private Double totalFeePaid;
 
+    @Enumerated(EnumType.STRING)
+    private LoanSummaryType loanSummaryType;
+
     @ManyToOne(targetEntity=Loan.class, fetch = FetchType.LAZY)
     @JoinColumn(name="loanId")
     Loan loan;
@@ -265,5 +268,13 @@ public class LoanSummary extends GenericModel {
 
     public void setTotalFeePaid(Double totalFeePaid) {
         this.totalFeePaid = totalFeePaid;
+    }
+
+    public LoanSummaryType getLoanSummaryType() {
+        return loanSummaryType;
+    }
+
+    public void setLoanSummaryType(LoanSummaryType loanSummaryType) {
+        this.loanSummaryType = loanSummaryType;
     }
 }

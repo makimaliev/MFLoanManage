@@ -6,8 +6,12 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface LoanRepository extends JpaRepository<Loan, Long>{
 
     Page<Loan> findByDebtorId(Long debtorId, Pageable pageable);
+
+    List<Loan> findByRegNumberContains(String q);
 }
