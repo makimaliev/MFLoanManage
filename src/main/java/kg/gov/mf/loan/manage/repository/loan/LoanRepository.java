@@ -14,4 +14,6 @@ public interface LoanRepository extends JpaRepository<Loan, Long>{
     Page<Loan> findByDebtorId(Long debtorId, Pageable pageable);
 
     List<Loan> findByRegNumberContains(String q);
+
+    Loan findByRegNumber(String regNumber);
 }
