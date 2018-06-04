@@ -18,7 +18,7 @@ public class Owner extends GenericModel{
 	@Enumerated(EnumType.STRING)
 	private OwnerType ownerType;
 
-	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+	@OneToOne
 	@JoinColumn(name="addressId")
 	private Address address;
 	
