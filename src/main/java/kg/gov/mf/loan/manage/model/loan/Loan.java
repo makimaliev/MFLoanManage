@@ -67,10 +67,6 @@ public class Loan extends GenericModel{
     @JoinColumn(name="debtorId")
 	Debtor debtor;
 	
-	@ManyToOne(targetEntity=CollectionPhase.class, fetch = FetchType.EAGER)
-    @JoinColumn(name="collectionPhaseId")
-	CollectionPhase collectionPhase;
-	
 	@OneToMany(mappedBy = "loan", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<CreditTerm> creditTerms = new HashSet<CreditTerm>();
 	
@@ -119,6 +115,9 @@ public class Loan extends GenericModel{
 	
 	@ManyToMany(mappedBy="loans", fetch = FetchType.EAGER)
 	Set<CollateralAgreement> collateralAgreements = new HashSet<CollateralAgreement>();
+
+	@ManyToMany(mappedBy="loans", fetch = FetchType.EAGER)
+	Set<CollectionPhase> collectionPhases = new HashSet<>();
 	
 	public String getRegNumber() {
 		return regNumber;
@@ -216,14 +215,6 @@ public class Loan extends GenericModel{
 		this.debtor = debtor;
 	}
 
-	public CollectionPhase getCollectionPhase() {
-		return collectionPhase;
-	}
-
-	public void setCollectionPhase(CollectionPhase collectionPhase) {
-		this.collectionPhase = collectionPhase;
-	}
-
 	public Set<CreditTerm> getCreditTerms() {
 		return creditTerms;
 	}
@@ -318,6 +309,14 @@ public class Loan extends GenericModel{
 
 	public void setCollateralAgreements(Set<CollateralAgreement> collateralAgreements) {
 		this.collateralAgreements = collateralAgreements;
+	}
+
+	public Set<CollectionPhase> getCollectionPhases() {
+		return collectionPhases;
+	}
+
+	public void setCollectionPhases(Set<CollectionPhase> collectionPhases) {
+		this.collectionPhases = collectionPhases;
 	}
 
 	public Set<Accrue> getAccrues() {

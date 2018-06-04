@@ -5,17 +5,7 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -50,9 +40,13 @@ public class CollectionPhase extends GenericModel{
 	@ManyToOne(targetEntity=PhaseType.class, fetch = FetchType.EAGER)
 	@JoinColumn(name="phaseTypeId")
 	private PhaseType phaseType;
-	
-	@OneToMany(mappedBy = "collectionPhase", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	private Set<Loan> loans = new HashSet<Loan>();
+
+	@ManyToMany(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
+	@JoinTable(
+			name="loanCollectionPhase",
+			joinColumns = { @JoinColumn(name = "collectionPhaseId") },
+			inverseJoinColumns = { @JoinColumn(name = "loanId") })
+	Set<Loan> loans = new HashSet<Loan>();
 	
 	@OneToMany(mappedBy = "collectionPhase", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Set<CollectionEvent> collectionEvents = new HashSet<CollectionEvent>();
