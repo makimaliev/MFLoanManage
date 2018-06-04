@@ -44,7 +44,7 @@ public class CollectionProcedure extends GenericModel{
 	@JoinColumn(name="procedureTypeId")
 	private ProcedureType procedureType;
 	
-	@OneToMany(mappedBy = "collectionProcedure", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "collectionProcedure", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<CollectionPhase> collectionPhases = new HashSet<CollectionPhase>();
 
 	public Date getStartDate() {

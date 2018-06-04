@@ -39,7 +39,7 @@ public class CollectionPhase extends GenericModel{
 	private long lastEvent;
 	private long lastStatusId;
 	
-	@ManyToOne(targetEntity=CollectionProcedure.class, fetch = FetchType.LAZY)
+	@ManyToOne(targetEntity=CollectionProcedure.class, fetch = FetchType.EAGER)
     @JoinColumn(name="collectionProcedureId")
 	CollectionProcedure collectionProcedure;
 	
