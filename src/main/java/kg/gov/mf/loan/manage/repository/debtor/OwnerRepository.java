@@ -12,5 +12,4 @@ import java.util.List;
 @Repository
 public interface OwnerRepository extends JpaRepository<Owner,Long>{
     List<Owner> findByNameContains(String q);
-    List<Owner> findByName(String name);
 }

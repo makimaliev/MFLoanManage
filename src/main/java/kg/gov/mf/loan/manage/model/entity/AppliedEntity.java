@@ -3,25 +3,20 @@ package kg.gov.mf.loan.manage.model.entity;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import kg.gov.mf.loan.manage.model.GenericModel;
+import kg.gov.mf.loan.manage.model.debtor.Owner;
 import kg.gov.mf.loan.manage.model.documentpackage.DocumentPackage;
 import kg.gov.mf.loan.manage.model.entitylist.AppliedEntityList;
 
 @Entity
 @Table(name="appliedEntity")
 public class AppliedEntity extends GenericModel {
-	
-	@Column(nullable=false, length=40)
-	private String name;
+
+	@OneToOne
+	@JoinColumn(name="ownerId")
+	Owner owner;
 	
 	@ManyToOne(targetEntity=AppliedEntityState.class, fetch = FetchType.EAGER)
 	@JoinColumn(name="appliedEntityStateId")
@@ -34,12 +29,12 @@ public class AppliedEntity extends GenericModel {
     @JoinColumn(name="appliedEntityListId")
 	AppliedEntityList appliedEntityList;
 
-	public String getName() {
-		return name;
+	public Owner getOwner() {
+		return owner;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setOwner(Owner owner) {
+		this.owner = owner;
 	}
 
 	public AppliedEntityState getAppliedEntityState() {
