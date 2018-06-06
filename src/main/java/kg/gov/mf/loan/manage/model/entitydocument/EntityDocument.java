@@ -23,23 +23,19 @@ public class EntityDocument extends GenericModel {
 	@Column(nullable=false, length=50)	
 	private String name;
 	
-	@Column(nullable=false)
 	private long completedBy;
 	
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Temporal(TemporalType.DATE)
-	@Column(nullable=false)
 	private Date completedDate;
 	
 	@Column(length = 100)
 	private String completedDescription;
 	
-	@Column(nullable=false)
 	private long approvedBy;
 	
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Temporal(TemporalType.DATE)
-	@Column(nullable=false)
 	private Date approvedDate;
 	
 	@Column(length = 100)
@@ -50,7 +46,6 @@ public class EntityDocument extends GenericModel {
 	
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Temporal(TemporalType.DATE)
-	@Column(nullable=false)
 	private Date registeredDate;
 	
 	@Column(length = 100)

@@ -30,12 +30,10 @@ public class DocumentPackage extends GenericModel{
 	
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Temporal(TemporalType.DATE)
-	@Column(nullable=false)
 	private Date completedDate;
 	
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Temporal(TemporalType.DATE)
-	@Column(nullable=false)
 	private Date approvedDate;
 	
 	@Column(precision = 12, scale = 5)
