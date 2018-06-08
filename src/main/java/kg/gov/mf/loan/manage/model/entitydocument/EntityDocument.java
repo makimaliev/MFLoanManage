@@ -50,6 +50,8 @@ public class EntityDocument extends GenericModel {
 	
 	@Column(length = 100)
 	private String registeredDescription;
+
+	private long documentTypeId;
 	
 	@ManyToOne(targetEntity=EntityDocumentRegisteredBy.class, fetch = FetchType.EAGER)
 	@JoinColumn(name="entityDocumentRegisteredById")
@@ -167,4 +169,11 @@ public class EntityDocument extends GenericModel {
 		this.documentPackage = documentPackage;
 	}
 
+	public long getDocumentTypeId() {
+		return documentTypeId;
+	}
+
+	public void setDocumentTypeId(long documentTypeId) {
+		this.documentTypeId = documentTypeId;
+	}
 }
