@@ -150,4 +150,27 @@ public class DocumentPackage extends GenericModel{
 		this.entityDocuments = entityDocuments;
 	}
 
+	public void calculateRatios(){
+
+	    int totalCompletedCount = this.entityDocuments.size();
+	    int totalApprovedCount = totalCompletedCount;
+	    int totalRegisteredCount = totalCompletedCount;
+
+	    int completedCount = 0, approvedCount = 0, registeredCount = 0;
+
+		for (EntityDocument ed: this.entityDocuments
+			 ) {
+            if(ed.getApprovedBy() > 0)
+                approvedCount++;
+            if(ed.getCompletedBy() > 0)
+                completedCount++;
+            if(ed.getRegisteredBy() != null && ed.getRegisteredBy().getId() > 0)
+                registeredCount++;
+		}
+
+		this.setApprovedRatio((double)approvedCount/totalApprovedCount);
+        this.setCompletedRatio((double)completedCount/totalCompletedCount);
+        this.setRegisteredRatio((double)registeredCount/totalRegisteredCount);
+	}
+
 }
