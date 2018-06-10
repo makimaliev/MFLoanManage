@@ -2,14 +2,7 @@ package kg.gov.mf.loan.manage.model.collateral;
 
 import java.util.Date;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.OneToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -23,20 +16,14 @@ public class CollateralItemArrestFree extends GenericModel {
 	@Temporal(TemporalType.DATE)
 	@Column(nullable=false)
 	private Date onDate;
-	
+
 	private long arrestFreeBy;
 
 	@Column(nullable=true, length=300)
 	private String details;
-	
-	/*
-	@ManyToOne(targetEntity=CollateralArrestFree.class, fetch = FetchType.EAGER)
-	@JoinColumn(name="collateralArrestFreeId")
-	private CollateralArrestFree collateralArrestFree;
-	*/
-	
-	@OneToOne(targetEntity=CollateralItem.class, fetch = FetchType.EAGER)
-	@PrimaryKeyJoinColumn
+
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+	@JoinColumn(name="collateralItemId")
 	CollateralItem collateralItem;
 
 	public Date getOnDate() {
@@ -55,16 +42,6 @@ public class CollateralItemArrestFree extends GenericModel {
 	public void setArrestFreeBy(long arrestFreeBy) {
 		this.arrestFreeBy = arrestFreeBy;
 	}
-
-	/*
-	public CollateralArrestFree getCollateralArrestFree() {
-		return collateralArrestFree;
-	}
-
-	public void setCollateralArrestFree(CollateralArrestFree collateralArrestFree) {
-		this.collateralArrestFree = collateralArrestFree;
-	}
-	*/
 
 	public String getDetails() {
 		return details;

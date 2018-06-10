@@ -38,7 +38,6 @@ public class CollateralItem extends GenericModel {
 	@Column(precision = 12, scale = 5)
 	private Double demand_rate;
 
-
 	@ManyToOne(targetEntity=QuantityType.class, fetch = FetchType.EAGER)
 	@JoinColumn(name="quantityTypeId")
 	private QuantityType quantityType;
@@ -62,9 +61,6 @@ public class CollateralItem extends GenericModel {
 	
 	@OneToOne(mappedBy = "collateralItem", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true)
     private CollateralItemDetails collateralItemDetails;
-	
-	@OneToOne(mappedBy = "collateralItem", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true)
-    private CollateralItemArrestFree collateralItemArrestFree;
 
 	public String getName() {
 		return name;
@@ -153,15 +149,6 @@ public class CollateralItem extends GenericModel {
 	public void setCollateralItemDetails(CollateralItemDetails collateralItemDetails) {
 		this.collateralItemDetails = collateralItemDetails;
 	}
-
-	public CollateralItemArrestFree getCollateralItemArrestFree() {
-		return collateralItemArrestFree;
-	}
-
-	public void setCollateralItemArrestFree(CollateralItemArrestFree collateralItemArrestFree) {
-		this.collateralItemArrestFree = collateralItemArrestFree;
-	}
-
 
 	public Double getRisk_rate() {
 		return risk_rate;
