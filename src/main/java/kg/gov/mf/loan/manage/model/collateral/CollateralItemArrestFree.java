@@ -22,10 +22,6 @@ public class CollateralItemArrestFree extends GenericModel {
 	@Column(nullable=true, length=300)
 	private String details;
 
-	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
-	@JoinColumn(name="collateralItemId")
-	CollateralItem collateralItem;
-
 	public Date getOnDate() {
 		return onDate;
 	}
@@ -49,13 +45,5 @@ public class CollateralItemArrestFree extends GenericModel {
 
 	public void setDetails(String details) {
 		this.details = details;
-	}
-
-	public CollateralItem getCollateralItem() {
-		return collateralItem;
-	}
-
-	public void setCollateralItem(CollateralItem collateralItem) {
-		this.collateralItem = collateralItem;
 	}
 }

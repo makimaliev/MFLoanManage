@@ -7,5 +7,4 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface CollateralItemArrestFreeRepository extends JpaRepository<CollateralItemArrestFree, Long> {
-    CollateralItemArrestFree getByCollateralItem(CollateralItem item);
 }

@@ -62,6 +62,10 @@ public class CollateralItem extends GenericModel {
 	@OneToOne(mappedBy = "collateralItem", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true)
     private CollateralItemDetails collateralItemDetails;
 
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+	@JoinColumn(name="collateralItemArrestFreeId")
+	CollateralItemArrestFree collateralItemArrestFree;
+
 	public String getName() {
 		return name;
 	}
@@ -164,5 +168,13 @@ public class CollateralItem extends GenericModel {
 
 	public void setDemand_rate(Double demand_rate) {
 		this.demand_rate = demand_rate;
+	}
+
+	public CollateralItemArrestFree getCollateralItemArrestFree() {
+		return collateralItemArrestFree;
+	}
+
+	public void setCollateralItemArrestFree(CollateralItemArrestFree collateralItemArrestFree) {
+		this.collateralItemArrestFree = collateralItemArrestFree;
 	}
 }
