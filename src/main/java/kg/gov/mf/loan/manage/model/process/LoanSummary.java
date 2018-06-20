@@ -82,7 +82,7 @@ public class LoanSummary extends GenericModel {
     @Enumerated(EnumType.STRING)
     private LoanSummaryType loanSummaryType;
 
-    @ManyToOne(targetEntity=Loan.class, fetch = FetchType.LAZY)
+    @ManyToOne(targetEntity=Loan.class, fetch = FetchType.EAGER)
     @JoinColumn(name="loanId")
     Loan loan;
 
