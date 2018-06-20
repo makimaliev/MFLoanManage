@@ -63,7 +63,7 @@ public class Loan extends GenericModel{
 	@JoinColumn(name="creditOrderId", nullable=true)
 	private CreditOrder creditOrder;
 	
-	@ManyToOne(targetEntity=Debtor.class, fetch = FetchType.LAZY)
+	@ManyToOne(targetEntity=Debtor.class, fetch = FetchType.EAGER)
     @JoinColumn(name="debtorId")
 	Debtor debtor;
 	
@@ -73,7 +73,7 @@ public class Loan extends GenericModel{
 	@OneToMany(mappedBy = "loan", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<WriteOff> writeOffs = new HashSet<WriteOff>();
 	
-	@OneToMany(mappedBy = "loan", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "loan", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@OrderBy("expectedDate")
     private Set<PaymentSchedule> paymentSchedules = new HashSet<PaymentSchedule>();
 	

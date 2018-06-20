@@ -2,10 +2,12 @@ package kg.gov.mf.loan.manage.service.orderterm;
 
 import kg.gov.mf.loan.manage.dao.orderterm.CurrencyRateDao;
 import kg.gov.mf.loan.manage.model.orderterm.CurrencyRate;
+import kg.gov.mf.loan.manage.model.orderterm.OrderTermCurrency;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -42,10 +44,17 @@ public class CurrencyRateServiceJpaImpl implements CurrencyRateService {
 	}
 
 	@Override
-	@Transactional	
+	@Transactional
 	public CurrencyRate findById(long id) {
 		return this.currencyRateDao.findById(id);
 	}
+
+	@Override
+	@Transactional
+	public CurrencyRate findByDateAndType(Date date, OrderTermCurrency type) {
+		return this.currencyRateDao.findByDateAndType(date, type);
+	}
+
 
 	@Override
     @Transactional

@@ -1,13 +1,18 @@
 package kg.gov.mf.loan.manage.dao.orderterm;
 
 import kg.gov.mf.loan.manage.model.orderterm.CurrencyRate;
+import kg.gov.mf.loan.manage.model.orderterm.OrderTermCurrency;
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.Date;
 import java.util.List;
 
 @Repository
@@ -76,6 +81,24 @@ public class CurrencyRateDaoImpl implements CurrencyRateDao {
 		CurrencyRate currencyRate = (CurrencyRate) session.load(CurrencyRate.class, new Long (id));
 		
 		logger.info("CurrencyRate get by id == "+currencyRate);
+
+		return currencyRate ;
+	}
+
+	@Override
+	public CurrencyRate findByDateAndType(Date date, OrderTermCurrency type) {
+
+		Session session = this.sessionFactory.getCurrentSession();
+
+		Criteria criteria = session.createCriteria(CurrencyRate.class);
+
+		criteria.add(Restrictions.le("date",date));
+		criteria.add(Restrictions.le("currency",type));
+
+		criteria.addOrder(Order.desc("date"));
+		criteria.setMaxResults(1);
+
+		CurrencyRate currencyRate = (CurrencyRate) criteria.list().get(0);
 
 		return currencyRate ;
 	}
