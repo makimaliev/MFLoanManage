@@ -56,7 +56,7 @@ public class PhaseDetails extends GenericModel{
 	@Column
 	private long loan_id;
 	
-	@ManyToOne(targetEntity=CollectionPhase.class, fetch = FetchType.LAZY)
+	@ManyToOne(targetEntity=CollectionPhase.class, fetch = FetchType.EAGER)
 	@JoinColumn(name="collectionPhaseId")
 	CollectionPhase collectionPhase;
 

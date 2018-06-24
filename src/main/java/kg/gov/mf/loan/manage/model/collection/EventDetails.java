@@ -53,7 +53,7 @@ public class EventDetails extends GenericModel{
 	@Column(precision = 12, scale = 5)
 	private Double paidFee;
 	
-	@ManyToOne(targetEntity=CollectionEvent.class, fetch = FetchType.LAZY)
+	@ManyToOne(targetEntity=CollectionEvent.class, fetch = FetchType.EAGER)
 	@JoinColumn(name="collectionEventId")
 	CollectionEvent collectionEvent;
 

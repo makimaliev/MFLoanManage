@@ -24,7 +24,7 @@ public class CollectionEvent extends GenericModel {
 	@Column(nullable=false)
 	private Date closeDate;
 	
-	@ManyToOne(targetEntity=CollectionPhase.class, fetch = FetchType.LAZY)
+	@ManyToOne(targetEntity=CollectionPhase.class, fetch = FetchType.EAGER)
     @JoinColumn(name="collectionPhaseId")
 	CollectionPhase collectionPhase;
 	
@@ -36,7 +36,7 @@ public class CollectionEvent extends GenericModel {
 	@JoinColumn(name="eventTypeId")
 	private EventType eventType;
 	
-	@OneToMany(mappedBy = "collectionEvent", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "collectionEvent", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<EventDetails> eventDetails = new HashSet<>();
 
 	public Date getStartDate() {

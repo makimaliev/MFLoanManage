@@ -48,7 +48,7 @@ public class CollectionPhase extends GenericModel{
 			inverseJoinColumns = { @JoinColumn(name = "loanId") })
 	Set<Loan> loans = new HashSet<Loan>();
 	
-	@OneToMany(mappedBy = "collectionPhase", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "collectionPhase", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Set<CollectionEvent> collectionEvents = new HashSet<CollectionEvent>();
 	
 	@OneToMany(mappedBy = "collectionPhase", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
