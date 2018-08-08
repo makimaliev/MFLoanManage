@@ -5,5 +5,5 @@ import javax.persistence.Entity;
 
 @Entity
 @DiscriminatorValue("1")
-public class NormalLoan extends BaseLoan {
+public class NormalLoan extends Loan {
 }

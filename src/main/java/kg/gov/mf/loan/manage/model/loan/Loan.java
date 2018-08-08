@@ -12,7 +12,6 @@ import kg.gov.mf.loan.manage.model.process.LoanDetailedSummary;
 import kg.gov.mf.loan.manage.model.process.LoanSummary;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import kg.gov.mf.loan.manage.model.GenericModel;
 import kg.gov.mf.loan.manage.model.collateral.Collateral;
 import kg.gov.mf.loan.manage.model.collateral.CollateralAgreement;
 import kg.gov.mf.loan.manage.model.collection.CollectionPhase;
@@ -22,7 +21,21 @@ import kg.gov.mf.loan.manage.model.orderterm.OrderTermCurrency;
 
 @Entity
 @Table(name="loan")
-public class Loan extends GenericModel{
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(discriminatorType = DiscriminatorType.INTEGER,
+		name = "loan_type_id",
+		columnDefinition = "TINYINT(1)")
+public abstract class Loan{
+
+	@Id
+	private Long id;
+
+	@OneToMany(mappedBy="parent",cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+	private Set<Loan> children;
+
+	@ManyToOne
+	@JoinColumn
+	private Loan parent;
 	
 	@Column(nullable=false, length=150)
 	private String regNumber;
@@ -49,15 +62,6 @@ public class Loan extends GenericModel{
 	
 	@Column(nullable=false)
 	private long supervisorId;
-	
-	private boolean hasSubLoan;
-	
-	@ManyToOne(targetEntity=Loan.class, fetch = FetchType.LAZY)
-	@JoinColumn(name="parentLoanId")
-	private Loan parentLoan;
-	
-	@OneToMany(mappedBy = "parentLoan", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Set<Loan> subLoans = new HashSet<Loan>();
 	
 	@ManyToOne(targetEntity=CreditOrder.class, fetch = FetchType.EAGER)
 	@JoinColumn(name="creditOrderId", nullable=true)
@@ -118,6 +122,37 @@ public class Loan extends GenericModel{
 
 	@ManyToMany(mappedBy="loans", fetch = FetchType.EAGER)
 	Set<CollectionPhase> collectionPhases = new HashSet<>();
+
+    public Long getId() {
+        return id;
+    }
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    @Transient
+    public boolean isLeaf(){
+        return (children == null || children.size() == 0);
+    }
+
+    @Transient
+    public boolean isRoot() {
+        return (parent == null);
+    }
+
+    public Set<Loan> getChildren() {
+        return children;
+    }
+    public void setChildren(Set<Loan> children) {
+        this.children = children;
+    }
+
+    public Loan getParent() {
+        return parent;
+    }
+    public void setParent(Loan parent) {
+        this.parent = parent;
+    }
 	
 	public String getRegNumber() {
 		return regNumber;
@@ -173,30 +208,6 @@ public class Loan extends GenericModel{
 
 	public void setSupervisorId(long supervisorId) {
 		this.supervisorId = supervisorId;
-	}
-
-	public boolean isHasSubLoan() {
-		return hasSubLoan;
-	}
-
-	public void setHasSubLoan(boolean hasSubLoan) {
-		this.hasSubLoan = hasSubLoan;
-	}
-
-	public Loan getParentLoan() {
-		return parentLoan;
-	}
-
-	public void setParentLoan(Loan parentLoan) {
-		this.parentLoan = parentLoan;
-	}
-
-	public Set<Loan> getSubLoans() {
-		return subLoans;
-	}
-
-	public void setSubLoans(Set<Loan> subLoans) {
-		this.subLoans = subLoans;
 	}
 
 	public CreditOrder getCreditOrder() {

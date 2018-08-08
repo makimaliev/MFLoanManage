@@ -7,7 +7,7 @@ import java.util.Date;
 
 @Entity
 @DiscriminatorValue("3")
-public class RestructuredLoan extends BaseLoan{
+public class RestructuredLoan extends Loan{
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Temporal(TemporalType.DATE)
