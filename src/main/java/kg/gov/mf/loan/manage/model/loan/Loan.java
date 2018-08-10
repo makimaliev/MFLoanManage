@@ -28,6 +28,7 @@ import kg.gov.mf.loan.manage.model.orderterm.OrderTermCurrency;
 public abstract class Loan{
 
 	@Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
 	@OneToMany(mappedBy="parent",cascade=CascadeType.ALL, fetch=FetchType.EAGER)
