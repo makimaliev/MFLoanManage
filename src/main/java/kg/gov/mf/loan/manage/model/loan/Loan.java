@@ -10,6 +10,7 @@ import javax.persistence.*;
 import kg.gov.mf.loan.manage.model.process.Accrue;
 import kg.gov.mf.loan.manage.model.process.LoanDetailedSummary;
 import kg.gov.mf.loan.manage.model.process.LoanSummary;
+import org.hibernate.annotations.DiscriminatorOptions;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import kg.gov.mf.loan.manage.model.collateral.Collateral;
@@ -25,6 +26,7 @@ import kg.gov.mf.loan.manage.model.orderterm.OrderTermCurrency;
 @DiscriminatorColumn(discriminatorType = DiscriminatorType.INTEGER,
 		name = "loan_type_id",
 		columnDefinition = "TINYINT(1)")
+@DiscriminatorOptions(force = true)
 public abstract class Loan{
 
 	@Id

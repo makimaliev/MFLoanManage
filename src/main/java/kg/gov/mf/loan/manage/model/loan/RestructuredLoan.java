@@ -11,7 +11,6 @@ public class RestructuredLoan extends Loan{
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Temporal(TemporalType.DATE)
-    @Column(nullable=false)
     private Date restructureDate;
 
     private String restructureDescription;
