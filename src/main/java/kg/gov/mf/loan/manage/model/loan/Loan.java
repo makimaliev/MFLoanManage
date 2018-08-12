@@ -24,7 +24,7 @@ import kg.gov.mf.loan.manage.model.orderterm.OrderTermCurrency;
 @Table(name="loan")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(discriminatorType = DiscriminatorType.INTEGER,
-		name = "loan_type_id",
+		name = "loan_class_id",
 		columnDefinition = "TINYINT(1)")
 @DiscriminatorOptions(force = true)
 public abstract class Loan{
@@ -174,7 +174,26 @@ public abstract class Loan{
 	}
 
 	public Double getAmount() {
-		return amount;
+
+        if(this.getClass().equals(NormalLoan.class))
+            return amount;
+        else if(this.getClass().equals(TrancheeLoan.class))
+        {
+            Double result = this.amount;
+
+            if(this.isRoot())
+            {
+                Set<Loan> subLoans = this.children;
+                for (Loan sub: subLoans
+                        ) {
+                    result = result + sub.getAmount();
+                }
+            }
+
+            return result;
+        }
+        else
+            return amount;
 	}
 
 	public void setAmount(Double amount) {
