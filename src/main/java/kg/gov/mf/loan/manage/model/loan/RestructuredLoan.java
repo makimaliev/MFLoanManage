@@ -31,4 +31,8 @@ public class RestructuredLoan extends Loan{
         this.restructureDescription = restructureDescription;
     }
 
+    @Override
+    public Double totalAmount() {
+        return this.getAmount();
+    }
 }

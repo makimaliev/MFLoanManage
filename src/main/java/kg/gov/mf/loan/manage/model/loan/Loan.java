@@ -143,6 +143,8 @@ public abstract class Loan{
         return (parent == null);
     }
 
+    public abstract Double totalAmount();
+
     public Set<Loan> getChildren() {
         return children;
     }
@@ -174,26 +176,7 @@ public abstract class Loan{
 	}
 
 	public Double getAmount() {
-
-        if(this.getClass().equals(NormalLoan.class))
-            return amount;
-        else if(this.getClass().equals(TrancheeLoan.class))
-        {
-            Double result = this.amount;
-
-            if(this.isRoot())
-            {
-                Set<Loan> subLoans = this.children;
-                for (Loan sub: subLoans
-                        ) {
-                    result = result + sub.getAmount();
-                }
-            }
-
-            return result;
-        }
-        else
-            return amount;
+        return this.amount;
 	}
 
 	public void setAmount(Double amount) {

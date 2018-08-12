@@ -6,4 +6,8 @@ import javax.persistence.Entity;
 @Entity
 @DiscriminatorValue("1")
 public class NormalLoan extends Loan {
+    @Override
+    public Double totalAmount() {
+        return this.getAmount();
+    }
 }
