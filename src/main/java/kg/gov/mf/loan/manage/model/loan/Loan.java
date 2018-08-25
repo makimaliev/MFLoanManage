@@ -143,8 +143,6 @@ public abstract class Loan{
         return (parent == null);
     }
 
-    public abstract Double totalAmount();
-
     public Set<Loan> getChildren() {
         return children;
     }
