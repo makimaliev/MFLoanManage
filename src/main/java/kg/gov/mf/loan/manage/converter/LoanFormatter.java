@@ -3,6 +3,7 @@ package kg.gov.mf.loan.manage.converter;
 import java.text.ParseException;
 import java.util.Locale;
 
+import kg.gov.mf.loan.manage.model.loan.NormalLoan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.Formatter;
 import org.springframework.stereotype.Service;
@@ -12,7 +13,7 @@ import kg.gov.mf.loan.manage.service.loan.LoanService;
 
 @Service
 public class LoanFormatter implements Formatter<Loan> {
-	
+
 	@Autowired
 	LoanService loanService;
 
@@ -25,7 +26,7 @@ public class LoanFormatter implements Formatter<Loan> {
 	public Loan parse(String text, Locale locale) throws ParseException {
 		long id = Integer.valueOf(text);
 		if(id == 0) {
-			Loan loan = new Loan();
+			Loan loan = new NormalLoan();
 			loan.setId(id);
 			return loan;
 		}

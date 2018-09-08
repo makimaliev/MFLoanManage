@@ -10,9 +10,9 @@ import javax.persistence.*;
 import kg.gov.mf.loan.manage.model.process.Accrue;
 import kg.gov.mf.loan.manage.model.process.LoanDetailedSummary;
 import kg.gov.mf.loan.manage.model.process.LoanSummary;
+import org.hibernate.annotations.DiscriminatorOptions;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import kg.gov.mf.loan.manage.model.GenericModel;
 import kg.gov.mf.loan.manage.model.collateral.Collateral;
 import kg.gov.mf.loan.manage.model.collateral.CollateralAgreement;
 import kg.gov.mf.loan.manage.model.collection.CollectionPhase;
@@ -22,82 +22,89 @@ import kg.gov.mf.loan.manage.model.orderterm.OrderTermCurrency;
 
 @Entity
 @Table(name="loan")
-public class Loan extends GenericModel{
-	
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(discriminatorType = DiscriminatorType.INTEGER,
+		name = "loan_class_id",
+		columnDefinition = "TINYINT(1)")
+@DiscriminatorOptions(force = true)
+public abstract class Loan{
+
+	@Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+
+	@OneToMany(mappedBy="parent",cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+	private Set<Loan> children;
+
+	@ManyToOne
+	@JoinColumn
+	private Loan parent;
+
 	@Column(nullable=false, length=150)
 	private String regNumber;
-	
+
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Temporal(TemporalType.DATE)
 	@Column(nullable=false)
 	private Date regDate;
-	
+
 	@Column(precision = 12, scale = 5)
 	private Double amount;
-	
+
 	@ManyToOne(targetEntity=OrderTermCurrency.class, fetch = FetchType.EAGER)
 	@JoinColumn(name="currencyId")
 	private OrderTermCurrency currency;
-	
+
 	@ManyToOne(targetEntity=LoanType.class, fetch = FetchType.EAGER)
 	@JoinColumn(name="loanTypeId")
 	private LoanType loanType;
-	
+
 	@ManyToOne(targetEntity=LoanState.class, fetch = FetchType.EAGER)
 	@JoinColumn(name="loanStateId")
 	private LoanState loanState;
-	
+
 	@Column(nullable=false)
 	private long supervisorId;
-	
-	private boolean hasSubLoan;
-	
-	@ManyToOne(targetEntity=Loan.class, fetch = FetchType.LAZY)
-	@JoinColumn(name="parentLoanId")
-	private Loan parentLoan;
-	
-	@OneToMany(mappedBy = "parentLoan", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Set<Loan> subLoans = new HashSet<Loan>();
-	
+
 	@ManyToOne(targetEntity=CreditOrder.class, fetch = FetchType.EAGER)
 	@JoinColumn(name="creditOrderId", nullable=true)
 	private CreditOrder creditOrder;
-	
+
 	@ManyToOne(targetEntity=Debtor.class, fetch = FetchType.EAGER)
     @JoinColumn(name="debtorId")
 	Debtor debtor;
-	
+
 	@OneToMany(mappedBy = "loan", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<CreditTerm> creditTerms = new HashSet<CreditTerm>();
-	
+
 	@OneToMany(mappedBy = "loan", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<WriteOff> writeOffs = new HashSet<WriteOff>();
-	
+
 	@OneToMany(mappedBy = "loan", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@OrderBy("expectedDate")
     private Set<PaymentSchedule> paymentSchedules = new HashSet<PaymentSchedule>();
-	
+
 	@OneToMany(mappedBy = "loan", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Payment> payments = new HashSet<Payment>();
-	
+
 	@OneToMany(mappedBy = "loan", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<SupervisorPlan> supervisorPlans = new HashSet<SupervisorPlan>();
-	
+
 	@OneToMany(mappedBy = "loan", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<LoanGoods> loanGoods = new HashSet<LoanGoods>();
-	
+
 	@OneToMany(mappedBy = "loan", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<DebtTransfer> debtTransfers = new HashSet<DebtTransfer>();
-	
+
 	@OneToMany(mappedBy = "loan", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<TargetedUse> targetedUses = new HashSet<TargetedUse>();
-	
+
 	@OneToMany(mappedBy = "loan", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<ReconstructedList> reconstructedLists = new HashSet<ReconstructedList>();
-	
+
 	@OneToMany(mappedBy = "loan", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Bankrupt> bankrupts = new HashSet<Bankrupt>();
-	
+
 	@OneToMany(mappedBy = "loan", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Collateral> collaterals = new HashSet<Collateral>();
 
@@ -112,13 +119,44 @@ public class Loan extends GenericModel{
 	@OneToMany(mappedBy = "loan", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@OrderBy("onDate")
 	private Set<LoanDetailedSummary> loanDetailedSummaries = new HashSet<LoanDetailedSummary>();
-	
+
 	@ManyToMany(mappedBy="loans", fetch = FetchType.EAGER)
 	Set<CollateralAgreement> collateralAgreements = new HashSet<CollateralAgreement>();
 
 	@ManyToMany(mappedBy="loans", fetch = FetchType.EAGER)
 	Set<CollectionPhase> collectionPhases = new HashSet<>();
-	
+
+    public Long getId() {
+        return id;
+    }
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    @Transient
+    public boolean isLeaf(){
+        return (children == null || children.size() == 0);
+    }
+
+    @Transient
+    public boolean isRoot() {
+        return (parent == null);
+    }
+
+    public Set<Loan> getChildren() {
+        return children;
+    }
+    public void setChildren(Set<Loan> children) {
+        this.children = children;
+    }
+
+    public Loan getParent() {
+        return parent;
+    }
+    public void setParent(Loan parent) {
+        this.parent = parent;
+    }
+
 	public String getRegNumber() {
 		return regNumber;
 	}
@@ -136,7 +174,7 @@ public class Loan extends GenericModel{
 	}
 
 	public Double getAmount() {
-		return amount;
+        return this.amount;
 	}
 
 	public void setAmount(Double amount) {
@@ -173,30 +211,6 @@ public class Loan extends GenericModel{
 
 	public void setSupervisorId(long supervisorId) {
 		this.supervisorId = supervisorId;
-	}
-
-	public boolean isHasSubLoan() {
-		return hasSubLoan;
-	}
-
-	public void setHasSubLoan(boolean hasSubLoan) {
-		this.hasSubLoan = hasSubLoan;
-	}
-
-	public Loan getParentLoan() {
-		return parentLoan;
-	}
-
-	public void setParentLoan(Loan parentLoan) {
-		this.parentLoan = parentLoan;
-	}
-
-	public Set<Loan> getSubLoans() {
-		return subLoans;
-	}
-
-	public void setSubLoans(Set<Loan> subLoans) {
-		this.subLoans = subLoans;
 	}
 
 	public CreditOrder getCreditOrder() {
