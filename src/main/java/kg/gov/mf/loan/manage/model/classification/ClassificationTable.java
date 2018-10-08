@@ -20,6 +20,9 @@ public class ClassificationTable {
     @Column(name="table_output_name", nullable=false)
     private String tableOutputName;
 
+    @Column(name="primary_field", nullable=false)
+    private String primaryField;
+
     public Long getId() {
         return id;
     }
@@ -50,5 +53,13 @@ public class ClassificationTable {
 
     public void setTableOutputName(String tableOutputName) {
         this.tableOutputName = tableOutputName;
+    }
+
+    public String getPrimaryField() {
+        return primaryField;
+    }
+
+    public void setPrimaryField(String primaryField) {
+        this.primaryField = primaryField;
     }
 }
