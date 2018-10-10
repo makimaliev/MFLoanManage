@@ -1,5 +1,7 @@
 package kg.gov.mf.loan.manage.model.classification;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 @Entity
@@ -12,6 +14,7 @@ public class ClassificationField {
 
     @ManyToOne
     @JoinColumn
+    @JsonIgnore
     private ClassificationTable table;
 
     @Column(name="field_actual_name")
