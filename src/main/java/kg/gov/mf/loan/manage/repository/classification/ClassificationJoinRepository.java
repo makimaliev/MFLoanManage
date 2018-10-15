@@ -8,4 +8,5 @@ import org.springframework.stereotype.Repository;
 public interface ClassificationJoinRepository extends JpaRepository<ClassificationJoin, Long> {
 
     ClassificationJoin findById(Long id);
+    ClassificationJoin findByLeftTableNameAndRightTableName(String t1, String t2);
 }
