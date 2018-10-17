@@ -1,5 +1,7 @@
 package kg.gov.mf.loan.manage.model.classification;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 @Entity
@@ -24,6 +26,11 @@ public class Classification {
 
     @Column(name="input_fields")
     private String inputFields;
+
+    @ManyToOne
+    @JoinColumn
+    @JsonIgnore
+    private Classificator classificator;
 
     public Long getId() {
         return id;
@@ -71,5 +78,13 @@ public class Classification {
 
     public void setQuery(String query) {
         this.query = query;
+    }
+
+    public Classificator getClassificator() {
+        return classificator;
+    }
+
+    public void setClassificator(Classificator classificator) {
+        this.classificator = classificator;
     }
 }
