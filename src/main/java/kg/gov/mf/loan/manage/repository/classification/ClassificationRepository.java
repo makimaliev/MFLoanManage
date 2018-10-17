@@ -6,4 +6,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ClassificationRepository extends JpaRepository<Classification, Long> {
+
+    Classification findById(Long id);
 }
