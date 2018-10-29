@@ -1,6 +1,9 @@
 package kg.gov.mf.loan.manage.model.classification;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Table(name="classification_result")
@@ -15,6 +18,11 @@ public class ClassificationResult {
 
     @Column(name="classification_id")
     private Long classificationId;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @Temporal(TemporalType.DATE)
+    @Column(name="date")
+    private Date date;
 
     public Long getId() {
         return id;
@@ -38,5 +46,13 @@ public class ClassificationResult {
 
     public void setClassificationId(Long classificationId) {
         this.classificationId = classificationId;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 }

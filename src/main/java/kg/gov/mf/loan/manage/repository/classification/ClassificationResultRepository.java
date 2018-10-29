@@ -6,4 +6,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ClassificationResultRepository extends JpaRepository<ClassificationResult, Long> {
+
+    ClassificationResult findByEntityIdAndAndClassificationId(Long entityId, Long clId);
 }
