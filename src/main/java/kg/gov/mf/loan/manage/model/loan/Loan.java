@@ -33,6 +33,8 @@ public abstract class Loan{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
+	private Long version = 1L;
+
 	@OneToMany(mappedBy="parent",cascade=CascadeType.ALL, fetch=FetchType.EAGER)
 	private Set<Loan> children;
 
@@ -131,6 +133,14 @@ public abstract class Loan{
     }
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Long getVersion() {
+        return version;
+    }
+
+    public void setVersion(Long version) {
+        this.version = version;
     }
 
     @Transient

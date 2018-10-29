@@ -12,7 +12,7 @@ public abstract class GenericModel implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	
-	private int version = 1;
+	private Long version = 1L;
 
 	public long getId() {
 		return id;
@@ -22,11 +22,11 @@ public abstract class GenericModel implements Serializable {
 		this.id = id;
 	}
 
-	public int getVersion() {
+	public Long getVersion() {
 		return version;
 	}
 
-	public void setVersion(int version) {
+	public void setVersion(Long version) {
 		this.version = version;
 	}
 	
