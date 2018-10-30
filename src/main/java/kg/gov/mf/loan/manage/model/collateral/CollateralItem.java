@@ -14,6 +14,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import kg.gov.mf.loan.manage.model.GenericModel;
+import kg.gov.mf.loan.manage.model.debtor.Owner;
 
 @Entity
 @Table(name="collateralItem")
@@ -73,6 +74,12 @@ public class CollateralItem extends GenericModel {
 	public void setName(String name) {
 		this.name = name;
 	}
+
+	@ManyToOne(targetEntity=Owner.class, fetch = FetchType.EAGER)
+	@JoinColumn(name="ownerId")
+	Owner owner;
+
+	private int status = 1;
 
 	public String getDescription() {
 		return description;
@@ -177,4 +184,20 @@ public class CollateralItem extends GenericModel {
 	public void setCollateralItemArrestFree(CollateralItemArrestFree collateralItemArrestFree) {
 		this.collateralItemArrestFree = collateralItemArrestFree;
 	}
+
+    public Owner getOwner() {
+        return owner;
+    }
+
+    public void setOwner(Owner owner) {
+        this.owner = owner;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
 }

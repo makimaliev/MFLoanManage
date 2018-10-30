@@ -28,6 +28,10 @@ public class CollectionPhase extends GenericModel{
 	
 	private long lastEvent;
 	private long lastStatusId;
+
+	private String docNumber;
+	private String resultDocNumber;
+
 	
 	@ManyToOne(targetEntity=CollectionProcedure.class, fetch = FetchType.EAGER)
     @JoinColumn(name="collectionProcedureId")
@@ -132,6 +136,22 @@ public class CollectionPhase extends GenericModel{
 
 	public void setPhaseDetails(Set<PhaseDetails> phaseDetails) {
 		this.phaseDetails = phaseDetails;
+	}
+
+	public String getDocNumber() {
+		return docNumber;
+	}
+
+	public void setDocNumber(String docNumber) {
+		this.docNumber = docNumber;
+	}
+
+	public String getResultDocNumber() {
+		return resultDocNumber;
+	}
+
+	public void setResultDocNumber(String resultDocNumber) {
+		this.resultDocNumber = resultDocNumber;
 	}
 
 	@Override

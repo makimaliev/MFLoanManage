@@ -7,6 +7,7 @@ import java.util.Set;
 
 import javax.persistence.*;
 
+import kg.gov.mf.loan.manage.model.orderterm.OrderTermFund;
 import kg.gov.mf.loan.manage.model.process.Accrue;
 import kg.gov.mf.loan.manage.model.process.LoanDetailedSummary;
 import kg.gov.mf.loan.manage.model.process.LoanSummary;
@@ -127,6 +128,10 @@ public abstract class Loan{
 
 	@ManyToMany(mappedBy="loans", fetch = FetchType.EAGER)
 	Set<CollectionPhase> collectionPhases = new HashSet<>();
+
+    @ManyToOne(targetEntity=OrderTermFund.class, fetch = FetchType.EAGER)
+    @JoinColumn(name="fundId")
+    private OrderTermFund fund;
 
     public Long getId() {
         return id;
@@ -367,7 +372,15 @@ public abstract class Loan{
 		this.loanDetailedSummaries = loanDetailedSummaries;
 	}
 
-	@Override
+    public OrderTermFund getFund() {
+        return fund;
+    }
+
+    public void setFund(OrderTermFund fund) {
+        this.fund = fund;
+    }
+
+    @Override
 	public int hashCode() {
 		int hash = 5;
 		hash = 83 * hash + Objects.hashCode(this.getId());
