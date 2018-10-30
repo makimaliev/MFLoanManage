@@ -26,6 +26,9 @@ public class LoanSummary extends GenericModel {
     private Double totalPaid;
 
     @Column(precision = 12, scale = 5)
+    private Double totalPaidKGS;
+
+    @Column(precision = 12, scale = 5)
     private Double paidPrincipal;
 
     @Column(precision = 12, scale = 5)
@@ -276,5 +279,13 @@ public class LoanSummary extends GenericModel {
 
     public void setLoanSummaryType(LoanSummaryType loanSummaryType) {
         this.loanSummaryType = loanSummaryType;
+    }
+
+    public Double getTotalPaidKGS() {
+        return totalPaidKGS;
+    }
+
+    public void setTotalPaidKGS(Double totalPaidKGS) {
+        this.totalPaidKGS = totalPaidKGS;
     }
 }
