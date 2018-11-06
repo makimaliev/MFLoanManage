@@ -93,7 +93,7 @@ public class CurrencyRateDaoImpl implements CurrencyRateDao {
 		Criteria criteria = session.createCriteria(CurrencyRate.class);
 
 		criteria.add(Restrictions.le("date",date));
-		criteria.add(Restrictions.le("currency",type));
+		criteria.add(Restrictions.eq("currency",type));
 
 		criteria.addOrder(Order.desc("date"));
 		criteria.setMaxResults(1);
