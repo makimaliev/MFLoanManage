@@ -18,4 +18,6 @@ public interface LoanRepository extends JpaRepository<Loan, Long>{
     List<Loan> findByRegNumberContains(String q);
 
     Loan findByRegNumber(String regNumber);
+
+    List<Loan> findByDebtorIdAndRegNumberContains(Long id,String q);
 }
