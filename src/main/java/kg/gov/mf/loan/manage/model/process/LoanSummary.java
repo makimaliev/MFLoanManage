@@ -2,6 +2,7 @@ package kg.gov.mf.loan.manage.model.process;
 
 import kg.gov.mf.loan.manage.model.GenericModel;
 import kg.gov.mf.loan.manage.model.loan.Loan;
+import org.hibernate.annotations.ColumnDefault;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -83,7 +84,7 @@ public class LoanSummary extends GenericModel {
     private Double totalFeePaid;
 
     @Enumerated(EnumType.STRING)
-    private LoanSummaryType loanSummaryType;
+    private LoanSummaryType loanSummaryType = LoanSummaryType.SYSTEM;
 
     @ManyToOne(targetEntity=Loan.class, fetch = FetchType.EAGER)
     @JoinColumn(name="loanId")
