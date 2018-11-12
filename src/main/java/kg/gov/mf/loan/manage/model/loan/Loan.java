@@ -69,6 +69,11 @@ public abstract class Loan{
 	@Column(nullable=false)
 	private long supervisorId;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @Temporal(TemporalType.DATE)
+    @Column(name="closeDate")
+    private Date closeDate;
+
 	@ManyToOne(targetEntity=CreditOrder.class, fetch = FetchType.EAGER)
 	@JoinColumn(name="creditOrderId", nullable=true)
 	private CreditOrder creditOrder;
@@ -378,6 +383,14 @@ public abstract class Loan{
 
     public void setFund(OrderTermFund fund) {
         this.fund = fund;
+    }
+
+    public Date getCloseDate() {
+        return closeDate;
+    }
+
+    public void setCloseDate(Date closeDate) {
+        this.closeDate = closeDate;
     }
 
     @Override
