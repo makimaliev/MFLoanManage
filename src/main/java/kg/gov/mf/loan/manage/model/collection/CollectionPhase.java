@@ -16,12 +16,12 @@ import kg.gov.mf.loan.manage.model.loan.Loan;
 @Table(name="collectionPhase")
 public class CollectionPhase extends GenericModel{
 
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@DateTimeFormat(pattern = "dd.MM.yyyy")
 	@Temporal(TemporalType.DATE)
 	@Column(nullable=true)
 	private Date startDate;
-	
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
+
+	@DateTimeFormat(pattern = "dd.MM.yyyy")
 	@Temporal(TemporalType.DATE)
 	@Column(nullable=true)
 	private Date closeDate;
