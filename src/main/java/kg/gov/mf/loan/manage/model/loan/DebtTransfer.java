@@ -11,6 +11,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import kg.gov.mf.loan.manage.model.collateral.QuantityType;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import kg.gov.mf.loan.manage.model.GenericModel;
@@ -33,8 +34,6 @@ public class DebtTransfer extends GenericModel{
 	@Column(precision = 12, scale = 5)
 	private Double pricePerUnit;
 	
-	private long unitTypeId;
-	
 	@Column(precision = 12, scale = 5)
 	private Double totalCost;
 	
@@ -43,8 +42,16 @@ public class DebtTransfer extends GenericModel{
 	private long transferCreditId;
 	
 	private long transferPersonId;
-	
-	private long goodsTypeId;
+
+	@ManyToOne(targetEntity=QuantityType.class, fetch = FetchType.EAGER)
+	@JoinColumn(name="unitTypeId")
+	private QuantityType quantityType;
+
+	@ManyToOne(targetEntity=GoodType.class, fetch = FetchType.EAGER)
+	@JoinColumn(name="goodsTypeId")
+	GoodType goodType;
+
+
 	
 	@ManyToOne(targetEntity=Loan.class, fetch = FetchType.LAZY)
     @JoinColumn(name="loanId")
@@ -82,13 +89,7 @@ public class DebtTransfer extends GenericModel{
 		this.pricePerUnit = pricePerUnit;
 	}
 
-	public long getUnitTypeId() {
-		return unitTypeId;
-	}
 
-	public void setUnitTypeId(long unitTypeId) {
-		this.unitTypeId = unitTypeId;
-	}
 
 	public Double getTotalCost() {
 		return totalCost;
@@ -122,12 +123,20 @@ public class DebtTransfer extends GenericModel{
 		this.transferPersonId = transferPersonId;
 	}
 
-	public long getGoodsTypeId() {
-		return goodsTypeId;
+	public QuantityType getQuantityType() {
+		return quantityType;
 	}
 
-	public void setGoodsTypeId(long goodsTypeId) {
-		this.goodsTypeId = goodsTypeId;
+	public void setQuantityType(QuantityType quantityType) {
+		this.quantityType = quantityType;
+	}
+
+	public GoodType getGoodType() {
+		return goodType;
+	}
+
+	public void setGoodType(GoodType goodType) {
+		this.goodType = goodType;
 	}
 
 	public Loan getLoan() {

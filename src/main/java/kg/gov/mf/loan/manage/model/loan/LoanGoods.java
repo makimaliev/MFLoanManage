@@ -8,6 +8,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import kg.gov.mf.loan.manage.model.GenericModel;
+import kg.gov.mf.loan.manage.model.collateral.QuantityType;
 
 @Entity
 @Table(name="loanGoods")
@@ -16,10 +17,14 @@ public class LoanGoods extends GenericModel{
 	@Column(precision = 12, scale = 5)
 	private Double quantity;
 	
-	private long unitTypeId;
+	@ManyToOne(targetEntity=QuantityType.class, fetch = FetchType.EAGER)
+	@JoinColumn(name="unitTypeId")
+	private QuantityType quantityType;
 	
-	private long goodsTypeId;
-	
+	@ManyToOne(targetEntity=GoodType.class, fetch = FetchType.EAGER)
+	@JoinColumn(name="goodsTypeId")
+	GoodType goodType;
+
 	@ManyToOne(targetEntity=Loan.class, fetch = FetchType.LAZY)
     @JoinColumn(name="loanId")
     Loan loan;
@@ -32,20 +37,20 @@ public class LoanGoods extends GenericModel{
 		this.quantity = quantity;
 	}
 
-	public long getUnitTypeId() {
-		return unitTypeId;
+	public QuantityType getQuantityType() {
+		return quantityType;
 	}
 
-	public void setUnitTypeId(long unitTypeId) {
-		this.unitTypeId = unitTypeId;
+	public void setQuantityType(QuantityType quantityType) {
+		this.quantityType = quantityType;
 	}
 
-	public long getGoodsTypeId() {
-		return goodsTypeId;
+	public GoodType getGoodType() {
+		return goodType;
 	}
 
-	public void setGoodsTypeId(long goodsTypeId) {
-		this.goodsTypeId = goodsTypeId;
+	public void setGoodType(GoodType goodType) {
+		this.goodType = goodType;
 	}
 
 	public Loan getLoan() {
