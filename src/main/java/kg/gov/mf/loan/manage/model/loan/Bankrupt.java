@@ -26,7 +26,7 @@ public class Bankrupt extends GenericModel{
 	
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Temporal(TemporalType.DATE)
-	@Column(nullable=false)
+	@Column
 	private Date finishedOnDate;
 	
 	@ManyToOne(targetEntity=Loan.class, fetch = FetchType.LAZY)

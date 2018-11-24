@@ -69,6 +69,10 @@ public abstract class Loan{
 	@Column(nullable=false)
 	private long supervisorId;
 
+	@Column
+	private long bankDataId;
+
+
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Temporal(TemporalType.DATE)
     @Column(name="closeDate")
@@ -393,7 +397,15 @@ public abstract class Loan{
         this.closeDate = closeDate;
     }
 
-    @Override
+	public long getBankDataId() {
+		return bankDataId;
+	}
+
+	public void setBankDataId(long bankDataId) {
+		this.bankDataId = bankDataId;
+	}
+
+	@Override
 	public int hashCode() {
 		int hash = 5;
 		hash = 83 * hash + Objects.hashCode(this.getId());
