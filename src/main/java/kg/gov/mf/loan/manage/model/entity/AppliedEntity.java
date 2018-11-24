@@ -5,7 +5,7 @@ import java.util.Set;
 
 import javax.persistence.*;
 
-import kg.gov.mf.loan.manage.model.GenericModel;
+import kg.gov.mf.loan.task.model.GenericModel;
 import kg.gov.mf.loan.manage.model.debtor.Owner;
 import kg.gov.mf.loan.manage.model.documentpackage.DocumentPackage;
 import kg.gov.mf.loan.manage.model.entitylist.AppliedEntityList;

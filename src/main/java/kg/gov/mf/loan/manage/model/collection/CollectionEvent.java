@@ -8,7 +8,7 @@ import javax.persistence.*;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-import kg.gov.mf.loan.manage.model.GenericModel;
+import kg.gov.mf.loan.task.model.GenericModel;
 
 @Entity
 @Table(name="collectionEvent")

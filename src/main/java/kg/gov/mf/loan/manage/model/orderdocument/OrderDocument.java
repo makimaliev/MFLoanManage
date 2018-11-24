@@ -7,7 +7,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import kg.gov.mf.loan.manage.model.GenericModel;
+import kg.gov.mf.loan.task.model.GenericModel;
 import kg.gov.mf.loan.manage.model.orderdocumentpackage.OrderDocumentPackage;
 
 @Entity

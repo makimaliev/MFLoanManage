@@ -4,7 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
-import kg.gov.mf.loan.manage.model.GenericModel;
+import kg.gov.mf.loan.task.model.GenericModel;
 
 @Entity
 @Table(name="collateralArrestFree")

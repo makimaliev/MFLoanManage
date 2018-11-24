@@ -2,7 +2,7 @@ package kg.gov.mf.loan.manage.model.collateral;
 
 import javax.persistence.*;
 
-import kg.gov.mf.loan.manage.model.GenericModel;
+import kg.gov.mf.loan.task.model.GenericModel;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;

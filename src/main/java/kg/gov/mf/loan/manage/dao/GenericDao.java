@@ -4,7 +4,7 @@ import java.util.List;
 
 public interface GenericDao<E> {
 
-	void add(E entity);
+	Long add(E entity);
     List<E> list();
     List<E> list(int firstResult, int maxResults);
     List<E> listByParam(String param);

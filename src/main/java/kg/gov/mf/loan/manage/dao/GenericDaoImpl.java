@@ -29,8 +29,8 @@ public abstract class GenericDaoImpl<E> implements GenericDao<E> {
         return sessionFactory.getCurrentSession();
     }
 
-    public void add(E entity) {
-        getCurrentSession().save(entity);
+    public Long add(E entity) {
+        return (Long)getCurrentSession().save(entity);
     }
 
     public List<E> list() {

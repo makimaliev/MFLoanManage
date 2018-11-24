@@ -5,7 +5,7 @@ import javax.persistence.*;
 import kg.gov.mf.loan.admin.org.model.Address;
 import kg.gov.mf.loan.admin.org.model.Organization;
 import kg.gov.mf.loan.admin.org.model.Person;
-import kg.gov.mf.loan.manage.model.GenericModel;
+import kg.gov.mf.loan.task.model.GenericModel;
 
 @Entity
 @Table(name="owner")

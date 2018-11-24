@@ -2,7 +2,7 @@ package kg.gov.mf.loan.manage.model.collection;
 
 import javax.persistence.*;
 
-import kg.gov.mf.loan.manage.model.GenericModel;
+import kg.gov.mf.loan.task.model.GenericModel;
 
 @Entity
 @Table(name="phaseDetails")
