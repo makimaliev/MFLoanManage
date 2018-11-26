@@ -14,7 +14,7 @@ public class DebtorDaoImpl extends GenericDaoImpl<Debtor> implements DebtorDao{
     {
         Debtor result = super.getById(id);
         Hibernate.initialize(result.getLoans());
-        result.getLoans().size();
+//        result.getLoans().size();
         return result;
     }
 }
