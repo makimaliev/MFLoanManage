@@ -83,6 +83,7 @@ public class LoanSummary extends GenericModel {
     @Column(precision = 12, scale = 5)
     private Double totalFeePaid;
 
+    @Column(length = 10, columnDefinition = "varchar(10) default 'SYSTEM'")
     @Enumerated(EnumType.STRING)
     private LoanSummaryType loanSummaryType = LoanSummaryType.SYSTEM;
 
