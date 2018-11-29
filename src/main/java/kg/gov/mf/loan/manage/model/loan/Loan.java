@@ -78,6 +78,9 @@ public abstract class Loan{
     @Column(name="closeDate")
     private Date closeDate;
 
+	@Column(precision = 12, scale = 5)
+	private Double closeRate;
+
 	@ManyToOne(targetEntity=CreditOrder.class, fetch = FetchType.EAGER)
 	@JoinColumn(name="creditOrderId", nullable=true)
 	private CreditOrder creditOrder;
@@ -405,7 +408,15 @@ public abstract class Loan{
 		this.bankDataId = bankDataId;
 	}
 
-	@Override
+    public Double getCloseRate() {
+        return closeRate;
+    }
+
+    public void setCloseRate(Double closeRate) {
+        this.closeRate = closeRate;
+    }
+
+    @Override
 	public int hashCode() {
 		int hash = 5;
 		hash = 83 * hash + Objects.hashCode(this.getId());
