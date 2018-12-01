@@ -55,6 +55,12 @@ public class CreditTerm extends GenericModel{
 	
 	@Column(precision = 12, scale = 5)
 	private Double penaltyLimitPercent;
+
+	@Column(columnDefinition = "int default 0")
+	private int graceDaysPrincipal = 0;
+
+	@Column(columnDefinition = "int default 0")
+	private int graceDaysInterest = 0;
 	
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Temporal(TemporalType.DATE)
@@ -188,5 +194,20 @@ public class CreditTerm extends GenericModel{
 	public void setLoan(Loan loan) {
 		this.loan = loan;
 	}
-	
+
+	public int getGraceDaysPrincipal() {
+		return graceDaysPrincipal;
+	}
+
+	public void setGraceDaysPrincipal(int graceDaysPrincipal) {
+		this.graceDaysPrincipal = graceDaysPrincipal;
+	}
+
+	public int getGraceDaysInterest() {
+		return graceDaysInterest;
+	}
+
+	public void setGraceDaysInterest(int graceDaysInterest) {
+		this.graceDaysInterest = graceDaysInterest;
+	}
 }
