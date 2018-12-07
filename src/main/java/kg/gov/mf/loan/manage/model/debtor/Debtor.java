@@ -22,15 +22,15 @@ public class Debtor extends GenericModel{
 	@Column(nullable=false, length = 200)
 	private String name;
 	
-	@ManyToOne(targetEntity=DebtorType.class, fetch = FetchType.EAGER)
+	@ManyToOne(targetEntity=DebtorType.class, fetch = FetchType.LAZY)
 	@JoinColumn(name="debtorTypeId")
 	private DebtorType debtorType;
 	
-	@ManyToOne(targetEntity=OrganizationForm.class, fetch = FetchType.EAGER)
+	@ManyToOne(targetEntity=OrganizationForm.class, fetch = FetchType.LAZY)
 	@JoinColumn(name="orgFormId")
 	private OrganizationForm orgForm;
 	
-	@ManyToOne(targetEntity=WorkSector.class, fetch = FetchType.EAGER)
+	@ManyToOne(targetEntity=WorkSector.class, fetch = FetchType.LAZY)
 	@JoinColumn(name="workSectorId")
 	WorkSector workSector;
 	

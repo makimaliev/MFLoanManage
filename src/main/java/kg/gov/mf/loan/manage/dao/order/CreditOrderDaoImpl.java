@@ -15,6 +15,8 @@ public class CreditOrderDaoImpl extends GenericDaoImpl<CreditOrder> implements C
         Hibernate.initialize(result.getAppliedEntityLists());
         Hibernate.initialize(result.getOrderDocumentPackages());
         Hibernate.initialize(result.getOrderTerms());
+        Hibernate.initialize(result.getCreditOrderType());
+        Hibernate.initialize(result.getCreditOrderState());
         return result;
     }
 

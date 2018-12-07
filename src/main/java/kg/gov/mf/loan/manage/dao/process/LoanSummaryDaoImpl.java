@@ -13,7 +13,11 @@ public class LoanSummaryDaoImpl extends GenericDaoImpl<LoanSummary> implements L
 
     @Override
     public LoanSummary getByOnDateAndLoanId(Date onDate, long loanId){
-        return (LoanSummary) getCurrentSession().createQuery("from LoanSummary where onDate = '" + DateUtils.format(onDate, DateUtils.FORMAT_POSTGRES_DATE) + "' and loanId = '" + loanId + "'").uniqueResult();
+        LoanSummary loanSummary= (LoanSummary) getCurrentSession().createQuery("from LoanSummary where onDate = '" + DateUtils.format(onDate, DateUtils.FORMAT_POSTGRES_DATE) + "' and loanId = '" + loanId + "'").uniqueResult();
+        Hibernate.initialize(loanSummary.getLoan());
+        Hibernate.initialize(loanSummary.getLoanSummaryType());
+
+        return loanSummary;
     }
 
     @Override

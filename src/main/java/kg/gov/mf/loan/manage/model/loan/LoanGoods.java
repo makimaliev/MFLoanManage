@@ -17,11 +17,11 @@ public class LoanGoods extends GenericModel{
 	@Column(precision = 12, scale = 5)
 	private Double quantity;
 	
-	@ManyToOne(targetEntity=QuantityType.class, fetch = FetchType.EAGER)
+	@ManyToOne(targetEntity=QuantityType.class, fetch = FetchType.LAZY)
 	@JoinColumn(name="unitTypeId")
 	private QuantityType quantityType;
 	
-	@ManyToOne(targetEntity=GoodType.class, fetch = FetchType.EAGER)
+	@ManyToOne(targetEntity=GoodType.class, fetch = FetchType.LAZY)
 	@JoinColumn(name="goodsTypeId")
 	GoodType goodType;
 

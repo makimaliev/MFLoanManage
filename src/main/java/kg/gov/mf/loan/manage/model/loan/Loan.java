@@ -36,7 +36,7 @@ public abstract class Loan{
 
 	private Long version = 1L;
 
-	@OneToMany(mappedBy="parent",cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="parent",cascade=CascadeType.ALL, fetch=FetchType.LAZY)
 	private Set<Loan> children;
 
 	@ManyToOne
@@ -54,15 +54,15 @@ public abstract class Loan{
 	@Column(precision = 12, scale = 5)
 	private Double amount;
 
-	@ManyToOne(targetEntity=OrderTermCurrency.class, fetch = FetchType.EAGER)
+	@ManyToOne(targetEntity=OrderTermCurrency.class, fetch = FetchType.LAZY)
 	@JoinColumn(name="currencyId")
 	private OrderTermCurrency currency;
 
-	@ManyToOne(targetEntity=LoanType.class, fetch = FetchType.EAGER)
+	@ManyToOne(targetEntity=LoanType.class, fetch = FetchType.LAZY)
 	@JoinColumn(name="loanTypeId")
 	private LoanType loanType;
 
-	@ManyToOne(targetEntity=LoanState.class, fetch = FetchType.EAGER)
+	@ManyToOne(targetEntity=LoanState.class, fetch = FetchType.LAZY)
 	@JoinColumn(name="loanStateId")
 	private LoanState loanState;
 
@@ -81,11 +81,11 @@ public abstract class Loan{
 	@Column(precision = 12, scale = 5)
 	private Double closeRate;
 
-	@ManyToOne(targetEntity=CreditOrder.class, fetch = FetchType.EAGER)
+	@ManyToOne(targetEntity=CreditOrder.class, fetch = FetchType.LAZY)
 	@JoinColumn(name="creditOrderId", nullable=true)
 	private CreditOrder creditOrder;
 
-	@ManyToOne(targetEntity=Debtor.class, fetch = FetchType.EAGER)
+	@ManyToOne(targetEntity=Debtor.class, fetch = FetchType.LAZY)
     @JoinColumn(name="debtorId")
 	Debtor debtor;
 
@@ -95,7 +95,7 @@ public abstract class Loan{
 	@OneToMany(mappedBy = "loan", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<WriteOff> writeOffs = new HashSet<WriteOff>();
 
-	@OneToMany(mappedBy = "loan", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "loan", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@OrderBy("expectedDate")
     private Set<PaymentSchedule> paymentSchedules = new HashSet<PaymentSchedule>();
 
@@ -141,7 +141,7 @@ public abstract class Loan{
 	@ManyToMany(mappedBy="loans", fetch = FetchType.EAGER)
 	Set<CollectionPhase> collectionPhases = new HashSet<>();
 
-    @ManyToOne(targetEntity=OrderTermFund.class, fetch = FetchType.EAGER)
+    @ManyToOne(targetEntity=OrderTermFund.class, fetch = FetchType.LAZY)
     @JoinColumn(name="fundId")
     private OrderTermFund fund;
 

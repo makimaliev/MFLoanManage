@@ -26,7 +26,7 @@ public class Collateral extends GenericModel{
     @JoinColumn(name="loanId")
     Loan loan;
 	
-	@OneToMany(mappedBy = "collateral", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true)
+	@OneToMany(mappedBy = "collateral", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval=true)
     private Set<CollateralSummary> collateralSummaries = new HashSet<CollateralSummary>();
 
 	public String getName() {

@@ -31,25 +31,25 @@ public class CreditTerm extends GenericModel{
 	@Column(precision = 12, scale = 5)
 	private Double interestRateValue;
 	
-	@ManyToOne(targetEntity=OrderTermRatePeriod.class, fetch = FetchType.EAGER)
+	@ManyToOne(targetEntity=OrderTermRatePeriod.class, fetch = FetchType.LAZY)
 	@JoinColumn(name="ratePeriodId")
 	private OrderTermRatePeriod ratePeriod;
 	
-	@ManyToOne(targetEntity=OrderTermFloatingRateType.class, fetch = FetchType.EAGER)
+	@ManyToOne(targetEntity=OrderTermFloatingRateType.class, fetch = FetchType.LAZY)
 	@JoinColumn(name="floatingRateTypeId")
 	private OrderTermFloatingRateType floatingRateType;
 	
 	@Column(precision = 12, scale = 5)
 	private Double penaltyOnPrincipleOverdueRateValue;
 	
-	@ManyToOne(targetEntity=OrderTermFloatingRateType.class, fetch = FetchType.EAGER)
+	@ManyToOne(targetEntity=OrderTermFloatingRateType.class, fetch = FetchType.LAZY)
 	@JoinColumn(name="penaltyOnPrincipleOverdueRateTypeId")
 	private OrderTermFloatingRateType penaltyOnPrincipleOverdueRateType;
 	
 	@Column(name = "penaltyOnInterestOverdueRateValue", precision = 12, scale = 5)
 	private Double penaltyOnInterestOverdueRateValue;
 	
-	@ManyToOne(targetEntity=OrderTermFloatingRateType.class, fetch = FetchType.EAGER)
+	@ManyToOne(targetEntity=OrderTermFloatingRateType.class, fetch = FetchType.LAZY)
 	@JoinColumn(name="penaltyOnInterestOverdueRateTypeId")
 	private OrderTermFloatingRateType penaltyOnInterestOverdueRateType;
 	
@@ -67,15 +67,15 @@ public class CreditTerm extends GenericModel{
 	@Column(nullable=true)
 	private Date penaltyLimitEndDate;
 	
-	@ManyToOne(targetEntity=OrderTermTransactionOrder.class, fetch = FetchType.EAGER)
+	@ManyToOne(targetEntity=OrderTermTransactionOrder.class, fetch = FetchType.LAZY)
 	@JoinColumn(name="transactionOrderId")
 	private OrderTermTransactionOrder transactionOrder;
 	
-	@ManyToOne(targetEntity=OrderTermDaysMethod.class, fetch = FetchType.EAGER)
+	@ManyToOne(targetEntity=OrderTermDaysMethod.class, fetch = FetchType.LAZY)
 	@JoinColumn(name="daysInMonthMethodId")
 	private OrderTermDaysMethod daysInMonthMethod;
 	
-	@ManyToOne(targetEntity=OrderTermDaysMethod.class, fetch = FetchType.EAGER)
+	@ManyToOne(targetEntity=OrderTermDaysMethod.class, fetch = FetchType.LAZY)
 	@JoinColumn(name="daysInYearMethodId")
 	private OrderTermDaysMethod daysInYearMethod;
 	

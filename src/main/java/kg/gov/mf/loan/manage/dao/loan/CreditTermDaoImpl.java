@@ -1,6 +1,7 @@
 package kg.gov.mf.loan.manage.dao.loan;
 
 import kg.gov.mf.loan.manage.util.DateUtils;
+import org.hibernate.Hibernate;
 import org.hibernate.Query;
 import org.springframework.stereotype.Repository;
 
@@ -18,5 +19,18 @@ public class CreditTermDaoImpl extends GenericDaoImpl<CreditTerm> implements Cre
         Query query = getCurrentSession().createQuery("from CreditTerm where loanId = '" + loanId + "' and startDate <= '" + DateUtils.format(onDate, DateUtils.FORMAT_POSTGRES_DATE) + "' order by startDate DESC");
         query.setMaxResults(1);
         return (CreditTerm) query.uniqueResult();
+    }
+    @Override
+    public CreditTerm getById(Long id){
+
+        CreditTerm creditTerm=super.getById(id);
+
+        Hibernate.initialize(creditTerm.getDaysInMonthMethod());
+        Hibernate.initialize(creditTerm.getFloatingRateType());
+        Hibernate.initialize(creditTerm.getRatePeriod());
+        Hibernate.initialize(creditTerm.getTransactionOrder());
+
+
+        return creditTerm;
     }
 }

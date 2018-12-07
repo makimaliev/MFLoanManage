@@ -1,6 +1,7 @@
 package kg.gov.mf.loan.manage.dao.loan;
 
 import kg.gov.mf.loan.manage.util.DateUtils;
+import org.hibernate.Hibernate;
 import org.hibernate.Query;
 import org.springframework.stereotype.Repository;
 
@@ -17,5 +18,15 @@ public class PaymentScheduleDaoImpl extends GenericDaoImpl<PaymentSchedule> impl
     public List<PaymentSchedule> getRowsUntilOnDateByLoanId(Long loanId, Date onDate)
     {
         return getCurrentSession().createQuery("from PaymentSchedule where loanId ='"+ loanId + "' and expectedDate < '" + DateUtils.format(onDate, DateUtils.FORMAT_POSTGRES_DATE) + "' order by expectedDate").list();
+    }
+
+    @Override
+    public PaymentSchedule getById(Long id){
+
+        PaymentSchedule paymentSchedule=super.getById(id);
+
+        Hibernate.initialize(paymentSchedule.getInstallmentState());
+
+        return paymentSchedule;
     }
 }

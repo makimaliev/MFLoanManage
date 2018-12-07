@@ -14,6 +14,9 @@ public class CollectionProcedureDaoImpl extends GenericDaoImpl<CollectionProcedu
     {
         CollectionProcedure result = super.getById(id);
         Hibernate.initialize(result.getCollectionPhases());
+        Hibernate.initialize(result.getProcedureStatus());
+        Hibernate.initialize(result.getProcedureType());
+
         return result;
     }
 

@@ -52,7 +52,7 @@ public class Payment extends GenericModel{
 	@Column(nullable=true, length=100)
 	private String details;
 
-	@ManyToOne(targetEntity=PaymentType.class, fetch = FetchType.EAGER)
+	@ManyToOne(targetEntity=PaymentType.class, fetch = FetchType.LAZY)
 	@JoinColumn(name="paymentTypeId")
 	private PaymentType paymentType;
 	

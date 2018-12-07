@@ -33,29 +33,29 @@ public class CollectionPhase extends GenericModel{
 	private String resultDocNumber;
 
 	
-	@ManyToOne(targetEntity=CollectionProcedure.class, fetch = FetchType.EAGER)
+	@ManyToOne(targetEntity=CollectionProcedure.class, fetch = FetchType.LAZY)
     @JoinColumn(name="collectionProcedureId")
 	CollectionProcedure collectionProcedure;
 	
-	@ManyToOne(targetEntity=PhaseStatus.class, fetch = FetchType.EAGER)
+	@ManyToOne(targetEntity=PhaseStatus.class, fetch = FetchType.LAZY)
 	@JoinColumn(name="phaseStatusId")
 	private PhaseStatus phaseStatus;
 	
-	@ManyToOne(targetEntity=PhaseType.class, fetch = FetchType.EAGER)
+	@ManyToOne(targetEntity=PhaseType.class, fetch = FetchType.LAZY)
 	@JoinColumn(name="phaseTypeId")
 	private PhaseType phaseType;
 
-	@ManyToMany(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
+	@ManyToMany(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
 	@JoinTable(
 			name="loanCollectionPhase",
 			joinColumns = { @JoinColumn(name = "collectionPhaseId") },
 			inverseJoinColumns = { @JoinColumn(name = "loanId") })
 	Set<Loan> loans = new HashSet<Loan>();
 	
-	@OneToMany(mappedBy = "collectionPhase", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "collectionPhase", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Set<CollectionEvent> collectionEvents = new HashSet<CollectionEvent>();
 	
-	@OneToMany(mappedBy = "collectionPhase", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "collectionPhase", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<PhaseDetails> phaseDetails = new HashSet<PhaseDetails>();
 
 	public Date getStartDate() {

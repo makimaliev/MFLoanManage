@@ -1,6 +1,7 @@
 package kg.gov.mf.loan.manage.dao.loan;
 
 import kg.gov.mf.loan.manage.util.DateUtils;
+import org.hibernate.Hibernate;
 import org.springframework.stereotype.Repository;
 
 import kg.gov.mf.loan.manage.dao.GenericDaoImpl;
@@ -11,6 +12,16 @@ import java.util.List;
 
 @Repository("paymentDao")
 public class PaymentDaoImpl extends GenericDaoImpl<Payment> implements PaymentDao{
+
+    @Override
+    public Payment getById(Long id){
+
+        Payment payment=super.getById(id);
+
+        Hibernate.initialize(payment.getPaymentType());
+
+        return payment;
+    }
 
     @Override
     public List<Payment> getRowsUntilOnDateByLoanId(Long loanId, Date onDate)
@@ -24,5 +35,6 @@ public class PaymentDaoImpl extends GenericDaoImpl<Payment> implements PaymentDa
         Date date = DateUtils.subtract(onDate, DateUtils.DAY, 1);
         return getCurrentSession().createQuery("from Payment where loanId ='"+ loanId + "' and paymentDate = '" + DateUtils.format(date, DateUtils.FORMAT_POSTGRES_DATE) + "'").list();
     }
+
 
 }

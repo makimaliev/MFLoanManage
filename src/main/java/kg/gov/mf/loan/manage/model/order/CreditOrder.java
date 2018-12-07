@@ -34,11 +34,11 @@ public class CreditOrder extends GenericModel {
 	@Column(nullable=true)
 	private Date regDate;
 	
-	@ManyToOne(targetEntity=CreditOrderState.class, fetch = FetchType.EAGER)
+	@ManyToOne(targetEntity=CreditOrderState.class, fetch = FetchType.LAZY)
 	@JoinColumn(name="creditOrderStateId")
 	private CreditOrderState creditOrderState;
 	
-	@ManyToOne(targetEntity=CreditOrderType.class, fetch = FetchType.EAGER)
+	@ManyToOne(targetEntity=CreditOrderType.class, fetch = FetchType.LAZY)
 	@JoinColumn(name="creditOrderTypeId")
 	private CreditOrderType creditOrderType;
 	

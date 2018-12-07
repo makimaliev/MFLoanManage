@@ -36,15 +36,15 @@ public class CollectionProcedure extends GenericModel{
 	private long lastPhase;
 	private long lastStatusId;
 
-	@ManyToOne(targetEntity=ProcedureStatus.class, fetch = FetchType.EAGER)
+	@ManyToOne(targetEntity=ProcedureStatus.class, fetch = FetchType.LAZY)
 	@JoinColumn(name="procedureStatusId")
 	private ProcedureStatus procedureStatus;
 	
-	@ManyToOne(targetEntity=ProcedureType.class, fetch = FetchType.EAGER)
+	@ManyToOne(targetEntity=ProcedureType.class, fetch = FetchType.LAZY)
 	@JoinColumn(name="procedureTypeId")
 	private ProcedureType procedureType;
 	
-	@OneToMany(mappedBy = "collectionProcedure", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "collectionProcedure", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<CollectionPhase> collectionPhases = new HashSet<CollectionPhase>();
 
 	public Date getStartDate() {
