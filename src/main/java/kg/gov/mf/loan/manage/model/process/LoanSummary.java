@@ -17,6 +17,10 @@ public class LoanSummary extends GenericModel {
     @Column(nullable=false)
     private Date onDate;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @Temporal(TemporalType.DATE)
+    private Date createDate;
+
     @Column(precision = 12, scale = 5)
     private Double loanAmount;
 
@@ -93,6 +97,14 @@ public class LoanSummary extends GenericModel {
 
     public Date getOnDate() {
         return onDate;
+    }
+
+    public Date getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(Date createDate) {
+        this.createDate = createDate;
     }
 
     public void setOnDate(Date onDate) {
