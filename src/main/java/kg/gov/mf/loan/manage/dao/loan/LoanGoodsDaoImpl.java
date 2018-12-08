@@ -16,6 +16,7 @@ public class LoanGoodsDaoImpl extends GenericDaoImpl<LoanGoods> implements LoanG
 
         Hibernate.initialize(loanGoods.getGoodType());
         Hibernate.initialize(loanGoods.getQuantityType());
+        Hibernate.initialize(loanGoods.getLoan());
 
         return loanGoods;
     }

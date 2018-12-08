@@ -14,6 +14,7 @@ public class DebtTransferDaoImpl extends GenericDaoImpl<DebtTransfer> implements
 
         DebtTransfer debtTransfer=super.getById(id);
 
+        Hibernate.initialize(debtTransfer.getLoan());
         Hibernate.initialize(debtTransfer.getGoodType());
         Hibernate.initialize(debtTransfer.getQuantityType());
 
