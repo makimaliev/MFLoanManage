@@ -1,6 +1,7 @@
 package kg.gov.mf.loan.manage.service;
 
 import kg.gov.mf.loan.manage.dao.GenericDao;
+import kg.gov.mf.loan.manage.model.loan.Loan;
 import kg.gov.mf.loan.task.component.AuthenticationFacade;
 import kg.gov.mf.loan.task.component.AutowireHelper;
 import kg.gov.mf.loan.task.model.GenericModel;
@@ -127,7 +128,13 @@ public abstract class GenericServiceImpl<E> implements GenericService<E> {
         log.setCreatedBy(user);
         log.setIp(ip);
         log.setEntity(o.getClass().getSimpleName());
-        log.setEntityId(((GenericModel)o).getId());
+        if(o instanceof Loan)
+        {
+            log.setEntityId(((Loan) o).getId());
+        }
+        else {
+            log.setEntityId(((GenericModel) o).getId());
+        }
         log.setAction(logAction.value());
         loggerService.add(log);
     }
