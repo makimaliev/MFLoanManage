@@ -66,6 +66,10 @@ public abstract class Loan{
 	@JoinColumn(name="loanStateId")
 	private LoanState loanState;
 
+	@ManyToOne(targetEntity=LoanFinGroup.class, fetch = FetchType.LAZY)
+	@JoinColumn(name="loanFinGroupId")
+	private LoanFinGroup loanFinGroup;
+
 	@Column(nullable=false)
 	private long supervisorId;
 
@@ -416,7 +420,15 @@ public abstract class Loan{
         this.closeRate = closeRate;
     }
 
-    @Override
+	public LoanFinGroup getLoanFinGroup() {
+		return loanFinGroup;
+	}
+
+	public void setLoanFinGroup(LoanFinGroup loanFinGroup) {
+		this.loanFinGroup = loanFinGroup;
+	}
+
+	@Override
 	public int hashCode() {
 		int hash = 5;
 		hash = 83 * hash + Objects.hashCode(this.getId());
