@@ -139,10 +139,10 @@ public abstract class Loan{
 	@OrderBy("onDate")
 	private Set<LoanDetailedSummary> loanDetailedSummaries = new HashSet<LoanDetailedSummary>();
 
-	@ManyToMany(mappedBy="loans", fetch = FetchType.EAGER)
+	@ManyToMany(mappedBy="loans", fetch = FetchType.LAZY)
 	Set<CollateralAgreement> collateralAgreements = new HashSet<CollateralAgreement>();
 
-	@ManyToMany(mappedBy="loans", fetch = FetchType.EAGER)
+	@ManyToMany(mappedBy="loans", fetch = FetchType.LAZY)
 	Set<CollectionPhase> collectionPhases = new HashSet<>();
 
     @ManyToOne(targetEntity=OrderTermFund.class, fetch = FetchType.LAZY)
