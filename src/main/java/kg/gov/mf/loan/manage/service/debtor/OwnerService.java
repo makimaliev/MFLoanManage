@@ -5,4 +5,5 @@ import kg.gov.mf.loan.manage.service.GenericService;
 
 public interface OwnerService extends GenericService<Owner>{
 
+    public Owner getByEntityId(Long id);
 }
