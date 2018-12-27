@@ -20,6 +20,8 @@ public class CollectionPhaseDaoImpl extends GenericDaoImpl<CollectionPhase> impl
         Hibernate.initialize(result.getPhaseType());
         Hibernate.initialize(result.getPhaseDetails());
         Hibernate.initialize(result.getCollectionProcedure());
+        Hibernate.initialize(result.getCollectionPhaseGroup());
+        Hibernate.initialize(result.getCollectionPhaseIndex());
         try{
             Hibernate.initialize(result.getCollectionProcedure().getProcedureStatus());
         }

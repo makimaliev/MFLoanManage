@@ -81,6 +81,9 @@ public class CollateralAgreement extends GenericModel{
 			joinColumns = { @JoinColumn(name = "collateralAgreementId") }, 
 	        inverseJoinColumns = { @JoinColumn(name = "loanId") })
 	Set<Loan> loans = new HashSet<Loan>();
+
+	@OneToMany(mappedBy = "collateralAgreement", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private Set<AdditionalAgreement> additionalAgreements = new HashSet<AdditionalAgreement>();
 	
 	public String getAgreementNumber() {
 		return agreementNumber;
@@ -186,6 +189,15 @@ public class CollateralAgreement extends GenericModel{
 
 	public void setOwner(Owner owner) {
 		this.owner = owner;
+	}
+
+
+	public Set<AdditionalAgreement> getAdditionalAgreements() {
+		return additionalAgreements;
+	}
+
+	public void setAdditionalAgreements(Set<AdditionalAgreement> additionalAgreements) {
+		this.additionalAgreements = additionalAgreements;
 	}
 
 	@Override

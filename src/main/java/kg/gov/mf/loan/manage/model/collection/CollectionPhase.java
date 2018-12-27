@@ -58,6 +58,14 @@ public class CollectionPhase extends GenericModel{
 	@OneToMany(mappedBy = "collectionPhase", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<PhaseDetails> phaseDetails = new HashSet<PhaseDetails>();
 
+	@ManyToOne(targetEntity=CollectionPhaseGroup.class, fetch = FetchType.LAZY)
+	@JoinColumn(name="collectionPhaseGroupId")
+	CollectionPhaseGroup collectionPhaseGroup;
+
+	@ManyToOne(targetEntity=CollectionPhaseIndex.class, fetch = FetchType.LAZY)
+	@JoinColumn(name="collectionPhaseIndexId")
+	CollectionPhaseIndex collectionPhaseIndex;
+
 	public Date getStartDate() {
 		return startDate;
 	}
@@ -152,6 +160,22 @@ public class CollectionPhase extends GenericModel{
 
 	public void setResultDocNumber(String resultDocNumber) {
 		this.resultDocNumber = resultDocNumber;
+	}
+
+	public CollectionPhaseGroup getCollectionPhaseGroup() {
+		return collectionPhaseGroup;
+	}
+
+	public void setCollectionPhaseGroup(CollectionPhaseGroup collectionPhaseGroup) {
+		this.collectionPhaseGroup = collectionPhaseGroup;
+	}
+
+	public CollectionPhaseIndex getCollectionPhaseIndex() {
+		return collectionPhaseIndex;
+	}
+
+	public void setCollectionPhaseIndex(CollectionPhaseIndex collectionPhaseIndex) {
+		this.collectionPhaseIndex = collectionPhaseIndex;
 	}
 
 	@Override
