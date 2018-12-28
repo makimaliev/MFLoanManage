@@ -13,7 +13,13 @@ public class CollateralItemDaoImpl extends GenericDaoImpl<CollateralItem> implem
     public CollateralItem getById(Long id)
     {
         CollateralItem result = super.getById(id);
-        Hibernate.initialize(result.getCollateralItemInspectionResults());
+        Hibernate.initialize(result.getItemType());
+        Hibernate.initialize(result.getQuantityType());
+        Hibernate.initialize(result.getConditionType());
+        Hibernate.initialize(result.getCollateralItemDetails());
+        Hibernate.initialize(result.getCollateralItemArrestFree());
+        Hibernate.initialize(result.getCollateralAgreement());
+        Hibernate.initialize(result.getOwner());
         return result;
     }
 

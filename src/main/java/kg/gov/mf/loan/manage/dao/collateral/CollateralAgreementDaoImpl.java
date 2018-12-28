@@ -13,8 +13,7 @@ public class CollateralAgreementDaoImpl extends GenericDaoImpl<CollateralAgreeme
     public CollateralAgreement getById(Long id)
     {
         CollateralAgreement result = super.getById(id);
-        Hibernate.initialize(result.getCollateralItems());
-        Hibernate.initialize(result.getAdditionalAgreements());
+        Hibernate.initialize(result.getOwner());
         return result;
     }
 }

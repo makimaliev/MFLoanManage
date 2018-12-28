@@ -26,7 +26,7 @@ public class CollateralItem extends GenericModel {
 	@Column(nullable=true, length=200)
 	private String description;
 	
-	@ManyToOne(targetEntity=ItemType.class, fetch = FetchType.EAGER)
+	@ManyToOne(targetEntity=ItemType.class, fetch = FetchType.LAZY)
 	@JoinColumn(name="itemTypeId")
 	private ItemType itemType;
 	
@@ -39,7 +39,7 @@ public class CollateralItem extends GenericModel {
 	@Column(precision = 12, scale = 5)
 	private Double demand_rate;
 
-	@ManyToOne(targetEntity=QuantityType.class, fetch = FetchType.EAGER)
+	@ManyToOne(targetEntity=QuantityType.class, fetch = FetchType.LAZY)
 	@JoinColumn(name="quantityTypeId")
 	private QuantityType quantityType;
 	
@@ -49,7 +49,7 @@ public class CollateralItem extends GenericModel {
 	@Column(precision = 12, scale = 5)
 	private Double estimatedValue;
 	
-	@ManyToOne(targetEntity=ConditionType.class, fetch = FetchType.EAGER)
+	@ManyToOne(targetEntity=ConditionType.class, fetch = FetchType.LAZY)
 	@JoinColumn(name="conditionTypeId")
 	private ConditionType conditionType;
 	
@@ -60,10 +60,10 @@ public class CollateralItem extends GenericModel {
 	@OneToMany(mappedBy = "collateralItem", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<CollateralItemInspectionResult> collateralItemInspectionResults = new HashSet<CollateralItemInspectionResult>();
 	
-	@OneToOne(mappedBy = "collateralItem", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true)
+	@OneToOne(mappedBy = "collateralItem", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval=true)
     private CollateralItemDetails collateralItemDetails;
 
-	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
 	@JoinColumn(name="collateralItemArrestFreeId")
 	CollateralItemArrestFree collateralItemArrestFree;
 
@@ -75,7 +75,7 @@ public class CollateralItem extends GenericModel {
 		this.name = name;
 	}
 
-	@ManyToOne(targetEntity=Owner.class, fetch = FetchType.EAGER)
+	@ManyToOne(targetEntity=Owner.class, fetch = FetchType.LAZY)
 	@JoinColumn(name="ownerId")
 	Owner owner;
 

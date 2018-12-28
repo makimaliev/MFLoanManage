@@ -21,7 +21,7 @@ public class CollectionEvent extends GenericModel {
 	
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Temporal(TemporalType.DATE)
-	@Column(nullable=false)
+	@Column(nullable=true)
 	private Date closeDate;
 	
 	@ManyToOne(targetEntity=CollectionPhase.class, fetch = FetchType.EAGER)
