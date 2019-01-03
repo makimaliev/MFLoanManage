@@ -13,9 +13,6 @@ public interface StaffRepository extends JpaRepository<Staff, Long> {
     List<Staff> findByNameContains(String q);
     Staff findById(long id);
 
-
-    Staff findByUserId(long id);
-
     List<Staff> findByOrganizationIdAndNameContains(long id, String q);
 
 }
