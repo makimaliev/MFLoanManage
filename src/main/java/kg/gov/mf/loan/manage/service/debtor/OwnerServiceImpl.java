@@ -16,7 +16,7 @@ public class OwnerServiceImpl extends GenericServiceImpl<Owner> implements Owner
     OwnerDao ownerDao;
 
     @Override
-    public Owner getByEntityId(Long id) {
-        return ownerDao.getByEntityId(id);
+    public Owner getByEntityId(Long id,String ownerType) {
+        return ownerDao.getByEntityId(id,ownerType);
     }
 }

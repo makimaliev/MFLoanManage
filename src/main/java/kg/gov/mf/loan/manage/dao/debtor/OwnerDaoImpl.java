@@ -26,8 +26,8 @@ public class OwnerDaoImpl extends GenericDaoImpl<Owner> implements OwnerDao{
     }
 
     @Override
-    public Owner getByEntityId(Long id) {
-        String baseQuery="select * from owner where entityId='"+id+"'";
+    public Owner getByEntityId(Long id,String ownerType) {
+        String baseQuery="select * from owner where entityId='"+id+"' AND ownerType='"+ownerType+"'";
         Query query=entityManager.createNativeQuery(baseQuery,Owner.class);
 
         return (Owner) query.getSingleResult();

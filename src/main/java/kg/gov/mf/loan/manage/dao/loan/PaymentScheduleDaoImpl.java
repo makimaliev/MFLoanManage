@@ -26,6 +26,7 @@ public class PaymentScheduleDaoImpl extends GenericDaoImpl<PaymentSchedule> impl
         PaymentSchedule paymentSchedule=super.getById(id);
 
         Hibernate.initialize(paymentSchedule.getInstallmentState());
+        Hibernate.initialize(paymentSchedule.getLoan());
 
         return paymentSchedule;
     }
