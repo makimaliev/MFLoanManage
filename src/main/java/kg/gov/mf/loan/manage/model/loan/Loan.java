@@ -100,6 +100,9 @@ public abstract class Loan{
     private Set<WriteOff> writeOffs = new HashSet<WriteOff>();
 
 	@OneToMany(mappedBy = "loan", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private Set<Judgement> judgements = new HashSet<Judgement>();
+
+	@OneToMany(mappedBy = "loan", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@OrderBy("expectedDate")
     private Set<PaymentSchedule> paymentSchedules = new HashSet<PaymentSchedule>();
 
@@ -276,7 +279,15 @@ public abstract class Loan{
 		this.writeOffs = writeOffs;
 	}
 
-	public Set<PaymentSchedule> getPaymentSchedules() {
+    public Set<Judgement> getJudgements() {
+        return judgements;
+    }
+
+    public void setJudgements(Set<Judgement> judgements) {
+        this.judgements = judgements;
+    }
+
+    public Set<PaymentSchedule> getPaymentSchedules() {
 		return paymentSchedules;
 	}
 
