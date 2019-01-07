@@ -14,6 +14,9 @@ public class CollateralAgreementDaoImpl extends GenericDaoImpl<CollateralAgreeme
     {
         CollateralAgreement result = super.getById(id);
         Hibernate.initialize(result.getOwner());
+        Hibernate.initialize(result.getCollateralItems());
+        Hibernate.initialize(result.getAdditionalAgreements());
+        Hibernate.initialize(result.getLoans());
         return result;
     }
 }

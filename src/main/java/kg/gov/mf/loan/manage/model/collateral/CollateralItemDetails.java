@@ -63,7 +63,7 @@ public class CollateralItemDetails extends GenericModel{
 	@Column(nullable=true)
 	private Date explDate;
 
-	@OneToOne(targetEntity=CollateralItem.class, fetch = FetchType.EAGER)
+	@OneToOne(targetEntity=CollateralItem.class, fetch = FetchType.LAZY)
 	@PrimaryKeyJoinColumn
 	CollateralItem collateralItem;
 	
