@@ -39,7 +39,7 @@ public class WriteOff extends GenericModel {
 	@Column(precision = 12, scale = 5)
 	private Double fee;
 	
-	@Column(nullable=true, length=50)
+	@Column(nullable=true, columnDefinition = "TEXT")
 	private String description;
 	
 	@ManyToOne(targetEntity=Loan.class, fetch = FetchType.LAZY)
