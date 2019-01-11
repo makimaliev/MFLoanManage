@@ -15,6 +15,8 @@ public class CollectionPhaseIndex extends GenericModel{
 
     @Column(nullable = true)
     private String description;
+    @OneToMany(mappedBy = "collectionPhaseIndex", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<CollectionPhaseSubIndex> collectionPhaseSubIndices = new HashSet<CollectionPhaseSubIndex>();
 
     public String getName() {
         return name;
@@ -32,4 +34,11 @@ public class CollectionPhaseIndex extends GenericModel{
         this.description = description;
     }
 
+    public Set<CollectionPhaseSubIndex> getCollectionPhaseSubIndices() {
+        return collectionPhaseSubIndices;
+    }
+
+    public void setCollectionPhaseSubIndices(Set<CollectionPhaseSubIndex> collectionPhaseSubIndices) {
+        this.collectionPhaseSubIndices = collectionPhaseSubIndices;
+    }
 }
