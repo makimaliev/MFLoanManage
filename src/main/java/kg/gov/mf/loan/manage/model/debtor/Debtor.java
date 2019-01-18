@@ -37,6 +37,9 @@ public class Debtor extends GenericModel{
 	@OneToOne
     @JoinColumn(name="ownerId")
     Owner owner;
+
+	@Column
+	private long address_id;
 	
 	@OneToMany(mappedBy = "debtor", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Loan> loans;
@@ -87,5 +90,13 @@ public class Debtor extends GenericModel{
 
 	public void setOwner(Owner owner) {
 		this.owner = owner;
+	}
+
+	public long getAddress_id() {
+		return address_id;
+	}
+
+	public void setAddress_id(long address_id) {
+		this.address_id = address_id;
 	}
 }
