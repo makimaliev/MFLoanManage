@@ -66,6 +66,8 @@ public class CollectionPhase extends GenericModel{
 	@JoinColumn(name="collectionPhaseIndexId")
 	CollectionPhaseIndex collectionPhaseIndex;
 
+	private Long department_id;
+
 	public Date getStartDate() {
 		return startDate;
 	}
@@ -207,5 +209,12 @@ public class CollectionPhase extends GenericModel{
 
 		return true;
 	}
-	
+
+	public Long getDepartment_id() {
+		return department_id;
+	}
+
+	public void setDepartment_id(Long department_id) {
+		this.department_id = department_id;
+	}
 }
