@@ -67,6 +67,7 @@ public class CollectionPhase extends GenericModel{
 	CollectionPhaseIndex collectionPhaseIndex;
 
 	private Long department_id;
+	private Long sub_index_id;
 
 	public Date getStartDate() {
 		return startDate;
@@ -216,5 +217,13 @@ public class CollectionPhase extends GenericModel{
 
 	public void setDepartment_id(Long department_id) {
 		this.department_id = department_id;
+	}
+
+	public Long getSub_index_id() {
+		return sub_index_id;
+	}
+
+	public void setSub_index_id(Long sub_index_id) {
+		this.sub_index_id = sub_index_id;
 	}
 }
