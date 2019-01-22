@@ -68,6 +68,9 @@ public class CollectionPhase extends GenericModel{
 
 	private Long department_id;
 	private Long sub_index_id;
+	private Double start_amount;
+	private Double close_amount;
+	private Double paid;
 
 	public Date getStartDate() {
 		return startDate;
@@ -225,5 +228,29 @@ public class CollectionPhase extends GenericModel{
 
 	public void setSub_index_id(Long sub_index_id) {
 		this.sub_index_id = sub_index_id;
+	}
+
+	public Double getStart_amount() {
+		return start_amount;
+	}
+
+	public void setStart_amount(Double start_amount) {
+		this.start_amount = start_amount;
+	}
+
+	public Double getClose_amount() {
+		return close_amount;
+	}
+
+	public void setClose_amount(Double close_amount) {
+		this.close_amount = close_amount;
+	}
+
+	public Double getPaid() {
+		return paid;
+	}
+
+	public void setPaid(Double paid) {
+		this.paid = paid;
 	}
 }
