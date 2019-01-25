@@ -1,6 +1,9 @@
 package kg.gov.mf.loan.manage.dao.debtor;
 
+import org.hibernate.Criteria;
 import org.hibernate.Hibernate;
+import org.hibernate.Session;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -31,9 +34,14 @@ public class DebtorDaoImpl extends GenericDaoImpl<Debtor> implements DebtorDao{
 
     @Override
     public Debtor getByOwnerId(Long id) {
-        String baseQuery="select * from debtor where ownerId='"+id+"'";
-        Query query=entityManager.createNativeQuery(baseQuery,Debtor.class);
 
-        return (Debtor) query.getSingleResult();
+
+        Session session = this.sessionFactory.getCurrentSession();
+
+        Criteria criteria = session.createCriteria(Debtor.class);
+        criteria.createAlias("owner", "owner");
+        criteria.add(Restrictions.eq("owner.id", id));
+
+        return (Debtor) criteria.uniqueResult();
     }
 }
