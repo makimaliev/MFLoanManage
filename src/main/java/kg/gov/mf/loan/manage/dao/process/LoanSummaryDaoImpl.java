@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Repository("loanSummaryDao")
 public class LoanSummaryDaoImpl extends GenericDaoImpl<LoanSummary> implements LoanSummaryDao {
@@ -27,6 +28,14 @@ public class LoanSummaryDaoImpl extends GenericDaoImpl<LoanSummary> implements L
         Hibernate.initialize(loanSummary.getLoanSummaryType());
 
         return loanSummary;
+    }
+
+    @Override
+    public List<LoanSummary> getSummariesByOnDateAndLoanId(Date onDate, long loanId) {
+        String baseQuery="select * from loanSummary where loanId="+loanId+" and onDate=\""+onDate+"\"";
+        Query query=entityManager.createNativeQuery(baseQuery,LoanSummary.class);
+
+        return query.getResultList();
     }
 
     @Override

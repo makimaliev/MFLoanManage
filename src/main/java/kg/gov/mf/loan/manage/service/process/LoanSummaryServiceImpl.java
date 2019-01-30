@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
+import java.util.List;
 
 @Service("loanSummaryService")
 @Transactional
@@ -20,5 +21,10 @@ public class LoanSummaryServiceImpl extends GenericServiceImpl<LoanSummary> impl
     public LoanSummary getByOnDateAndLoanId(Date onDate, long loanId)
     {
         return this.loanSummaryDao.getByOnDateAndLoanId(onDate, loanId);
+    }
+
+    @Override
+    public List<LoanSummary> getSummariesByOnDateAndLoanId(Date onDate, long loanId) {
+        return this.loanSummaryDao.getSummariesByOnDateAndLoanId(onDate,loanId);
     }
 }
