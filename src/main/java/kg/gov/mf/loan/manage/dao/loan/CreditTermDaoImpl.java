@@ -16,9 +16,23 @@ public class CreditTermDaoImpl extends GenericDaoImpl<CreditTerm> implements Cre
     @Override
     public CreditTerm getRecentTermByLoanIdAndOnDate(long loanId, Date onDate)
     {
-        Query query = getCurrentSession().createQuery("from CreditTerm where loanId = '" + loanId + "' and startDate <= '" + DateUtils.format(onDate, DateUtils.FORMAT_POSTGRES_DATE) + "' order by startDate DESC");
+        Query query = getCurrentSession().createQuery("from CreditTerm where record_status = 1 AND loanId = '" + loanId + "' and startDate <= '" + DateUtils.format(onDate, DateUtils.FORMAT_POSTGRES_DATE) + "' order by startDate DESC");
         query.setMaxResults(1);
-        return (CreditTerm) query.uniqueResult();
+
+        CreditTerm creditTerm=(CreditTerm) query.uniqueResult();
+
+        Hibernate.initialize(creditTerm.getDaysInMonthMethod());
+        Hibernate.initialize(creditTerm.getFloatingRateType());
+        Hibernate.initialize(creditTerm.getRatePeriod());
+        Hibernate.initialize(creditTerm.getTransactionOrder());
+        Hibernate.initialize(creditTerm.getPenaltyOnPrincipleOverdueRateValue());
+        Hibernate.initialize(creditTerm.getPenaltyOnPrincipleOverdueRateType());
+        Hibernate.initialize(creditTerm.getDaysInYearMethod());
+        Hibernate.initialize(creditTerm.getDaysInMonthMethod());
+
+
+        return creditTerm;
+
     }
     @Override
     public CreditTerm getById(Long id){

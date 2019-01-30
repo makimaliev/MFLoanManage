@@ -20,7 +20,7 @@ public class LoanDetailedSummaryDaoImpl extends GenericDaoImpl<LoanDetailedSumma
     @Override
     public LoanDetailedSummary getLastSummaryByLoanIdAndLTEOnDate(long loanId, Date onDate)
     {
-        Query query = getCurrentSession().createQuery("from LoanDetailedSummary where loanId = '" + loanId + "' and onDate <= '" + DateUtils.format(onDate, DateUtils.FORMAT_POSTGRES_DATE) + "' order by onDate DESC");
+        Query query = getCurrentSession().createQuery("from LoanDetailedSummary where loanId = '" + loanId + "' and onDate < '" + DateUtils.format(onDate, DateUtils.FORMAT_POSTGRES_DATE) + "' order by onDate DESC, id desc");
         query.setMaxResults(1);
         return (LoanDetailedSummary) query.uniqueResult();
     }
