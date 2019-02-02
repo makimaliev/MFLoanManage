@@ -12,7 +12,7 @@ import java.util.Date;
 import java.util.List;
 
 @Repository("loanSummaryDao")
-public class LoanSummaryDaoImpl extends GenericDaoImpl<LoanSummary> implements LoanSummaryDao {
+public class       LoanSummaryDaoImpl extends GenericDaoImpl<LoanSummary> implements LoanSummaryDao {
     @Autowired
     EntityManager entityManager;
 

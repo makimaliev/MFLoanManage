@@ -79,6 +79,10 @@ public class CollateralItem extends GenericModel {
 	@JoinColumn(name="ownerId")
 	Owner owner;
 
+	@ManyToOne(targetEntity=Owner.class, fetch = FetchType.LAZY)
+	@JoinColumn(name="organization")
+	Owner organization;
+
 	private int status = 1;
 
 	public String getDescription() {
@@ -200,4 +204,12 @@ public class CollateralItem extends GenericModel {
     public void setStatus(int status) {
         this.status = status;
     }
+
+	public Owner getOrganization() {
+		return organization;
+	}
+
+	public void setOrganization(Owner organization) {
+		this.organization = organization;
+	}
 }
