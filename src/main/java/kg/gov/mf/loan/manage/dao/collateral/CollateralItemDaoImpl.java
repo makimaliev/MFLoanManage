@@ -22,6 +22,7 @@ public class CollateralItemDaoImpl extends GenericDaoImpl<CollateralItem> implem
         Hibernate.initialize(result.getOwner());
         Hibernate.initialize(result.getOrganization());
         Hibernate.initialize(result.getCollateralItemInspectionResults());
+        Hibernate.initialize(result.getCollateralItemDetails());
         return result;
     }
 
