@@ -27,4 +27,9 @@ public class LoanSummaryServiceImpl extends GenericServiceImpl<LoanSummary> impl
     public List<LoanSummary> getSummariesByOnDateAndLoanId(Date onDate, long loanId) {
         return this.loanSummaryDao.getSummariesByOnDateAndLoanId(onDate,loanId);
     }
+
+    @Override
+    public LoanSummary getLastByLoanSummaryType(String type) {
+        return this.loanSummaryDao.getLastByLoanSummaryType(type);
+    }
 }

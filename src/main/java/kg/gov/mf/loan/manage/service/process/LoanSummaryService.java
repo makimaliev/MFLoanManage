@@ -9,4 +9,5 @@ import java.util.List;
 public interface LoanSummaryService extends GenericService<LoanSummary> {
     LoanSummary getByOnDateAndLoanId(Date onDate, long loanId);
     List<LoanSummary> getSummariesByOnDateAndLoanId(Date onDate, long loanId);
+    LoanSummary getLastByLoanSummaryType(String type);
 }
