@@ -39,9 +39,9 @@ public class       LoanSummaryDaoImpl extends GenericDaoImpl<LoanSummary> implem
     }
 
     @Override
-    public LoanSummary getLastByLoanSummaryType(String type) {
+    public LoanSummary getLastByLoanSummaryType(String type,Long id) {
 
-        String baseQuery="select * from loanSummary where loanSummaryType=\""+type+"\" order by onDate desc LIMIT 1";
+        String baseQuery="select * from loanSummary where loanId="+id+" and  loanSummaryType=\""+type+"\" order by onDate desc LIMIT 1";
         Query query=entityManager.createNativeQuery(baseQuery,LoanSummary.class);
         return (LoanSummary) query.getSingleResult();
     }

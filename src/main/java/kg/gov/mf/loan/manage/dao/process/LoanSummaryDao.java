@@ -9,5 +9,5 @@ import java.util.List;
 public interface LoanSummaryDao extends GenericDao<LoanSummary> {
     LoanSummary getByOnDateAndLoanId(Date onDate, long loanId);
     List<LoanSummary> getSummariesByOnDateAndLoanId(Date onDate,long loanId);
-    LoanSummary getLastByLoanSummaryType(String type);
+    LoanSummary getLastByLoanSummaryType(String type,Long id);
 }

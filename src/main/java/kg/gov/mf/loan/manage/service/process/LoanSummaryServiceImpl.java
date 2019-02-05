@@ -29,7 +29,7 @@ public class LoanSummaryServiceImpl extends GenericServiceImpl<LoanSummary> impl
     }
 
     @Override
-    public LoanSummary getLastByLoanSummaryType(String type) {
-        return this.loanSummaryDao.getLastByLoanSummaryType(type);
+    public LoanSummary getLastByLoanSummaryType(String type,Long id) {
+        return this.loanSummaryDao.getLastByLoanSummaryType(type,id);
     }
 }
