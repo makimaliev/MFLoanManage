@@ -17,6 +17,7 @@ public class CollateralAgreementDaoImpl extends GenericDaoImpl<CollateralAgreeme
         Hibernate.initialize(result.getCollateralItems());
         Hibernate.initialize(result.getAdditionalAgreements());
         Hibernate.initialize(result.getLoans());
+        Hibernate.initialize(result.getNotary());
         return result;
     }
 }

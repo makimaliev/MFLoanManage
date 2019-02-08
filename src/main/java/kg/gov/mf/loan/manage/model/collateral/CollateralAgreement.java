@@ -5,18 +5,7 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -84,6 +73,10 @@ public class CollateralAgreement extends GenericModel{
 
 	@OneToMany(mappedBy = "collateralAgreement", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Set<AdditionalAgreement> additionalAgreements = new HashSet<AdditionalAgreement>();
+
+	@ManyToOne(targetEntity=Owner.class, fetch = FetchType.LAZY)
+	@JoinColumn(name="notary")
+	Owner notary;
 	
 	public String getAgreementNumber() {
 		return agreementNumber;
@@ -198,6 +191,14 @@ public class CollateralAgreement extends GenericModel{
 
 	public void setAdditionalAgreements(Set<AdditionalAgreement> additionalAgreements) {
 		this.additionalAgreements = additionalAgreements;
+	}
+
+	public Owner getNotary() {
+		return notary;
+	}
+
+	public void setNotary(Owner notary) {
+		this.notary = notary;
 	}
 
 	@Override
