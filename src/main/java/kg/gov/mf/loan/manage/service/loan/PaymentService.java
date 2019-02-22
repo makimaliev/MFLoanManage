@@ -10,5 +10,6 @@ public interface PaymentService extends GenericService<Payment> {
 
     List<Payment> getRowDayBeforeOnDateByLoanId(Long loanId, Date onDate);
     List<Payment> getRowsUntilOnDateByLoanId(Long loanId, Date onDate);
+    List<Payment> getFromToDate(Long loanId,Date startDate,Date closeDate);
 
 }
