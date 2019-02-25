@@ -25,6 +25,9 @@ public class LoanSummaryAct extends GenericModel {
     @JoinColumn(name="loanSummaryActStateId")
     private LoanSummaryActState loanSummaryActState;
 
+    @Column(name="reg_number")
+    private String reg_number;
+
     @Temporal(TemporalType.DATE)
     private Date onDate;
 
@@ -91,5 +94,13 @@ public class LoanSummaryAct extends GenericModel {
 
     public void setAmount(Double amount) {
         this.amount = amount;
+    }
+
+    public String getReg_number() {
+        return reg_number;
+    }
+
+    public void setReg_number(String reg_number) {
+        this.reg_number = reg_number;
     }
 }
