@@ -7,6 +7,7 @@ import java.util.Set;
 
 import javax.persistence.*;
 
+import kg.gov.mf.loan.manage.model.collateral.GuarantorAgreement;
 import kg.gov.mf.loan.manage.model.orderterm.OrderTermFund;
 import kg.gov.mf.loan.manage.model.process.Accrue;
 import kg.gov.mf.loan.manage.model.process.LoanDetailedSummary;
@@ -144,6 +145,9 @@ public abstract class Loan{
 
 	@ManyToMany(mappedBy="loans", fetch = FetchType.LAZY)
 	Set<CollateralAgreement> collateralAgreements = new HashSet<CollateralAgreement>();
+
+	@ManyToMany(mappedBy="loans", fetch = FetchType.LAZY)
+	Set<GuarantorAgreement> guarantorAgreements= new HashSet<GuarantorAgreement>();
 
 	@ManyToMany(mappedBy="loans", fetch = FetchType.LAZY)
 	Set<CollectionPhase> collectionPhases = new HashSet<>();
@@ -365,6 +369,14 @@ public abstract class Loan{
 
 	public void setCollateralAgreements(Set<CollateralAgreement> collateralAgreements) {
 		this.collateralAgreements = collateralAgreements;
+	}
+
+	public Set<GuarantorAgreement> getGuarantorAgreements() {
+		return guarantorAgreements;
+	}
+
+	public void setGuarantorAgreements(Set<GuarantorAgreement> guarantorAgreements) {
+		this.guarantorAgreements = guarantorAgreements;
 	}
 
 	public Set<CollectionPhase> getCollectionPhases() {

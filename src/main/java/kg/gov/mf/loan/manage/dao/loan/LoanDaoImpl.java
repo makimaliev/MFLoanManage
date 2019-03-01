@@ -46,6 +46,7 @@ public class LoanDaoImpl extends GenericDaoImpl<Loan> implements LoanDao{
         Hibernate.initialize(result.getChildren());
         Hibernate.initialize(result.getFund());
         Hibernate.initialize(result.getLoanFinGroup());
+        Hibernate.initialize(result.getGuarantorAgreements());
 
 
         try {
@@ -73,6 +74,7 @@ public class LoanDaoImpl extends GenericDaoImpl<Loan> implements LoanDao{
             Hibernate.initialize(result.getParent().getTargetedUses());
             Hibernate.initialize(result.getParent().getReconstructedLists());
             Hibernate.initialize(result.getParent().getLoanFinGroup());
+            Hibernate.initialize(result.getParent().getGuarantorAgreements());
 
 
         }
