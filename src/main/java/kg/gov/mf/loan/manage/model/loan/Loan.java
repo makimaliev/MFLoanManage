@@ -156,6 +156,10 @@ public abstract class Loan{
     @JoinColumn(name="fundId")
     private OrderTermFund fund;
 
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@Temporal(TemporalType.DATE)
+	private Date lastDate;
+
     public Long getId() {
         return id;
     }
@@ -449,6 +453,14 @@ public abstract class Loan{
 
 	public void setLoanFinGroup(LoanFinGroup loanFinGroup) {
 		this.loanFinGroup = loanFinGroup;
+	}
+
+	public Date getLastDate() {
+		return lastDate;
+	}
+
+	public void setLastDate(Date lastDate) {
+		this.lastDate = lastDate;
 	}
 
 	@Override
