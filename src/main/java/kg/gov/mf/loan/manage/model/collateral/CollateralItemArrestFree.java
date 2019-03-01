@@ -19,8 +19,12 @@ public class CollateralItemArrestFree extends GenericModel {
 
 	private long arrestFreeBy;
 
+
 	@Column(nullable=true, length=300)
 	private String details;
+
+	@Column(nullable=true, length=300)
+	private String based;
 
 	public Date getOnDate() {
 		return onDate;
@@ -45,5 +49,13 @@ public class CollateralItemArrestFree extends GenericModel {
 
 	public void setDetails(String details) {
 		this.details = details;
+	}
+
+	public String getBased() {
+		return based;
+	}
+
+	public void setBased(String based) {
+		this.based = based;
 	}
 }
