@@ -18,7 +18,7 @@ public class LoanSummaryAct extends GenericModel {
     @JoinColumn(name="debtorId")
     Debtor debtor;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY)
     private Set<LoanSummary> loanSummaries= new HashSet<LoanSummary>();
 
     @ManyToOne(targetEntity=LoanSummaryActState.class, fetch = FetchType.LAZY)
