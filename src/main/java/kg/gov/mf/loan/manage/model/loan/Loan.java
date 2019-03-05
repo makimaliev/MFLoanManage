@@ -12,6 +12,7 @@ import kg.gov.mf.loan.manage.model.orderterm.OrderTermFund;
 import kg.gov.mf.loan.manage.model.process.Accrue;
 import kg.gov.mf.loan.manage.model.process.LoanDetailedSummary;
 import kg.gov.mf.loan.manage.model.process.LoanSummary;
+import kg.gov.mf.loan.task.model.Auditable;
 import org.hibernate.annotations.DiscriminatorOptions;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -29,7 +30,7 @@ import kg.gov.mf.loan.manage.model.orderterm.OrderTermCurrency;
 		name = "loan_class_id",
 		columnDefinition = "TINYINT(1)")
 @DiscriminatorOptions(force = true)
-public abstract class Loan{
+public abstract class Loan extends Auditable<String> {
 
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
