@@ -1,11 +1,9 @@
 package kg.gov.mf.loan.manage.dao.loan;
 
-import kg.gov.mf.loan.manage.model.loan.Payment;
-import org.hibernate.Hibernate;
-import org.springframework.stereotype.Repository;
-
 import kg.gov.mf.loan.manage.dao.GenericDaoImpl;
 import kg.gov.mf.loan.manage.model.loan.Loan;
+import org.hibernate.Hibernate;
+import org.springframework.stereotype.Repository;
 
 @Repository("loanDao")
 public class LoanDaoImpl extends GenericDaoImpl<Loan> implements LoanDao{
@@ -47,6 +45,7 @@ public class LoanDaoImpl extends GenericDaoImpl<Loan> implements LoanDao{
         Hibernate.initialize(result.getFund());
         Hibernate.initialize(result.getLoanFinGroup());
         Hibernate.initialize(result.getGuarantorAgreements());
+        Hibernate.initialize(result.getDestinationAccount());
 
 
         try {
@@ -75,6 +74,7 @@ public class LoanDaoImpl extends GenericDaoImpl<Loan> implements LoanDao{
             Hibernate.initialize(result.getParent().getReconstructedLists());
             Hibernate.initialize(result.getParent().getLoanFinGroup());
             Hibernate.initialize(result.getParent().getGuarantorAgreements());
+            Hibernate.initialize(result.getParent().getDestinationAccount());
 
 
         }

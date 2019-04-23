@@ -1,13 +1,12 @@
 package kg.gov.mf.loan.manage.model.loan;
 
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
-
-import javax.persistence.*;
-
+import kg.gov.mf.loan.manage.model.collateral.Collateral;
+import kg.gov.mf.loan.manage.model.collateral.CollateralAgreement;
 import kg.gov.mf.loan.manage.model.collateral.GuarantorAgreement;
+import kg.gov.mf.loan.manage.model.collection.CollectionPhase;
+import kg.gov.mf.loan.manage.model.debtor.Debtor;
+import kg.gov.mf.loan.manage.model.order.CreditOrder;
+import kg.gov.mf.loan.manage.model.orderterm.OrderTermCurrency;
 import kg.gov.mf.loan.manage.model.orderterm.OrderTermFund;
 import kg.gov.mf.loan.manage.model.process.Accrue;
 import kg.gov.mf.loan.manage.model.process.LoanDetailedSummary;
@@ -16,12 +15,11 @@ import kg.gov.mf.loan.task.model.Auditable;
 import org.hibernate.annotations.DiscriminatorOptions;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import kg.gov.mf.loan.manage.model.collateral.Collateral;
-import kg.gov.mf.loan.manage.model.collateral.CollateralAgreement;
-import kg.gov.mf.loan.manage.model.collection.CollectionPhase;
-import kg.gov.mf.loan.manage.model.debtor.Debtor;
-import kg.gov.mf.loan.manage.model.order.CreditOrder;
-import kg.gov.mf.loan.manage.model.orderterm.OrderTermCurrency;
+import javax.persistence.*;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name="loan")
@@ -71,6 +69,10 @@ public abstract class Loan extends Auditable<String> {
 	@ManyToOne(targetEntity=LoanFinGroup.class, fetch = FetchType.LAZY)
 	@JoinColumn(name="loanFinGroupId")
 	private LoanFinGroup loanFinGroup;
+
+	@ManyToOne(targetEntity=DestinationAccount.class, fetch = FetchType.LAZY)
+	@JoinColumn(name="destinationAccount")
+	private DestinationAccount destinationAccount;
 
 	@Column(nullable=false)
 	private long supervisorId;
@@ -454,6 +456,14 @@ public abstract class Loan extends Auditable<String> {
 
 	public void setLoanFinGroup(LoanFinGroup loanFinGroup) {
 		this.loanFinGroup = loanFinGroup;
+	}
+
+	public DestinationAccount getDestinationAccount() {
+		return destinationAccount;
+	}
+
+	public void setDestinationAccount(DestinationAccount destinationAccount) {
+		this.destinationAccount = destinationAccount;
 	}
 
 	public Date getLastDate() {
