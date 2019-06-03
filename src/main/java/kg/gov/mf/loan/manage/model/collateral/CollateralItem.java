@@ -76,6 +76,8 @@ public class CollateralItem extends GenericModel {
 
 	private int status = 1;
 	private boolean inspection_needed=true;
+	@Column(columnDefinition = "TEXT")
+	private String inspection_needed_description;
 
 	public String getDescription() {
 		return description;
@@ -211,5 +213,13 @@ public class CollateralItem extends GenericModel {
 
 	public void setInspection_needed(boolean inspection_needed) {
 		this.inspection_needed = inspection_needed;
+	}
+
+	public String getInspection_needed_description() {
+		return inspection_needed_description;
+	}
+
+	public void setInspection_needed_description(String inspection_needed_description) {
+		this.inspection_needed_description = inspection_needed_description;
 	}
 }
