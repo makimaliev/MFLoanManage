@@ -75,6 +75,9 @@ public class CollectionPhase extends GenericModel{
 	@Column(nullable=true)
 	private Date paymentFromDate;
 
+	@Column(columnDefinition = "TEXT")
+	private String description;
+
 	public Date getStartDate() {
 		return startDate;
 	}
@@ -263,5 +266,13 @@ public class CollectionPhase extends GenericModel{
 
 	public void setPaymentFromDate(Date paymentFromDate) {
 		this.paymentFromDate = paymentFromDate;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 }
