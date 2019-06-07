@@ -43,7 +43,7 @@ public class CollectionPhase extends GenericModel{
 	@JoinColumn(name="phaseTypeId")
 	private PhaseType phaseType;
 
-	@ManyToMany(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
+	@ManyToMany(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH}, fetch = FetchType.LAZY)
 	@JoinTable(
 			name="loanCollectionPhase",
 			joinColumns = { @JoinColumn(name = "collectionPhaseId") },
