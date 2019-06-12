@@ -1,14 +1,12 @@
 package kg.gov.mf.loan.manage.model.collection;
 
+import kg.gov.mf.loan.task.model.GenericModel;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import javax.persistence.*;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
-
-import javax.persistence.*;
-
-import org.springframework.format.annotation.DateTimeFormat;
-
-import kg.gov.mf.loan.task.model.GenericModel;
 
 @Entity
 @Table(name="collectionEvent")
@@ -38,6 +36,12 @@ public class CollectionEvent extends GenericModel {
 	
 	@OneToMany(mappedBy = "collectionEvent", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<EventDetails> eventDetails = new HashSet<>();
+
+	private String docNumber;
+	private String name;
+
+	@Column(columnDefinition = "TEXT")
+	private String description;
 
 	public Date getStartDate() {
 		return startDate;
@@ -85,5 +89,29 @@ public class CollectionEvent extends GenericModel {
 
 	public void setEventDetails(Set<EventDetails> eventDetails) {
 		this.eventDetails = eventDetails;
+	}
+
+	public String getDocNumber() {
+		return docNumber;
+	}
+
+	public void setDocNumber(String docNumber) {
+		this.docNumber = docNumber;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 }
