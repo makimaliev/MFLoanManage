@@ -163,6 +163,15 @@ public abstract class Loan extends Auditable<String> {
 	@Temporal(TemporalType.DATE)
 	private Date lastDate;
 
+	@Column(columnDefinition = "TEXT")
+	private String normalDescription;
+
+	@Column(columnDefinition = "TEXT")
+	private String collectionDescription;
+
+	@Column(columnDefinition = "TEXT")
+	private String collateralDescription;
+
     public Long getId() {
         return id;
     }
@@ -472,6 +481,30 @@ public abstract class Loan extends Auditable<String> {
 
 	public void setLastDate(Date lastDate) {
 		this.lastDate = lastDate;
+	}
+
+	public String getNormalDescription() {
+		return normalDescription;
+	}
+
+	public void setNormalDescription(String normalDescription) {
+		this.normalDescription = normalDescription;
+	}
+
+	public String getCollectionDescription() {
+		return collectionDescription;
+	}
+
+	public void setCollectionDescription(String collectionDescription) {
+		this.collectionDescription = collectionDescription;
+	}
+
+	public String getCollateralDescription() {
+		return collateralDescription;
+	}
+
+	public void setCollateralDescription(String collateralDescription) {
+		this.collateralDescription = collateralDescription;
 	}
 
 	@Override

@@ -1,19 +1,10 @@
 package kg.gov.mf.loan.manage.model.debtor;
 
-import java.util.Set;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
-
-import kg.gov.mf.loan.task.model.GenericModel;
 import kg.gov.mf.loan.manage.model.loan.Loan;
+import kg.gov.mf.loan.task.model.GenericModel;
+
+import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name="debtor")
@@ -43,6 +34,9 @@ public class Debtor extends GenericModel{
 	
 	@OneToMany(mappedBy = "debtor", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Loan> loans;
+
+	@Column(columnDefinition = "TEXT")
+	private String description;
 
 	public String getName() {
 		return name;
@@ -98,5 +92,13 @@ public class Debtor extends GenericModel{
 
 	public void setAddress_id(long address_id) {
 		this.address_id = address_id;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 }
