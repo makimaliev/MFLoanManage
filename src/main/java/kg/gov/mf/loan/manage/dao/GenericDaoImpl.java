@@ -49,16 +49,29 @@ public abstract class GenericDaoImpl<E> implements GenericDao<E> {
 
     public Long add(E entity) {
         if(isAuditable(entity)) {
-            ((GenericModel) entity).setAuCreatedDate(new Date());
-            ((GenericModel) entity).setAuCreatedBy(authenticationFacade.getUser());
+            if(entity.getClass().equals(Loan.class))
+            {
+                ((Loan) entity).setAuCreatedDate(new Date());
+                ((Loan) entity).setAuCreatedBy(authenticationFacade.getUser());
+            } else {
+                ((GenericModel) entity).setAuCreatedDate(new Date());
+                ((GenericModel) entity).setAuCreatedBy(authenticationFacade.getUser());
+            }
+
         }
         return (Long)getCurrentSession().save(entity);
     }
 
     public void update(E entity) {
         if(isAuditable(entity)) {
-            ((GenericModel) entity).setAuLastModifiedDate(new Date());
-            ((GenericModel) entity).setAuLastModifiedBy(authenticationFacade.getUser());
+            if(entity.getClass().equals(Loan.class))
+            {
+                ((Loan) entity).setAuLastModifiedDate(new Date());
+                ((Loan) entity).setAuLastModifiedBy(authenticationFacade.getUser());
+            } else {
+                ((GenericModel) entity).setAuLastModifiedDate(new Date());
+                ((GenericModel) entity).setAuLastModifiedBy(authenticationFacade.getUser());
+            }
         }
 
         getCurrentSession().update(entity);
@@ -115,7 +128,7 @@ public abstract class GenericDaoImpl<E> implements GenericDao<E> {
                 PaymentSchedule.class,
                 CreditTerm.class,
                 CollectionPhase.class,
-                //Loan.class,
+                Loan.class,
                 CollateralAgreement.class,
                 CollateralItem.class,
                 CollateralArrestFree.class,
