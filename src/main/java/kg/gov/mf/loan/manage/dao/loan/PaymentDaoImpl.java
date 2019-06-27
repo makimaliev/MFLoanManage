@@ -1,14 +1,12 @@
 package kg.gov.mf.loan.manage.dao.loan;
 
+import kg.gov.mf.loan.manage.dao.GenericDaoImpl;
+import kg.gov.mf.loan.manage.model.loan.Payment;
 import kg.gov.mf.loan.manage.util.DateUtils;
 import org.hibernate.Criteria;
 import org.hibernate.Hibernate;
-import org.hibernate.Query;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
-
-import kg.gov.mf.loan.manage.dao.GenericDaoImpl;
-import kg.gov.mf.loan.manage.model.loan.Payment;
 
 import java.util.Date;
 import java.util.List;
@@ -22,6 +20,7 @@ public class PaymentDaoImpl extends GenericDaoImpl<Payment> implements PaymentDa
         Payment payment=super.getById(id);
 
         Hibernate.initialize(payment.getPaymentType());
+        Hibernate.initialize(payment.getLoan());
 
         return payment;
     }
