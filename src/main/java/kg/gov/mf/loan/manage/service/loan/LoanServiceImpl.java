@@ -1,5 +1,6 @@
 package kg.gov.mf.loan.manage.service.loan;
 
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,6 +24,9 @@ public class LoanServiceImpl extends GenericServiceImpl<Loan> implements LoanSer
                 "from loan where version="+version;
         Query query=entityManager.createNativeQuery(baseQuery,Loan.class);
 
-        return (Loan) query.getSingleResult();
+        Loan result=(Loan) query.getSingleResult();
+        Hibernate.initialize(result.getProfitDescription());
+        Hibernate.initialize(result.getNormalDescription());
+        return result;
     }
 }

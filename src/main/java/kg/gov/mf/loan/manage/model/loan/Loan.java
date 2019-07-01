@@ -163,14 +163,25 @@ public abstract class Loan extends Auditable<String> {
 	@Temporal(TemporalType.DATE)
 	private Date lastDate;
 
-	@Column(columnDefinition = "TEXT")
-	private String normalDescription;
+	@OneToOne(fetch = FetchType.LAZY)
+	private Description normalDescription;
 
-	@Column(columnDefinition = "TEXT")
-	private String collectionDescription;
+	@OneToOne(fetch = FetchType.LAZY)
+	private Description collectionDescription;
 
-	@Column(columnDefinition = "TEXT")
-	private String collateralDescription;
+	@OneToOne(fetch = FetchType.LAZY)
+	private Description collateralDescription;
+
+	@OneToOne(fetch = FetchType.LAZY)
+	private Description supervisorDescription;
+
+	@OneToOne(fetch = FetchType.LAZY)
+	private Description executionDescription;
+
+	@OneToOne(fetch = FetchType.LAZY)
+	private Description profitDescription;
+
+	private boolean depositFreed=false;
 
     public Long getId() {
         return id;
@@ -483,28 +494,60 @@ public abstract class Loan extends Auditable<String> {
 		this.lastDate = lastDate;
 	}
 
-	public String getNormalDescription() {
+	public Description getNormalDescription() {
 		return normalDescription;
 	}
 
-	public void setNormalDescription(String normalDescription) {
+	public void setNormalDescription(Description normalDescription) {
 		this.normalDescription = normalDescription;
 	}
 
-	public String getCollectionDescription() {
+	public Description getCollectionDescription() {
 		return collectionDescription;
 	}
 
-	public void setCollectionDescription(String collectionDescription) {
+	public void setCollectionDescription(Description collectionDescription) {
 		this.collectionDescription = collectionDescription;
 	}
 
-	public String getCollateralDescription() {
+	public Description getCollateralDescription() {
 		return collateralDescription;
 	}
 
-	public void setCollateralDescription(String collateralDescription) {
+	public void setCollateralDescription(Description collateralDescription) {
 		this.collateralDescription = collateralDescription;
+	}
+
+	public Description getSupervisorDescription() {
+		return supervisorDescription;
+	}
+
+	public void setSupervisorDescription(Description supervisorDescription) {
+		this.supervisorDescription = supervisorDescription;
+	}
+
+	public Description getExecutionDescription() {
+		return executionDescription;
+	}
+
+	public void setExecutionDescription(Description executionDescription) {
+		this.executionDescription = executionDescription;
+	}
+
+	public Description getProfitDescription() {
+		return profitDescription;
+	}
+
+	public void setProfitDescription(Description profitDescription) {
+		this.profitDescription = profitDescription;
+	}
+
+	public boolean isDepositFreed() {
+		return depositFreed;
+	}
+
+	public void setDepositFreed(boolean depositFreed) {
+		this.depositFreed = depositFreed;
 	}
 
 	@Override

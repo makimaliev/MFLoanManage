@@ -45,8 +45,12 @@ public class LoanDaoImpl extends GenericDaoImpl<Loan> implements LoanDao{
         Hibernate.initialize(result.getFund());
         Hibernate.initialize(result.getLoanFinGroup());
         Hibernate.initialize(result.getGuarantorAgreements());
-        Hibernate.initialize(result.getDestinationAccount());
-
+        Hibernate.initialize(result.getNormalDescription());
+        Hibernate.initialize(result.getCollectionDescription());
+        Hibernate.initialize(result.getCollateralDescription());
+        Hibernate.initialize(result.getSupervisorDescription());
+        Hibernate.initialize(result.getExecutionDescription());
+        Hibernate.initialize(result.getProfitDescription());
 
         try {
             Hibernate.initialize(result.getParent().getLoanType());
@@ -75,8 +79,12 @@ public class LoanDaoImpl extends GenericDaoImpl<Loan> implements LoanDao{
             Hibernate.initialize(result.getParent().getLoanFinGroup());
             Hibernate.initialize(result.getParent().getGuarantorAgreements());
             Hibernate.initialize(result.getParent().getDestinationAccount());
-
-
+            Hibernate.initialize(result.getNormalDescription());
+            Hibernate.initialize(result.getCollectionDescription());
+            Hibernate.initialize(result.getCollateralDescription());
+            Hibernate.initialize(result.getSupervisorDescription());
+            Hibernate.initialize(result.getExecutionDescription());
+            Hibernate.initialize(result.getProfitDescription());
         }
         catch (Exception e){
             System.out.println(e);
