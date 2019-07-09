@@ -75,6 +75,11 @@ public class CollectionPhase extends GenericModel{
 	@Column(nullable=true)
 	private Date paymentFromDate;
 
+	@DateTimeFormat(pattern = "dd.MM.yyyy")
+	@Temporal(TemporalType.DATE)
+	@Column(nullable=true)
+	private Date paymentToDate;
+
 	@Column(columnDefinition = "TEXT")
 	private String description;
 
@@ -266,6 +271,14 @@ public class CollectionPhase extends GenericModel{
 
 	public void setPaymentFromDate(Date paymentFromDate) {
 		this.paymentFromDate = paymentFromDate;
+	}
+
+	public Date getPaymentToDate() {
+		return paymentToDate;
+	}
+
+	public void setPaymentToDate(Date paymentToDate) {
+		this.paymentToDate = paymentToDate;
 	}
 
 	public String getDescription() {
