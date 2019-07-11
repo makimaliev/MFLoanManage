@@ -43,6 +43,9 @@ public class CollectionEvent extends GenericModel {
 	@Column(columnDefinition = "TEXT")
 	private String description;
 
+	@Column(precision = 12, scale = 5)
+	private Double sum=0.0;
+
 	public Date getStartDate() {
 		return startDate;
 	}
@@ -113,5 +116,13 @@ public class CollectionEvent extends GenericModel {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public Double getSum() {
+		return sum;
+	}
+
+	public void setSum(Double sum) {
+		this.sum = sum;
 	}
 }
