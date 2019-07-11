@@ -14,6 +14,7 @@ public class AppliedEntityListDaoImpl extends GenericDaoImpl<AppliedEntityList> 
     {
         AppliedEntityList result = super.getById(id);
         Hibernate.initialize(result.getAppliedEntities());
+        Hibernate.initialize(result.getCreditOrder());
         return result;
     }
 }

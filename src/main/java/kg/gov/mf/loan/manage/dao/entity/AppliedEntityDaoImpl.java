@@ -14,6 +14,7 @@ public class AppliedEntityDaoImpl extends GenericDaoImpl<AppliedEntity> implemen
     {
         AppliedEntity result = super.getById(id);
         Hibernate.initialize(result.getDocumentPackages());
+        Hibernate.initialize(result.getAppliedEntityList());
         return result;
     }
 
