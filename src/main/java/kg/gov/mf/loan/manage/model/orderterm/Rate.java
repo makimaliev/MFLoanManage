@@ -1,5 +1,6 @@
 package kg.gov.mf.loan.manage.model.orderterm;
 
+import kg.gov.mf.loan.task.model.GenericModel;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -7,7 +8,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 @MappedSuperclass
-public abstract class Rate implements Serializable {
+public abstract class Rate extends GenericModel implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 

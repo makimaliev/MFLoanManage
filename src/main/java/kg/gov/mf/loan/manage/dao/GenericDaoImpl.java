@@ -1,15 +1,10 @@
 package kg.gov.mf.loan.manage.dao;
 
-import kg.gov.mf.loan.manage.model.collateral.CollateralAgreement;
-import kg.gov.mf.loan.manage.model.collateral.CollateralArrestFree;
-import kg.gov.mf.loan.manage.model.collateral.CollateralInspection;
-import kg.gov.mf.loan.manage.model.collateral.CollateralItem;
+import kg.gov.mf.loan.manage.model.collateral.*;
 import kg.gov.mf.loan.manage.model.collection.*;
 import kg.gov.mf.loan.manage.model.debtor.Debtor;
-import kg.gov.mf.loan.manage.model.loan.CreditTerm;
-import kg.gov.mf.loan.manage.model.loan.Loan;
-import kg.gov.mf.loan.manage.model.loan.Payment;
-import kg.gov.mf.loan.manage.model.loan.PaymentSchedule;
+import kg.gov.mf.loan.manage.model.entity.AppliedEntity;
+import kg.gov.mf.loan.manage.model.loan.*;
 import kg.gov.mf.loan.task.component.AuthenticationFacade;
 import kg.gov.mf.loan.task.model.GenericModel;
 import org.hibernate.Criteria;
@@ -134,7 +129,14 @@ public abstract class GenericDaoImpl<E> implements GenericDao<E> {
                 CollateralArrestFree.class,
                 CollectionEvent.class,
                 CollateralInspection.class,
-                Debtor.class
+                Debtor.class,
+                AdditionalAgreement.class,
+                AppliedEntity.class,
+                Bankrupt.class,
+                DebtTransfer.class,
+                GuarantorAgreement.class,
+                Judgement.class,
+                WriteOff.class
         };
 
         return Arrays.asList(auditedClass).contains(entity.getClass());
