@@ -141,7 +141,9 @@ public abstract class GenericDaoImpl<E> implements GenericDao<E> {
                 Judgement.class,
                 WriteOff.class,
                 CurrencyRate.class,
-                FloatingRate.class
+                FloatingRate.class,
+                LoanGoods.class,
+                SupervisorPlan.class
         };
 
         return Arrays.asList(auditedClass).contains(entity.getClass());
