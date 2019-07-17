@@ -1,5 +1,6 @@
 package kg.gov.mf.loan.manage.dao.orderterm;
 
+import kg.gov.mf.loan.manage.dao.GenericDaoImpl;
 import kg.gov.mf.loan.manage.model.orderterm.CurrencyRate;
 import kg.gov.mf.loan.manage.model.orderterm.OrderTermCurrency;
 import org.hibernate.Criteria;
@@ -13,10 +14,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.Date;
-import java.util.List;
 
 @Repository
-public class CurrencyRateDaoImpl implements CurrencyRateDao {
+public class CurrencyRateDaoImpl extends GenericDaoImpl<CurrencyRate> implements CurrencyRateDao {
 
     private static final Logger logger = LoggerFactory.getLogger(CurrencyRateDaoImpl.class);
 
@@ -32,32 +32,6 @@ public class CurrencyRateDaoImpl implements CurrencyRateDao {
     public CurrencyRateDaoImpl(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }
- 
- 
-
-
-
-	@Override
-	public void create(CurrencyRate currencyRate) {
-		
-		Session session = this.sessionFactory.getCurrentSession();
-		session.persist(currencyRate);
-		
-		logger.info("CurrencyRate added == "+currencyRate);
-		
-	} 
-
-
-	@Override
-	public void edit(CurrencyRate currencyRate) {
-		
-		
-		Session session = this.sessionFactory.getCurrentSession();
-		session.update(currencyRate);
-		
-		logger.info("CurrencyRate edited == "+currencyRate);
-	}
-
 
 	@Override
 	public void deleteById(long id) {
@@ -71,18 +45,6 @@ public class CurrencyRateDaoImpl implements CurrencyRateDao {
 		
 		logger.info("CurrencyRate deleted == "+currencyRate);
 		
-	}
-
-
-	@Override
-	public CurrencyRate findById(long id) {
-		
-		Session session = this.sessionFactory.getCurrentSession();
-		CurrencyRate currencyRate = (CurrencyRate) session.load(CurrencyRate.class, new Long (id));
-		
-		logger.info("CurrencyRate get by id == "+currencyRate);
-
-		return currencyRate ;
 	}
 
 	@Override
@@ -102,16 +64,4 @@ public class CurrencyRateDaoImpl implements CurrencyRateDao {
 
 		return currencyRate ;
 	}
-
-
-	
-    @SuppressWarnings("unchecked")
-    @Override
-    public List<CurrencyRate> findAll() {
-        Session session = this.sessionFactory.getCurrentSession();
-        List<CurrencyRate> currencyRatesList = session.createQuery("from CurrencyRate").list();
-        return currencyRatesList;
-    }
- 
-
 }

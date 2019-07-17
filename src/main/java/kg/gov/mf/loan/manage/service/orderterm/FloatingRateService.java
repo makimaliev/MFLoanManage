@@ -1,10 +1,11 @@
 package kg.gov.mf.loan.manage.service.orderterm;
 
 import kg.gov.mf.loan.manage.model.orderterm.FloatingRate;
+import kg.gov.mf.loan.manage.service.GenericService;
 
 import java.util.List;
 
-public interface FloatingRateService {
+public interface FloatingRateService extends GenericService<FloatingRate> {
 
 
 

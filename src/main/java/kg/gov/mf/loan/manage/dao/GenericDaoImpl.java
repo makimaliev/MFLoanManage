@@ -5,6 +5,8 @@ import kg.gov.mf.loan.manage.model.collection.*;
 import kg.gov.mf.loan.manage.model.debtor.Debtor;
 import kg.gov.mf.loan.manage.model.entity.AppliedEntity;
 import kg.gov.mf.loan.manage.model.loan.*;
+import kg.gov.mf.loan.manage.model.orderterm.CurrencyRate;
+import kg.gov.mf.loan.manage.model.orderterm.FloatingRate;
 import kg.gov.mf.loan.task.component.AuthenticationFacade;
 import kg.gov.mf.loan.task.model.GenericModel;
 import org.hibernate.Criteria;
@@ -18,6 +20,7 @@ import org.springframework.stereotype.Repository;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.Arrays;
+import java.util.Currency;
 import java.util.Date;
 import java.util.List;
 
@@ -136,7 +139,9 @@ public abstract class GenericDaoImpl<E> implements GenericDao<E> {
                 DebtTransfer.class,
                 GuarantorAgreement.class,
                 Judgement.class,
-                WriteOff.class
+                WriteOff.class,
+                CurrencyRate.class,
+                FloatingRate.class
         };
 
         return Arrays.asList(auditedClass).contains(entity.getClass());

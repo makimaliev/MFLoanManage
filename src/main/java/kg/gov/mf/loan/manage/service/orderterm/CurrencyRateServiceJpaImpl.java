@@ -25,14 +25,14 @@ public class CurrencyRateServiceJpaImpl implements CurrencyRateService {
 	@Override
 	@Transactional	
 	public void create(CurrencyRate currencyRate) {
-		this.currencyRateDao.create(currencyRate);
+		this.currencyRateDao.add(currencyRate);
 		
 	}
 
 	@Override
 	@Transactional	
 	public void edit(CurrencyRate currencyRate) {
-		this.currencyRateDao.edit(currencyRate);
+		this.currencyRateDao.update(currencyRate);
 		
 	}
 
@@ -46,7 +46,7 @@ public class CurrencyRateServiceJpaImpl implements CurrencyRateService {
 	@Override
 	@Transactional
 	public CurrencyRate findById(long id) {
-		return this.currencyRateDao.findById(id);
+		return this.currencyRateDao.getById(id);
 	}
 
 	@Override
@@ -59,6 +59,6 @@ public class CurrencyRateServiceJpaImpl implements CurrencyRateService {
 	@Override
     @Transactional
     public List<CurrencyRate> findAll() {
-        return this.currencyRateDao.findAll();
+        return this.currencyRateDao.list();
     }
 }
