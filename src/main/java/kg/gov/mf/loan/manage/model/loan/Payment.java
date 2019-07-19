@@ -53,6 +53,7 @@ public class Payment extends GenericModel{
 	
 	@ManyToOne(targetEntity=Loan.class, fetch = FetchType.LAZY)
     @JoinColumn(name="loanId")
+	@NotAudited
 	Loan loan;
 
 	public Date getPaymentDate() {

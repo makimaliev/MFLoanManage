@@ -13,8 +13,6 @@ import kg.gov.mf.loan.manage.model.process.LoanDetailedSummary;
 import kg.gov.mf.loan.manage.model.process.LoanSummary;
 import kg.gov.mf.loan.task.model.Auditable;
 import org.hibernate.annotations.DiscriminatorOptions;
-import org.hibernate.envers.Audited;
-import org.hibernate.envers.NotAudited;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -30,7 +28,6 @@ import java.util.Set;
 		name = "loan_class_id",
 		columnDefinition = "TINYINT(1)")
 @DiscriminatorOptions(force = true)
-@Audited
 public abstract class Loan extends Auditable<String> {
 
 	@Id
@@ -40,12 +37,10 @@ public abstract class Loan extends Auditable<String> {
 	private Long version = 1L;
 
 	@OneToMany(mappedBy="parent",cascade=CascadeType.ALL, fetch=FetchType.LAZY)
-	@NotAudited
 	private Set<Loan> children;
 
 	@ManyToOne
 	@JoinColumn
-	@NotAudited
 	private Loan parent;
 
 	@Column(nullable=false, length=150)
@@ -61,27 +56,22 @@ public abstract class Loan extends Auditable<String> {
 
 	@ManyToOne(targetEntity=OrderTermCurrency.class, fetch = FetchType.LAZY)
 	@JoinColumn(name="currencyId")
-	@NotAudited
 	private OrderTermCurrency currency;
 
 	@ManyToOne(targetEntity=LoanType.class, fetch = FetchType.LAZY)
 	@JoinColumn(name="loanTypeId")
-	@NotAudited
 	private LoanType loanType;
 
 	@ManyToOne(targetEntity=LoanState.class, fetch = FetchType.LAZY)
 	@JoinColumn(name="loanStateId")
-	@NotAudited
 	private LoanState loanState;
 
 	@ManyToOne(targetEntity=LoanFinGroup.class, fetch = FetchType.LAZY)
 	@JoinColumn(name="loanFinGroupId")
-	@NotAudited
 	private LoanFinGroup loanFinGroup;
 
 	@ManyToOne(targetEntity=DestinationAccount.class, fetch = FetchType.LAZY)
 	@JoinColumn(name="destinationAccount")
-	@NotAudited
 	private DestinationAccount destinationAccount;
 
 	@Column(nullable=false)
@@ -101,92 +91,72 @@ public abstract class Loan extends Auditable<String> {
 
 	@ManyToOne(targetEntity=CreditOrder.class, fetch = FetchType.LAZY)
 	@JoinColumn(name="creditOrderId", nullable=true)
-	@NotAudited
 	private CreditOrder creditOrder;
 
 	@ManyToOne(targetEntity=Debtor.class, fetch = FetchType.LAZY)
     @JoinColumn(name="debtorId")
-	@NotAudited
 	Debtor debtor;
 
 	@OneToMany(mappedBy = "loan", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	@NotAudited
     private Set<CreditTerm> creditTerms = new HashSet<CreditTerm>();
 
 	@OneToMany(mappedBy = "loan", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	@NotAudited
     private Set<WriteOff> writeOffs = new HashSet<WriteOff>();
 
 	@OneToMany(mappedBy = "loan", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	@NotAudited
 	private Set<Judgement> judgements = new HashSet<Judgement>();
 
 	@OneToMany(mappedBy = "loan", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@OrderBy("expectedDate")
-	@NotAudited
     private Set<PaymentSchedule> paymentSchedules = new HashSet<PaymentSchedule>();
 
 	@OneToMany(mappedBy = "loan", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Payment> payments = new HashSet<Payment>();
 
 	@OneToMany(mappedBy = "loan", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	@NotAudited
     private Set<SupervisorPlan> supervisorPlans = new HashSet<SupervisorPlan>();
 
 	@OneToMany(mappedBy = "loan", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	@NotAudited
     private Set<LoanGoods> loanGoods = new HashSet<LoanGoods>();
 
 	@OneToMany(mappedBy = "loan", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	@NotAudited
     private Set<DebtTransfer> debtTransfers = new HashSet<DebtTransfer>();
 
 	@OneToMany(mappedBy = "loan", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	@NotAudited
     private Set<TargetedUse> targetedUses = new HashSet<TargetedUse>();
 
 	@OneToMany(mappedBy = "loan", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	@NotAudited
     private Set<ReconstructedList> reconstructedLists = new HashSet<ReconstructedList>();
 
 	@OneToMany(mappedBy = "loan", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	@NotAudited
     private Set<Bankrupt> bankrupts = new HashSet<Bankrupt>();
 
 	@OneToMany(mappedBy = "loan", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	@NotAudited
     private Set<Collateral> collaterals = new HashSet<Collateral>();
 
 	@OneToMany(mappedBy = "loan", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@OrderBy("fromDate")
-	@NotAudited
 	private Set<Accrue> accrues = new HashSet<Accrue>();
 
 	@OneToMany(mappedBy = "loan", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@OrderBy("onDate")
-	@NotAudited
 	private Set<LoanSummary> loanSummaries = new HashSet<LoanSummary>();
 
 	@OneToMany(mappedBy = "loan", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@OrderBy("onDate")
-	@NotAudited
 	private Set<LoanDetailedSummary> loanDetailedSummaries = new HashSet<LoanDetailedSummary>();
 
 	@ManyToMany(mappedBy="loans", fetch = FetchType.LAZY)
-	@NotAudited
 	Set<CollateralAgreement> collateralAgreements = new HashSet<CollateralAgreement>();
 
 	@ManyToMany(mappedBy="loans", fetch = FetchType.LAZY)
-	@NotAudited
 	Set<GuarantorAgreement> guarantorAgreements= new HashSet<GuarantorAgreement>();
 
 	@ManyToMany(mappedBy="loans", fetch = FetchType.LAZY)
-	@NotAudited
 	Set<CollectionPhase> collectionPhases = new HashSet<>();
 
     @ManyToOne(targetEntity=OrderTermFund.class, fetch = FetchType.LAZY)
     @JoinColumn(name="fundId")
-	@NotAudited
     private OrderTermFund fund;
 
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -194,27 +164,21 @@ public abstract class Loan extends Auditable<String> {
 	private Date lastDate;
 
 	@OneToOne(fetch = FetchType.LAZY)
-	@NotAudited
 	private Description normalDescription;
 
 	@OneToOne(fetch = FetchType.LAZY)
-	@NotAudited
 	private Description collectionDescription;
 
 	@OneToOne(fetch = FetchType.LAZY)
-	@NotAudited
 	private Description collateralDescription;
 
 	@OneToOne(fetch = FetchType.LAZY)
-	@NotAudited
 	private Description supervisorDescription;
 
 	@OneToOne(fetch = FetchType.LAZY)
-	@NotAudited
 	private Description executionDescription;
 
 	@OneToOne(fetch = FetchType.LAZY)
-	@NotAudited
 	private Description profitDescription;
 
 	private boolean depositFreed=false;
