@@ -48,7 +48,6 @@ public class Payment extends GenericModel{
 
 	@ManyToOne(targetEntity=PaymentType.class, fetch = FetchType.LAZY)
 	@JoinColumn(name="paymentTypeId")
-	@NotAudited
 	private PaymentType paymentType;
 	
 	@ManyToOne(targetEntity=Loan.class, fetch = FetchType.LAZY)

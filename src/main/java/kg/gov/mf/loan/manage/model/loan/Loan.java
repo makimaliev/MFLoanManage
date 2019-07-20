@@ -97,52 +97,52 @@ public abstract class Loan extends Auditable<String> {
     @JoinColumn(name="debtorId")
 	Debtor debtor;
 
-	@OneToMany(mappedBy = "loan", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "loan", fetch = FetchType.LAZY)
     private Set<CreditTerm> creditTerms = new HashSet<CreditTerm>();
 
-	@OneToMany(mappedBy = "loan", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "loan", fetch = FetchType.LAZY)
     private Set<WriteOff> writeOffs = new HashSet<WriteOff>();
 
-	@OneToMany(mappedBy = "loan", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "loan", fetch = FetchType.LAZY)
 	private Set<Judgement> judgements = new HashSet<Judgement>();
 
-	@OneToMany(mappedBy = "loan", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "loan", fetch = FetchType.LAZY)
 	@OrderBy("expectedDate")
     private Set<PaymentSchedule> paymentSchedules = new HashSet<PaymentSchedule>();
 
-	@OneToMany(mappedBy = "loan", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "loan", fetch = FetchType.LAZY)
     private Set<Payment> payments = new HashSet<Payment>();
 
-	@OneToMany(mappedBy = "loan", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "loan", fetch = FetchType.LAZY)
     private Set<SupervisorPlan> supervisorPlans = new HashSet<SupervisorPlan>();
 
-	@OneToMany(mappedBy = "loan", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "loan", fetch = FetchType.LAZY)
     private Set<LoanGoods> loanGoods = new HashSet<LoanGoods>();
 
-	@OneToMany(mappedBy = "loan", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "loan", fetch = FetchType.LAZY)
     private Set<DebtTransfer> debtTransfers = new HashSet<DebtTransfer>();
 
-	@OneToMany(mappedBy = "loan", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "loan", fetch = FetchType.LAZY)
     private Set<TargetedUse> targetedUses = new HashSet<TargetedUse>();
 
-	@OneToMany(mappedBy = "loan", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "loan", fetch = FetchType.LAZY)
     private Set<ReconstructedList> reconstructedLists = new HashSet<ReconstructedList>();
 
-	@OneToMany(mappedBy = "loan", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "loan", fetch = FetchType.LAZY)
     private Set<Bankrupt> bankrupts = new HashSet<Bankrupt>();
 
-	@OneToMany(mappedBy = "loan", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "loan", fetch = FetchType.LAZY)
     private Set<Collateral> collaterals = new HashSet<Collateral>();
 
-	@OneToMany(mappedBy = "loan", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "loan", fetch = FetchType.LAZY)
 	@OrderBy("fromDate")
 	private Set<Accrue> accrues = new HashSet<Accrue>();
 
-	@OneToMany(mappedBy = "loan", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "loan", fetch = FetchType.LAZY)
 	@OrderBy("onDate")
 	private Set<LoanSummary> loanSummaries = new HashSet<LoanSummary>();
 
-	@OneToMany(mappedBy = "loan", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "loan", fetch = FetchType.LAZY)
 	@OrderBy("onDate")
 	private Set<LoanDetailedSummary> loanDetailedSummaries = new HashSet<LoanDetailedSummary>();
 
