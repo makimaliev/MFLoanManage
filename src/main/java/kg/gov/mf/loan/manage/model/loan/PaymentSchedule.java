@@ -1,22 +1,16 @@
 package kg.gov.mf.loan.manage.model.loan;
 
-import java.util.Date;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-
+import kg.gov.mf.loan.task.model.GenericModel;
+import org.hibernate.envers.Audited;
+import org.hibernate.envers.RelationTargetAuditMode;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import kg.gov.mf.loan.task.model.GenericModel;
+import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Table(name="paymentSchedule")
+@Audited
 public class PaymentSchedule extends GenericModel{
 
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -41,10 +35,12 @@ public class PaymentSchedule extends GenericModel{
 	
 	@ManyToOne(targetEntity=InstallmentState.class, fetch = FetchType.LAZY)
 	@JoinColumn(name="installmentStateId")
+	@Audited( targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
 	private InstallmentState installmentState;
 	
 	@ManyToOne(targetEntity=Loan.class, fetch = FetchType.LAZY)
     @JoinColumn(name="loanId")
+	@Audited( targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
     Loan loan;
 
 	public Date getExpectedDate() {

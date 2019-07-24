@@ -2,7 +2,7 @@ package kg.gov.mf.loan.manage.model.loan;
 
 import kg.gov.mf.loan.task.model.GenericModel;
 import org.hibernate.envers.Audited;
-import org.hibernate.envers.NotAudited;
+import org.hibernate.envers.RelationTargetAuditMode;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -48,11 +48,12 @@ public class Payment extends GenericModel{
 
 	@ManyToOne(targetEntity=PaymentType.class, fetch = FetchType.LAZY)
 	@JoinColumn(name="paymentTypeId")
+	@Audited( targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
 	private PaymentType paymentType;
 	
 	@ManyToOne(targetEntity=Loan.class, fetch = FetchType.LAZY)
     @JoinColumn(name="loanId")
-	@NotAudited
+	@Audited( targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
 	Loan loan;
 
 	public Date getPaymentDate() {

@@ -47,6 +47,8 @@ public class CreditTermDaoImpl extends GenericDaoImpl<CreditTerm> implements Cre
         Hibernate.initialize(creditTerm.getPenaltyOnPrincipleOverdueRateType());
         Hibernate.initialize(creditTerm.getDaysInYearMethod());
         Hibernate.initialize(creditTerm.getDaysInMonthMethod());
+        Hibernate.initialize(creditTerm.getPenaltyOnInterestOverdueRateValue());
+        Hibernate.initialize(creditTerm.getPenaltyOnInterestOverdueRateType());
 
 
         return creditTerm;

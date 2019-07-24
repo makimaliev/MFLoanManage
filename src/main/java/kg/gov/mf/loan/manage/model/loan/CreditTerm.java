@@ -1,26 +1,20 @@
 package kg.gov.mf.loan.manage.model.loan;
 
-import java.util.Date;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-
-import org.springframework.format.annotation.DateTimeFormat;
-
-import kg.gov.mf.loan.task.model.GenericModel;
 import kg.gov.mf.loan.manage.model.orderterm.OrderTermDaysMethod;
 import kg.gov.mf.loan.manage.model.orderterm.OrderTermFloatingRateType;
 import kg.gov.mf.loan.manage.model.orderterm.OrderTermRatePeriod;
 import kg.gov.mf.loan.manage.model.orderterm.OrderTermTransactionOrder;
+import kg.gov.mf.loan.task.model.GenericModel;
+import org.hibernate.envers.Audited;
+import org.hibernate.envers.RelationTargetAuditMode;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Table(name="creditTerm")
+@Audited
 public class CreditTerm extends GenericModel{
 	
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -33,10 +27,12 @@ public class CreditTerm extends GenericModel{
 	
 	@ManyToOne(targetEntity=OrderTermRatePeriod.class, fetch = FetchType.LAZY)
 	@JoinColumn(name="ratePeriodId")
+	@Audited( targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
 	private OrderTermRatePeriod ratePeriod;
 	
 	@ManyToOne(targetEntity=OrderTermFloatingRateType.class, fetch = FetchType.LAZY)
 	@JoinColumn(name="floatingRateTypeId")
+	@Audited( targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
 	private OrderTermFloatingRateType floatingRateType;
 	
 	@Column(precision = 12, scale = 5)
@@ -44,6 +40,7 @@ public class CreditTerm extends GenericModel{
 	
 	@ManyToOne(targetEntity=OrderTermFloatingRateType.class, fetch = FetchType.LAZY)
 	@JoinColumn(name="penaltyOnPrincipleOverdueRateTypeId")
+	@Audited( targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
 	private OrderTermFloatingRateType penaltyOnPrincipleOverdueRateType;
 	
 	@Column(name = "penaltyOnInterestOverdueRateValue", precision = 12, scale = 5)
@@ -51,6 +48,7 @@ public class CreditTerm extends GenericModel{
 	
 	@ManyToOne(targetEntity=OrderTermFloatingRateType.class, fetch = FetchType.LAZY)
 	@JoinColumn(name="penaltyOnInterestOverdueRateTypeId")
+	@Audited( targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
 	private OrderTermFloatingRateType penaltyOnInterestOverdueRateType;
 	
 	@Column(precision = 12, scale = 5)
@@ -69,18 +67,22 @@ public class CreditTerm extends GenericModel{
 	
 	@ManyToOne(targetEntity=OrderTermTransactionOrder.class, fetch = FetchType.LAZY)
 	@JoinColumn(name="transactionOrderId")
+	@Audited( targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
 	private OrderTermTransactionOrder transactionOrder;
 	
 	@ManyToOne(targetEntity=OrderTermDaysMethod.class, fetch = FetchType.LAZY)
 	@JoinColumn(name="daysInMonthMethodId")
+	@Audited( targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
 	private OrderTermDaysMethod daysInMonthMethod;
 	
 	@ManyToOne(targetEntity=OrderTermDaysMethod.class, fetch = FetchType.LAZY)
 	@JoinColumn(name="daysInYearMethodId")
+	@Audited( targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
 	private OrderTermDaysMethod daysInYearMethod;
 	
 	@ManyToOne(targetEntity=Loan.class, fetch = FetchType.LAZY)
     @JoinColumn(name="loanId")
+	@Audited( targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
     Loan loan;
 
 	public Date getStartDate() {
