@@ -17,6 +17,9 @@ public class AssetDaoImpl extends GenericDaoImpl<Asset> implements AssetDao{
         Hibernate.initialize(asset.getAssetType());
         Hibernate.initialize(asset.getLoanIds());
         Hibernate.initialize(asset.getPaymentIds());
+        Hibernate.initialize(asset.getFromDebtorIds());
+        Hibernate.initialize(asset.getFromLoanIds());
+        Hibernate.initialize(asset.getToDebtorIds());
 
         return asset;
     }

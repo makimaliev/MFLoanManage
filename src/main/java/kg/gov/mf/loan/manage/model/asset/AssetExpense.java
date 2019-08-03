@@ -16,6 +16,9 @@ public class AssetExpense extends GenericModel {
 
     private Double amount;
 
+    @Column(columnDefinition = "TEXT")
+    private String details;
+
     @ManyToOne(targetEntity=Asset.class, fetch = FetchType.LAZY)
     @JoinColumn(name="assetId")
     Asset asset;
@@ -36,6 +39,14 @@ public class AssetExpense extends GenericModel {
 
     public void setAmount(Double amount) {
         this.amount = amount;
+    }
+
+    public String getDetails() {
+        return details;
+    }
+
+    public void setDetails(String details) {
+        this.details = details;
     }
 
     public Asset getAsset() {

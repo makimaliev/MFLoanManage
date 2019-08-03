@@ -43,7 +43,19 @@ public class Asset extends GenericModel {
 
     @Column(nullable = true)
     @ElementCollection(targetClass=Long.class)
+    private Set<Long> toDebtorIds=new HashSet<Long>();
+
+    @Column(nullable = true)
+    @ElementCollection(targetClass=Long.class)
     private Set<Long> paymentIds=new HashSet<Long>();
+
+    @Column(nullable = true)
+    @ElementCollection(targetClass=Long.class)
+    private Set<Long> fromLoanIds=new HashSet<Long>();
+
+    @Column(nullable = true)
+    @ElementCollection(targetClass=Long.class)
+    private Set<Long> fromDebtorIds=new HashSet<Long>();
 
     //region GETTERS-SETTERS
 
@@ -135,6 +147,14 @@ public class Asset extends GenericModel {
         this.loanIds = loanIds;
     }
 
+    public Set<Long> getToDebtorIds() {
+        return toDebtorIds;
+    }
+
+    public void setToDebtorIds(Set<Long> toDebtorIds) {
+        this.toDebtorIds = toDebtorIds;
+    }
+
     public Set<Long> getPaymentIds() {
         return paymentIds;
     }
@@ -142,6 +162,23 @@ public class Asset extends GenericModel {
     public void setPaymentIds(Set<Long> paymentIds) {
         this.paymentIds = paymentIds;
     }
+
+    public Set<Long> getFromLoanIds() {
+        return fromLoanIds;
+    }
+
+    public void setFromLoanIds(Set<Long> fromLoanIds) {
+        this.fromLoanIds = fromLoanIds;
+    }
+
+    public Set<Long> getFromDebtorIds() {
+        return fromDebtorIds;
+    }
+
+    public void setFromDebtorIds(Set<Long> fromDebtorIds) {
+        this.fromDebtorIds = fromDebtorIds;
+    }
+
 
     //endregion
 
