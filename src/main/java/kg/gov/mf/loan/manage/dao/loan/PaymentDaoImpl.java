@@ -41,6 +41,15 @@ public class PaymentDaoImpl extends GenericDaoImpl<Payment> implements PaymentDa
     }
 
     @Override
+    public String getPaymentDateAmountNumberById(Long paymentId) {
+        Criteria criteria=getCurrentSession().createCriteria(Payment.class);
+        criteria.add(Restrictions.eq("id", paymentId));
+        Payment payment= (Payment) criteria.uniqueResult();
+
+        return payment.getPaymentDate()+" - "+payment.getTotalAmount()+" - "+payment.getNumber();
+    }
+
+    @Override
     public List<Payment> getRowDayBeforeOnDateByLoanId(Long loanId, Date onDate)
     {
         Date date = DateUtils.subtract(onDate, DateUtils.DAY, 1);

@@ -30,6 +30,11 @@ public class PaymentServiceImpl extends GenericServiceImpl<Payment> implements P
     }
 
     @Override
+    public String getPaymentDateAmountNumberById(Long paymentId) {
+        return paymentDao.getPaymentDateAmountNumberById(paymentId);
+    }
+
+    @Override
     public List<Payment> getRowDayBeforeOnDateByLoanId(Long loanId, Date onDate)
     {
         return this.paymentDao.getRowDayBeforeOnDateByLoanId(loanId, onDate);
