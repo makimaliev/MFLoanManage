@@ -8,6 +8,8 @@ import org.hibernate.Hibernate;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -46,7 +48,10 @@ public class PaymentDaoImpl extends GenericDaoImpl<Payment> implements PaymentDa
         criteria.add(Restrictions.eq("id", paymentId));
         Payment payment= (Payment) criteria.uniqueResult();
 
-        return payment.getPaymentDate()+" - "+payment.getTotalAmount()+" - "+payment.getNumber();
+        NumberFormat formatter = new DecimalFormat("###,###.00");
+        String strTotalAmount=formatter.format(payment.getTotalAmount());
+
+        return payment.getPaymentDate()+" - "+strTotalAmount+" - "+payment.getNumber();
     }
 
     @Override
