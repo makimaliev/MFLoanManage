@@ -67,7 +67,7 @@ public class AssetItem extends GenericModel {
     @Column(columnDefinition = "TEXT")
     private String inspection_needed_description;
 
-    @OneToOne(mappedBy = "assetItem", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval=true)
+    @OneToOne(mappedBy = "assetItem", cascade = CascadeType.ALL, orphanRemoval=true)
     private AssetItemDetails assetItemDetails;
 
     // region GETTERS-SETTERS

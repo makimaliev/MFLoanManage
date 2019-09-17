@@ -62,7 +62,7 @@ public class AssetItemDetails extends GenericModel {
     @Column(nullable=true)
     private Date explDate;
 
-    @OneToOne(targetEntity=AssetItem.class, fetch = FetchType.LAZY)
+    @OneToOne(targetEntity=AssetItem.class)
     @PrimaryKeyJoinColumn
     AssetItem assetItem;
 

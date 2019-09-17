@@ -25,6 +25,7 @@ public class AssetItemDaoImpl extends GenericDaoImpl<AssetItem> implements Asset
         Hibernate.initialize(assetItem.getItemType());
         Hibernate.initialize(assetItem.getQuantityType());
         Hibernate.initialize(assetItem.getAssetItemInspections());
+        Hibernate.initialize(assetItem.getOrganization());
         return assetItem;
     }
 
