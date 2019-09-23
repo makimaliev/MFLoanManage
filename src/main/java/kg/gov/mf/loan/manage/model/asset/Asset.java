@@ -18,6 +18,7 @@ public class Asset extends GenericModel {
     private Double amount1;
     private Double amount2;
     private Double amount3;
+    private Double amount4;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Temporal(TemporalType.DATE)
@@ -48,6 +49,10 @@ public class Asset extends GenericModel {
     @Column(nullable = true)
     @ElementCollection(targetClass=Long.class)
     private Set<Long> paymentIds=new HashSet<Long>();
+
+    @Column(nullable = true)
+    @ElementCollection(targetClass=Long.class)
+    private Set<Long> secondaryPaymentIds=new HashSet<Long>();
 
     @Column(nullable = true)
     @ElementCollection(targetClass=Long.class)
@@ -97,6 +102,14 @@ public class Asset extends GenericModel {
 
     public void setAmount3(Double amount3) {
         this.amount3 = amount3;
+    }
+
+    public Double getAmount4() {
+        return amount4;
+    }
+
+    public void setAmount4(Double amount4) {
+        this.amount4 = amount4;
     }
 
     public Date getDate() {
@@ -161,6 +174,14 @@ public class Asset extends GenericModel {
 
     public void setPaymentIds(Set<Long> paymentIds) {
         this.paymentIds = paymentIds;
+    }
+
+    public Set<Long> getSecondaryPaymentIds() {
+        return secondaryPaymentIds;
+    }
+
+    public void setSecondaryPaymentIds(Set<Long> secondaryPaymentIds) {
+        this.secondaryPaymentIds = secondaryPaymentIds;
     }
 
     public Set<Long> getFromLoanIds() {
