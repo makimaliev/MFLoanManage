@@ -38,6 +38,14 @@ public class Debtor extends GenericModel{
 	@Column(columnDefinition = "TEXT")
 	private String description;
 
+	@ManyToOne(targetEntity=DebtorGroup.class, fetch = FetchType.LAZY)
+	@JoinColumn(name="debtorGroupId")
+	DebtorGroup debtorGroup;
+
+	@ManyToOne(targetEntity=DebtorSubGroup.class, fetch = FetchType.LAZY)
+	@JoinColumn(name="debtorSubGroupId")
+	DebtorSubGroup debtorSubGroup;
+
 	public String getName() {
 		return name;
 	}
@@ -100,5 +108,21 @@ public class Debtor extends GenericModel{
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public DebtorGroup getDebtorGroup() {
+		return debtorGroup;
+	}
+
+	public void setDebtorGroup(DebtorGroup debtorGroup) {
+		this.debtorGroup = debtorGroup;
+	}
+
+	public DebtorSubGroup getDebtorSubGroup() {
+		return debtorSubGroup;
+	}
+
+	public void setDebtorSubGroup(DebtorSubGroup debtorSubGroup) {
+		this.debtorSubGroup = debtorSubGroup;
 	}
 }

@@ -1,5 +1,7 @@
 package kg.gov.mf.loan.manage.dao.debtor;
 
+import kg.gov.mf.loan.manage.dao.GenericDaoImpl;
+import kg.gov.mf.loan.manage.model.debtor.Debtor;
 import org.hibernate.Criteria;
 import org.hibernate.Hibernate;
 import org.hibernate.Session;
@@ -7,11 +9,7 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import kg.gov.mf.loan.manage.dao.GenericDaoImpl;
-import kg.gov.mf.loan.manage.model.debtor.Debtor;
-
 import javax.persistence.EntityManager;
-import javax.persistence.Query;
 
 @Repository("debtorDao")
 public class DebtorDaoImpl extends GenericDaoImpl<Debtor> implements DebtorDao{
@@ -27,6 +25,8 @@ public class DebtorDaoImpl extends GenericDaoImpl<Debtor> implements DebtorDao{
         Hibernate.initialize(result.getDebtorType());
         Hibernate.initialize(result.getOrgForm());
         Hibernate.initialize(result.getWorkSector());
+        Hibernate.initialize(result.getDebtorGroup());
+        Hibernate.initialize(result.getDebtorSubGroup());
 //        result.getLoans().size();
         //
         return result;
