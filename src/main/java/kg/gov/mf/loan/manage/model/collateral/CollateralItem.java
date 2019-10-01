@@ -58,14 +58,6 @@ public class CollateralItem extends GenericModel {
 	@JoinColumn(name="collateralItemArrestFreeId")
 	CollateralItemArrestFree collateralItemArrestFree;
 
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
 	@ManyToOne(targetEntity=Owner.class, fetch = FetchType.LAZY)
 	@JoinColumn(name="ownerId")
 	Owner owner;
@@ -78,6 +70,24 @@ public class CollateralItem extends GenericModel {
 	private boolean inspection_needed=true;
 	@Column(columnDefinition = "TEXT")
 	private String inspection_needed_description;
+
+	@ManyToOne(targetEntity=InspectionStatus.class, fetch = FetchType.LAZY)
+	@JoinColumn(name="inspectionStatusId")
+	private InspectionStatus inspectionStatus;
+
+	@ManyToOne(targetEntity=ArrestFreeStatus.class, fetch = FetchType.LAZY)
+	@JoinColumn(name="arrestFreeStatusId")
+	private ArrestFreeStatus arrestFreeStatus;
+
+	//region get-set
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
 
 	public String getDescription() {
 		return description;
@@ -222,4 +232,21 @@ public class CollateralItem extends GenericModel {
 	public void setInspection_needed_description(String inspection_needed_description) {
 		this.inspection_needed_description = inspection_needed_description;
 	}
+
+	public InspectionStatus getInspectionStatus() {
+		return inspectionStatus;
+	}
+
+	public void setInspectionStatus(InspectionStatus inspectionStatus) {
+		this.inspectionStatus = inspectionStatus;
+	}
+
+	public ArrestFreeStatus getArrestFreeStatus() {
+		return arrestFreeStatus;
+	}
+
+	public void setArrestFreeStatus(ArrestFreeStatus arrestFreeStatus) {
+		this.arrestFreeStatus = arrestFreeStatus;
+	}
+//endregion
 }
