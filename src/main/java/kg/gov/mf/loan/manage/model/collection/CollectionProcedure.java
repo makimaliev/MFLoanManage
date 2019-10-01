@@ -1,23 +1,12 @@
 package kg.gov.mf.loan.manage.model.collection;
 
+import kg.gov.mf.loan.task.model.GenericModel;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import javax.persistence.*;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-
-import org.springframework.format.annotation.DateTimeFormat;
-
-import kg.gov.mf.loan.task.model.GenericModel;
 
 @Entity
 @Table(name="collectionProcedure")
@@ -46,6 +35,8 @@ public class CollectionProcedure extends GenericModel{
 	
 	@OneToMany(mappedBy = "collectionProcedure", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<CollectionPhase> collectionPhases = new HashSet<CollectionPhase>();
+
+	private Long statusDepartmentId;
 
 	public Date getStartDate() {
 		return startDate;
@@ -102,5 +93,12 @@ public class CollectionProcedure extends GenericModel{
 	public void setCollectionPhases(Set<CollectionPhase> collectionPhases) {
 		this.collectionPhases = collectionPhases;
 	}
-	
+
+	public Long getStatusDepartmentId() {
+		return statusDepartmentId;
+	}
+
+	public void setStatusDepartmentId(Long statusDepartmentId) {
+		this.statusDepartmentId = statusDepartmentId;
+	}
 }
