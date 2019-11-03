@@ -79,6 +79,8 @@ public class CollateralItem extends GenericModel {
 	@JoinColumn(name="arrestFreeStatusId")
 	private ArrestFreeStatus arrestFreeStatus;
 
+	private Long condition_sub_type;
+
 	//region get-set
 
 	public String getName() {
@@ -248,5 +250,14 @@ public class CollateralItem extends GenericModel {
 	public void setArrestFreeStatus(ArrestFreeStatus arrestFreeStatus) {
 		this.arrestFreeStatus = arrestFreeStatus;
 	}
-//endregion
+
+	public Long getCondition_sub_type() {
+		return condition_sub_type;
+	}
+
+	public void setCondition_sub_type(Long condition_sub_type) {
+		this.condition_sub_type = condition_sub_type;
+	}
+
+	//endregion
 }
