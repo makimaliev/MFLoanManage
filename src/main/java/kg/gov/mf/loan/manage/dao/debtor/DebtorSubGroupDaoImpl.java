@@ -2,6 +2,7 @@ package kg.gov.mf.loan.manage.dao.debtor;
 
 import kg.gov.mf.loan.manage.dao.GenericDaoImpl;
 import kg.gov.mf.loan.manage.model.debtor.DebtorSubGroup;
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -22,5 +23,15 @@ public class DebtorSubGroupDaoImpl extends GenericDaoImpl<DebtorSubGroup> implem
         Query query = entityManager.createNativeQuery(queryStr,DebtorSubGroup.class);
 
         return query.getResultList();
+    }
+
+    @Override
+    public DebtorSubGroup getById(Long id){
+
+        DebtorSubGroup debtorSubGroup = super.getById(id);
+
+        Hibernate.initialize(debtorSubGroup.getDebtorGroup());
+
+        return debtorSubGroup;
     }
 }
