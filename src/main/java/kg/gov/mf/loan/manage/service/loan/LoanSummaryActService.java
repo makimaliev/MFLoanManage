@@ -9,4 +9,5 @@ import java.util.List;
 public interface LoanSummaryActService extends GenericService<LoanSummaryAct> {
 
     public List<LoanSummaryAct> getLoanSummaryActByDebtor(Debtor debtor);
+    public boolean isUneque(String reg_number);
 }

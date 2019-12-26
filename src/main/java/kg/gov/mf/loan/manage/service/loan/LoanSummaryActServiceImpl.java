@@ -21,4 +21,9 @@ public class LoanSummaryActServiceImpl extends GenericServiceImpl<LoanSummaryAct
     {
         return this.loanSummaryActDao.getLoanSummaryActByDebtor(debtor);
     }
+
+    @Override
+    public boolean isUneque(String reg_number) {
+        return loanSummaryActDao.isUneque(reg_number);
+    }
 }

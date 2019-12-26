@@ -62,6 +62,8 @@ public class Asset extends GenericModel {
     @ElementCollection(targetClass=Long.class)
     private Set<Long> fromDebtorIds=new HashSet<Long>();
 
+    private Long phase_id;
+
     //region GETTERS-SETTERS
 
     public String getNumber() {
@@ -200,7 +202,13 @@ public class Asset extends GenericModel {
         this.fromDebtorIds = fromDebtorIds;
     }
 
+    public Long getPhase_id() {
+        return phase_id;
+    }
 
-    //endregion
+    public void setPhase_id(Long phase_id) {
+        this.phase_id = phase_id;
+    }
+//endregion
 
 }

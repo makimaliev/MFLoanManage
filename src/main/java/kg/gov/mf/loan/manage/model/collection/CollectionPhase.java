@@ -23,6 +23,11 @@ public class CollectionPhase extends GenericModel{
 	@Temporal(TemporalType.DATE)
 	@Column(nullable=true)
 	private Date closeDate;
+
+	@DateTimeFormat(pattern = "dd.MM.yyyy")
+	@Temporal(TemporalType.DATE)
+	@Column(nullable=true)
+	private Date reg_date;
 	
 	private long lastEvent;
 	private long lastStatusId;
@@ -97,6 +102,14 @@ public class CollectionPhase extends GenericModel{
 
 	public void setCloseDate(Date closeDate) {
 		this.closeDate = closeDate;
+	}
+
+	public Date getReg_date() {
+		return reg_date;
+	}
+
+	public void setReg_date(Date reg_date) {
+		this.reg_date = reg_date;
 	}
 
 	public long getLastEvent() {

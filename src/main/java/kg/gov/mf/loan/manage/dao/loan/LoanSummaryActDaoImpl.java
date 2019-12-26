@@ -31,7 +31,7 @@ public class LoanSummaryActDaoImpl extends GenericDaoImpl<LoanSummaryAct> implem
     public boolean isUneque(String reg_number) {
 
         String checkQuery = "select if(COUNT(*)>0,'false','true')\n" +
-                "from loanSummaryAct where reg_number='"+reg_number+"'";
+                "from loanSummaryAct where registeredDate != CURRENT_DATE and reg_number='"+reg_number+"'";
         Query query = entityManager.createNativeQuery(checkQuery);
 
 

@@ -23,6 +23,10 @@ public class AssetExpense extends GenericModel {
     @JoinColumn(name="assetId")
     Asset asset;
 
+    @ManyToOne(targetEntity=AssetExpenseType.class, fetch = FetchType.LAZY)
+    @JoinColumn(name="assetExpenseType")
+    private AssetExpenseType assetExpenseType;
+
     // region GETTERS-SETTERS
 
     public Date getDate() {
@@ -56,5 +60,13 @@ public class AssetExpense extends GenericModel {
     public void setAsset(Asset asset) {
         this.asset = asset;
     }
-// endregion
+
+    public AssetExpenseType getAssetExpenseType() {
+        return assetExpenseType;
+    }
+
+    public void setAssetExpenseType(AssetExpenseType assetExpenseType) {
+        this.assetExpenseType = assetExpenseType;
+    }
+    // endregion
 }
