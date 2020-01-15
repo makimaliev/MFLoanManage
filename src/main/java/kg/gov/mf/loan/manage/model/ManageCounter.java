@@ -6,7 +6,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "manage_counter")
-public class Counter extends Catalog {
+public class ManageCounter extends Catalog {
 
     private String entityName;
     private Long number;
