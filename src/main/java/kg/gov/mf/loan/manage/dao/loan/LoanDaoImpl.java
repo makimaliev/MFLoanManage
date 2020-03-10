@@ -89,7 +89,6 @@ public class LoanDaoImpl extends GenericDaoImpl<Loan> implements LoanDao{
             Hibernate.initialize(result.getDestinationAccount());
         }
         catch (Exception e){
-            System.out.println(e);
         }
         Hibernate.initialize(result.getLoanFinGroup());
         Hibernate.initialize(result.getCollateralAgreements());

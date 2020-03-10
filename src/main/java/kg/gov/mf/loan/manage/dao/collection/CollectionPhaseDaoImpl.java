@@ -26,7 +26,7 @@ public class CollectionPhaseDaoImpl extends GenericDaoImpl<CollectionPhase> impl
             Hibernate.initialize(result.getCollectionProcedure().getProcedureStatus());
         }
         catch (Exception e){
-            System.out.println(e);
+
         }
         return result;
     }
