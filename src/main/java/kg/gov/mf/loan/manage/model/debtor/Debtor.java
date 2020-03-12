@@ -24,7 +24,23 @@ public class Debtor extends GenericModel{
 	@ManyToOne(targetEntity=WorkSector.class, fetch = FetchType.LAZY)
 	@JoinColumn(name="workSectorId")
 	WorkSector workSector;
-	
+
+	@ManyToOne(targetEntity=DebtorActNeeded.class, fetch = FetchType.LAZY)
+	@JoinColumn(name="debtor_act_needed")
+	DebtorActNeeded debtorActNeeded;
+
+	@ManyToOne(targetEntity=DebtorActStatus.class, fetch = FetchType.LAZY)
+	@JoinColumn(name="debtor_act_status")
+	DebtorActStatus debtorActStatus;
+
+	public DebtorActStatus getDebtorActStatus() {
+		return debtorActStatus;
+	}
+
+	public void setDebtorActStatus(DebtorActStatus debtorActStatus) {
+		this.debtorActStatus = debtorActStatus;
+	}
+
 	@OneToOne
     @JoinColumn(name="ownerId")
     Owner owner;
@@ -125,4 +141,13 @@ public class Debtor extends GenericModel{
 	public void setDebtorSubGroup(DebtorSubGroup debtorSubGroup) {
 		this.debtorSubGroup = debtorSubGroup;
 	}
+
+	public DebtorActNeeded getDebtorActNeeded() {
+		return debtorActNeeded;
+	}
+
+	public void setDebtorActNeeded(DebtorActNeeded debtorActNeeded) {
+		this.debtorActNeeded = debtorActNeeded;
+	}
+
 }
