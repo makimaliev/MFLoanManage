@@ -74,6 +74,14 @@ public abstract class Loan extends Auditable<String> {
 	@JoinColumn(name="destinationAccount")
 	private DestinationAccount destinationAccount;
 
+	@ManyToOne(targetEntity=GroupByCollateralExistense.class, fetch = FetchType.LAZY)
+	@JoinColumn(name="group_by_collateral_existense")
+	private GroupByCollateralExistense groupByCollateralExistense;
+
+	@ManyToOne(targetEntity=GroupByLoanPeriod.class, fetch = FetchType.LAZY)
+	@JoinColumn(name="group_by_loan_period")
+	private GroupByLoanPeriod groupByLoanPeriod;
+
 	@Column(nullable=false)
 	private long supervisorId;
 
@@ -548,6 +556,23 @@ public abstract class Loan extends Auditable<String> {
 
 	public void setDepositFreed(boolean depositFreed) {
 		this.depositFreed = depositFreed;
+	}
+
+
+	public GroupByCollateralExistense getGroupByCollateralExistense() {
+		return groupByCollateralExistense;
+	}
+
+	public void setGroupByCollateralExistense(GroupByCollateralExistense groupByCollateralExistense) {
+		this.groupByCollateralExistense = groupByCollateralExistense;
+	}
+
+	public GroupByLoanPeriod getGroupByLoanPeriod() {
+		return groupByLoanPeriod;
+	}
+
+	public void setGroupByLoanPeriod(GroupByLoanPeriod groupByLoanPeriod) {
+		this.groupByLoanPeriod = groupByLoanPeriod;
 	}
 
 	@Override
